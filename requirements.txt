@@ -1,0 +1,14 @@
+# --- core (Phase 0-1) ---
+ultralytics>=8.3.0        # YOLOv11 / OBB
+sahi>=0.11.0              # sliced inference + tiling
+huggingface_hub>=0.24.0  # pull the dataset
+opencv-python>=4.9.0
+numpy>=1.26.0
+matplotlib>=3.8.0
+pyyaml>=6.0
+
+# --- later phases (install when you reach them) ---
+# paddleocr>=2.7.0        # Phase 3 OCR
+# paddlepaddle            # Phase 3 OCR backend
+# networkx>=3.2           # Phase 4 graph
+# fastapi uvicorn         # Phase 5 deploy

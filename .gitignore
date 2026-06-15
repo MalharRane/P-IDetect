@@ -1,0 +1,23 @@
+# data & model artifacts — never commit
+/data/
+/runs/
+*.pt
+*.onnx
+*.pth
+*.npy
+*.cache
+
+# NDA material — must never be committed
+nda/
+*_nda*
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+*.egg-info/
+
+# env / secrets
+.env
