@@ -8,14 +8,14 @@
 #
 # Cell 2  (run everything):
 #   %cd /content
-#   !git clone https://github.com/<your-username>/pidetect.git
+#   !git clone https://github.com/MalharRane/P-IDetect.git
 #   %cd pidetect
 #   !bash scripts/colab_setup.sh
 #
 # ── KAGGLE QUICK START ───────────────────────────────────────────────────────
 # Settings → Internet ON.  Then in a notebook cell:
 #   %%bash
-#   git clone https://github.com/<your-username>/pidetect.git
+#   git clone https://github.com/MalharRane/P-IDetect.git
 #   cd pidetect
 #   bash scripts/colab_setup.sh --no-drive
 #
