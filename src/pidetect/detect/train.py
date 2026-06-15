@@ -102,9 +102,14 @@ def train(args: argparse.Namespace) -> None:
         exist_ok=args.smoke,
     )
 
-    save_dir = Path(results.save_dir)
-    print(f"\nDone. Weights → {save_dir / 'weights'}")
-    print(f"       Logs   → {save_dir}")
+    # DDP multi-GPU returns None from model.train() on worker processes
+    if results is not None and getattr(results, "save_dir", None) is not None:
+        save_dir = Path(results.save_dir)
+        print(f"\nDone. Weights → {save_dir / 'weights'}")
+        print(f"       Logs   → {save_dir}")
+    else:
+        weights = list(Path(".").glob("runs/**/weights/best.pt"))
+        print(f"\nDone. Find weights at: {weights[0] if weights else 'runs/**/weights/best.pt'}")
 
 
 def main() -> None:
