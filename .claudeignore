@@ -1,0 +1,11 @@
+# keep Claude Code's context lean — exclude bulky/irrelevant files
+data/
+runs/
+*.pt
+*.onnx
+*.pth
+*.npy
+*.cache
+__pycache__/
+.venv/
+notebooks/*.ipynb

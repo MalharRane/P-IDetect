@@ -1,0 +1,10 @@
+# YOLOv11 baseline dataset config (Phase 1).
+# Point train/val at the TILED dataset once tiling is implemented.
+path: data/digitize-pid-yolo
+train: images/train
+val: images/val
+
+# Fill class names from the Digitize-PID paper mapping (0-indexed).
+# names:
+#   0: ...
+#   1: ...
