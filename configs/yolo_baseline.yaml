@@ -1,10 +1,45 @@
 # YOLOv11 baseline dataset config (Phase 1).
-# Point train/val at the TILED dataset once tiling is implemented.
-path: data/digitize-pid-yolo
+# Point train/val at the TILED dataset once tiling is implemented (subtask 0.3).
+#
+# Class names derived from visual inspection of Figure 3 in arXiv:2109.03794.
+# The paper itself never assigns text names — downstream code uses "0".."31".
+# Entries marked UNCERTAIN: visual variants are extremely similar; sub-type
+# identity needs domain confirmation or legend from the synthetic generator.
+path: data/digitize-pid-yolo/DigitizePID_Dataset
 train: images/train
 val: images/val
 
-# Fill class names from the Digitize-PID paper mapping (0-indexed).
-# names:
-#   0: ...
-#   1: ...
+nc: 32
+names:
+  0: butterfly_valve_open           # hollow bowtie, no fill, no center mark
+  1: butterfly_valve_crossed        # hollow bowtie with X at center
+  2: valve_filled_dot               # bowtie with filled-circle center  # UNCERTAIN sub-type (gate vs butterfly variant)
+  3: butterfly_valve_open_v2        # UNCERTAIN — visually near-identical to idx 0; slight variant
+  4: butterfly_valve_diamond        # hollow bowtie with open-diamond at center
+  5: check_valve_globe              # filled circle on line (globe-check style)
+  6: butterfly_valve_with_actuator  # bowtie with topside actuator tab/flag
+  7: check_valve_nrv                # single solid right-pointing triangle (non-return valve)
+  8: gate_valve_solid               # two solid filled triangles pointing inward (solid bowtie + X)
+  9: angle_valve                    # downward-pointing triangle into line (angle/needle valve)
+  10: butterfly_valve_partial       # UNCERTAIN — partially-filled bowtie; specific sub-type unclear
+  11: globe_valve_solid             # fully solid/filled bowtie
+  12: gate_valve_open_large         # UNCERTAIN — large open bowtie; may be size variant of idx 0
+  13: control_valve_diaphragm       # globe body with dome/diaphragm actuator on top
+  14: globe_valve_circle            # simple circle on line
+  15: ball_valve                    # filled circle inside open circle on line
+  16: gate_valve_handwheel          # stick-figure I-shape with double crossbars (manual handwheel)
+  17: gate_valve_actuated_stem      # tall stem + handwheel (power-actuated variant)
+  18: gate_valve_actuated_dot       # UNCERTAIN — actuated + handwheel + filled-dot indicator
+  19: reducer                       # single open right-pointing triangle (reducer / flow element)
+  20: spectacle_blind_spacer        # two short parallel lines on pipe
+  21: spring_element                # zigzag / coil symbol
+  22: heat_exchanger_strainer       # UNCERTAIN — elongated oval with internal dashes (HX, strainer, or silencer)
+  23: flow_arrow                    # solid filled arrowhead indicating flow direction
+  24: spectacle_blind_closed        # crossed circle ⊗ (blind flange / spectacle blind closed position)
+  25: instrument_bubble_large       # large instrument circle with text tag
+  26: instrument_bubble_medium      # medium instrument circle with text tag
+  27: instrument_bubble_small_a     # UNCERTAIN — small circle tag variant A (differs subtly from 28)
+  28: instrument_bubble_small_b     # UNCERTAIN — small circle tag variant B (differs subtly from 27)
+  29: tag_rectangle_simple          # simple rectangular instrument / equipment tag box
+  30: tag_square                    # square instrument tag
+  31: tag_rectangle_multiline       # taller rectangle tag with multi-row text
