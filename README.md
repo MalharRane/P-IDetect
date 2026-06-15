@@ -37,7 +37,7 @@ drive.mount('/content/drive')
 **Cell 2** — clone, build, train, evaluate:
 ```python
 %cd /content
-!git clone https://github.com/<your-username>/pidetect.git
+!git clone https://github.com/MalharRane/P-IDetect.git
 %cd pidetect
 !bash scripts/colab_setup.sh
 ```
