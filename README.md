@@ -21,7 +21,60 @@ python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Training runs on Colab/Kaggle GPU — see `scripts/colab_setup.sh`.
+## Training on Colab/Kaggle
+
+Full training runs on a free T4/P100/A100 GPU. The script handles dataset build,
+Drive caching, training, and test-split evaluation in one go.
+
+### Google Colab (recommended)
+
+**Cell 1** — mount Drive once per session (dataset is cached there after the first build):
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+```
+
+**Cell 2** — clone, build, train, evaluate:
+```python
+%cd /content
+!git clone https://github.com/<your-username>/pidetect.git
+%cd pidetect
+!bash scripts/colab_setup.sh
+```
+
+First run builds the dataset (~15 min). Every subsequent session restores from Drive
+in ~30 s. To force a full rebuild: `!bash scripts/colab_setup.sh --force-data`.
+
+### Kaggle
+
+Enable **Internet** in notebook Settings, then:
+```bash
+%%bash
+git clone https://github.com/<your-username>/pidetect.git
+cd pidetect
+bash scripts/colab_setup.sh --no-drive
+```
+
+Dataset rebuilds each session (~15 min). To persist it, save the `data/` output
+as a Kaggle dataset and symlink it on the next run.
+
+### Batch size
+
+Default is `--batch=16` (safe for T4/P100 16 GB). Override with e.g.
+`!bash scripts/colab_setup.sh --batch=32` for a V100, or `--batch=64` for an A100.
+
+### After training
+
+The script runs evaluation automatically. To re-run manually (e.g. after downloading
+`best.pt` to your laptop):
+```bash
+PYTHONPATH=src python -m pidetect.detect.evaluate \
+  --weights runs/detect/train/weights/best.pt \
+  --data    configs/yolo_baseline.yaml \
+  --split   test
+```
+
+Outputs: overall mAP@50/50-95, per-class AP table (worst-first), confusion matrix PNG.
 
 ## Data
 Public only. The Digitize-PID symbols set (`hamzas/digitize-pid-yolo`) is primary.
