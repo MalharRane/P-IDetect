@@ -165,8 +165,19 @@ def main() -> None:
                         help="Where to write confusion matrix + plots (default: weights/../eval/)")
     parser.add_argument("--smoke", action="store_true",
                         help="Run on 20-image subset to verify the harness — numbers are meaningless")
+    parser.add_argument("--realworld", action="store_true",
+                        help="Evaluate on data/realworld_eval/realworld.yaml (out-of-distribution test set)")
 
     args = parser.parse_args()
+
+    # --realworld overrides --data
+    if args.realworld:
+        args.data = "data/realworld_eval/realworld.yaml"
+        if not Path(args.data).exists():
+            print(f"[error] Real-world eval set not built yet.\n"
+                  f"        Follow the protocol in data/realworld_eval/README.md first.")
+            raise SystemExit(1)
+
     evaluate(args)
 
 
