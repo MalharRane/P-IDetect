@@ -5,7 +5,7 @@
 # The paper itself never assigns text names — downstream code uses "0".."31".
 # Entries marked UNCERTAIN: visual variants are extremely similar; sub-type
 # identity needs domain confirmation or legend from the synthetic generator.
-path: data/digitize-pid-yolo/DigitizePID_Dataset
+path: data/tiled
 train: images/train
 val: images/val
 
