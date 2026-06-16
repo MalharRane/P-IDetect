@@ -12,6 +12,7 @@ Run after download:
 from __future__ import annotations
 
 import argparse
+import random
 import statistics
 from collections import Counter
 from pathlib import Path
@@ -19,7 +20,7 @@ from pathlib import Path
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 
 # -- low-level readers ----------------------------------------------------------
@@ -177,6 +178,133 @@ def draw_sample(img_path: Path, label_path: Path, out: Path) -> None:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 60, 220), 1,
                     cv2.LINE_AA)
     cv2.imwrite(str(out), img)
+
+
+def collect_class_instances(
+    images_dir: Path, labels_dir: Path,
+) -> dict[int, list[tuple[Path, tuple[float, float, float, float]]]]:
+    """Map class index -> every (image_path, (xc, yc, bw, bh)) ground-truth box.
+
+    Reads straight from the original YOLO label files -- no tiling, no
+    synthetic generation in between -- so what you see is exactly what the
+    dataset's annotators (or the Dataset-P&ID synthesiser) drew for that index.
+    """
+    by_class: dict[int, list[tuple[Path, tuple[float, float, float, float]]]] = {}
+    for txt in sorted(labels_dir.rglob("*.txt")):
+        img_path = images_dir / txt.relative_to(labels_dir).with_suffix(".jpg")
+        if not img_path.exists():
+            continue
+        for line in txt.read_text().splitlines():
+            if not line.strip():
+                continue
+            parts = line.split()
+            cls = int(parts[0])
+            box = tuple(float(x) for x in parts[1:5])
+            by_class.setdefault(cls, []).append((img_path, box))
+    return by_class
+
+
+def save_class_identity_sheets(
+    images_dir: Path, labels_dir: Path, out_dir: Path,
+    nc: int = 32, n_samples: int = 16, pad_px: int = 12, thumb: int = 140,
+) -> dict[int, dict]:
+    """Crop ground-truth instances per class into one labelled contact sheet
+    each, for honest visual identity verification against the dataset paper's
+    Symbol1..Symbol32 figure (arXiv 2109.03794, Fig. 3) -- see subtask 1.6a.
+
+    Returns per-class instance count + median pixel box size (computed over
+    ALL instances of that class, not just the sampled ones), so naming
+    decisions that hinge on size (e.g. "is this bubble actually smaller than
+    that one, or did I just imagine it") rest on a number, not a guess.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    by_class = collect_class_instances(images_dir, labels_dir)
+
+    try:
+        font = ImageFont.truetype("arial.ttf", 24)
+    except OSError:
+        font = ImageFont.load_default()
+
+    # Sheets are ~5000-7000px; cache only (W, H) headers (cheap, lazy-read),
+    # never the decoded raster -- decoding all ~500 sheets at once OOMs.
+    size_cache: dict[Path, tuple[int, int]] = {}
+
+    def _size(img_path: Path) -> tuple[int, int]:
+        wh = size_cache.get(img_path)
+        if wh is None:
+            with Image.open(img_path) as im:
+                wh = im.size
+            size_cache[img_path] = wh
+        return wh
+
+    stats: dict[int, dict] = {}
+
+    for cls in range(nc):
+        instances = by_class.get(cls, [])
+        widths_px, heights_px = [], []
+        for img_path, (_, _, bw, bh) in instances:
+            W, H = _size(img_path)
+            widths_px.append(bw * W)
+            heights_px.append(bh * H)
+        stats[cls] = {
+            "n": len(instances),
+            "median_w": statistics.median(widths_px) if widths_px else 0.0,
+            "median_h": statistics.median(heights_px) if heights_px else 0.0,
+        }
+
+        # Sample up to n_samples instances, spread across distinct source
+        # sheets where possible (cap 2/image) so the contact sheet shows
+        # variety rather than 16 crops from one synthetic P&ID.
+        shuffled = instances[:]
+        random.Random(cls).shuffle(shuffled)
+        chosen, per_image = [], Counter()
+        for inst in shuffled:
+            if per_image[inst[0]] >= 2:
+                continue
+            chosen.append(inst)
+            per_image[inst[0]] += 1
+            if len(chosen) >= n_samples:
+                break
+        if len(chosen) < n_samples:
+            for inst in shuffled:
+                if inst in chosen:
+                    continue
+                chosen.append(inst)
+                if len(chosen) >= n_samples:
+                    break
+
+        thumbs = []
+        for img_path, (xc, yc, bw, bh) in chosen:
+            with Image.open(img_path) as im:
+                W, H = im.size
+                x1 = max(0, int((xc - bw / 2) * W) - pad_px)
+                y1 = max(0, int((yc - bh / 2) * H) - pad_px)
+                x2 = min(W, int((xc + bw / 2) * W) + pad_px)
+                y2 = min(H, int((yc + bh / 2) * H) + pad_px)
+                crop = im.crop((x1, y1, x2, y2)).convert("RGB")
+            scale = min(thumb / crop.width, thumb / crop.height)
+            new_wh = (max(1, int(crop.width * scale)), max(1, int(crop.height * scale)))
+            crop = crop.resize(new_wh, Image.LANCZOS)
+            canvas = Image.new("RGB", (thumb, thumb), "white")
+            canvas.paste(crop, ((thumb - crop.width) // 2, (thumb - crop.height) // 2))
+            thumbs.append(canvas)
+        while len(thumbs) < n_samples:
+            thumbs.append(Image.new("RGB", (thumb, thumb), (235, 235, 235)))
+
+        cols = 4
+        rows = (n_samples + cols - 1) // cols
+        header_h = 36
+        sheet = Image.new("RGB", (thumb * cols, header_h + thumb * rows), "white")
+        draw = ImageDraw.Draw(sheet)
+        draw.text((8, 6), f"idx {cls:02d}  (paper Symbol{cls + 1})  n={len(instances)}",
+                   fill="black", font=font)
+        for i, t in enumerate(thumbs):
+            x = (i % cols) * thumb
+            y = header_h + (i // cols) * thumb
+            sheet.paste(t, (x, y))
+        sheet.save(out_dir / f"idx_{cls:02d}.png")
+
+    return stats
 
 
 # -- main -----------------------------------------------------------------------
