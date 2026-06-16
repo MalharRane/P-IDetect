@@ -6,9 +6,11 @@ opencv-python>=4.9.0
 numpy>=1.26.0
 matplotlib>=3.8.0
 pyyaml>=6.0
+requests>=2.31.0          # PID2Graph OPEN100 download (subtask 1.6c)
+networkx>=3.2              # PID2Graph OPEN100 .graphml parsing (subtask 1.6c);
+                            # pulled forward from Phase 4, only graph build uses it there
 
 # --- later phases (install when you reach them) ---
 # paddleocr>=2.7.0        # Phase 3 OCR
 # paddlepaddle            # Phase 3 OCR backend
-# networkx>=3.2           # Phase 4 graph
 # fastapi uvicorn         # Phase 5 deploy

@@ -1,119 +1,102 @@
 # Real-World Evaluation Set — Protocol
 
-This directory holds a small, hand-labelled set of real P&ID sheets that are
-**out-of-distribution** relative to the HF training data. Its purpose is to
-give an honest estimate of how the model generalises beyond the Digitize-PID
-symbol library.
+Out-of-distribution checks for PIDetect, organized as **tiers** of increasing
+rigor (subtask 1.6c). The single-tier, hand-labelling-required version of
+this protocol is retired — both tiers below are built by a script, no manual
+labelling needed.
 
-**NDA rule:** Only use sheets that are explicitly public-domain or
-openly licensed. Never commit the hackathon diagrams or any client material.
-
----
-
-## Target size
-
-5–10 full sheets, covering as many of the 32 symbol classes as possible.
-Prioritise sheets that contain the weakest classes identified in Phase 1
-(`docs/phase1_analysis.md`). **Note (subtask 1.6a):** those weak classes were
-named under the old guessed-names scheme. Translate via
-`docs/class_identity/mapping.md` before using them to pick sheets -- e.g. the
-class that failed the recall gate (old name `gate_valve_handwheel`, idx 16)
-is verified to actually be `Symbol_17` (a spectacle-blind-like double-bar
-symbol, not a handwheel valve at all).
+**NDA rule:** Only use sheets that are explicitly public-domain or openly
+licensed. Never commit the hackathon diagrams or any client material.
 
 ---
 
-## Candidate sources (public, no NDA)
+## Tier 1 — `ood_synthetic`
 
-| Source | URL / Access | Notes |
+The existing full-sheet SAHI demo check (the "SAMPLE Project" sheet,
+`data/digitize-pid-yolo/.../images/train/0.jpg`), formalized and labelled
+rather than left as an ad hoc run.
+
+**Build:** `python scripts/build_ood_synthetic_eval.py`
+
+**What it is:** still synthetic Dataset-P&ID imagery, sharing our exact
+32-class taxonomy — so it supports full per-index AP, directly comparable to
+`docs/phase1_analysis.md`.
+
+**Known weakness (disclosed, not fixed):** this sheet's tiles are in our
+**train** split (`data/tiled/images/train/0_*.jpg`) — the model has seen this
+exact content during training. The tier re-tiles the full sheet fresh
+(different window boundaries than the training tiles), but it is *not* a
+held-out check. Treat it as a pipeline sanity check, not a generalization
+test — that's what Tier 2 is for.
+
+---
+
+## Tier 2 — `open100`
+
+12 real, public P&ID sheets, from Energy Impact Center's OPEN100 open nuclear
+reactor design, with annotations from the PID2Graph dataset (Sturmer,
+Graumann & Koch, 2025, *From Engineering Diagrams to Graphs: Digitizing P&IDs
+with Transformers*, IEEE DSAA; Zenodo record
+[14803338](https://doi.org/10.5281/zenodo.14803338), CC BY-SA 4.0). Genuinely
+real, genuinely held-out, genuinely a different drafting standard than
+Dataset-P&ID.
+
+**Build:** `python scripts/build_open100_eval.py`
+
+This downloads only the ~11MB OPEN100 subset out of the 9.3GB Zenodo archive
+(lazy HTTP range reads — see `src/pidetect/data/open100.py`), parses the
+`.graphml` annotations, maps them onto our taxonomy, tiles at 640px/20%
+overlap, and writes the YAML + a `SOURCES.md` with full attribution and the
+mapping table.
+
+**Why this can't be a plain 32-class eval:** OPEN100's own annotation
+vocabulary is only 10 distinct labels — far coarser than our 32 verified
+classes (`docs/class_identity/mapping.md`). The honest overlap:
+
+| OPEN100 label | our supercategory | our indices it stands in for |
 |---|---|---|
-| PID2Graph dataset | Request from paper authors (Sanchez-Lengeling et al.) | First public graph-GT set; a subset of ~20 sheets |
-| ISO/IEC sample P&IDs | Published in ISO 10628-2 annexes | Check your institution's access |
-| Wikimedia P&ID diagrams | Search commons.wikimedia.org for "P&ID" | Variable quality; check licence |
-| Open-source plant designs | e.g. DWSIM, OpenModelica example P&IDs | Programmatically generated; clean lines |
+| `valve` | valve | 0–13 (bowtie family + the 4 confidently-named valve classes — **excludes** 14/15/24 [ambiguous] and 16/17/18 [verified in 1.6b to be a spectacle-blind-like fitting, **not** a valve]) |
+| `arrow` | arrow | 23 (`flow_arrow`) |
+| `instrumentation` | instrument | 25,26,27,28,30 (circle-shaped instrument bubbles — excludes 29/31, which are rectangles) |
+| `tank`, `pump`, `general`, `inlet/outlet` | *(ignored, not wrong)* | none — no equivalent class. Predictions overlapping these aren't counted as false positives. |
+| `connector`, `crossing`, `background` | *(dropped)* | none — graph-topology annotations, not symbol detections. |
 
----
-
-## Labelling protocol
-
-1. **Format:** YOLO-format `.txt` files (one box per line: `cls xc yc w h`, normalised 0–1).
-2. **Tool:** Use [Label Studio](https://labelstud.io/) or [Roboflow](https://roboflow.com)
-   (free tier) with the 32 class names from `configs/yolo_baseline.yaml`.
-3. **Tile first, label on tiles:** Run `python -m pidetect.data.tiling` on each sheet at
-   640 px / 20% overlap, then label the tiles (same resolution the model sees).
-   Place outputs in:
-   ```
-   data/realworld_eval/images/test/   ← tile images
-   data/realworld_eval/labels/test/   ← YOLO label files
-   ```
-4. **Do not label train/val splits** — this set is test-only.
-5. A dataset YAML already exists at `data/realworld_eval/realworld.yaml` with the
-   verified class names from `docs/class_identity/mapping.md` (subtask 1.6a) --
-   use that file directly rather than retyping the template below. It looks
-   like this:
-
-```yaml
-path: data/realworld_eval
-train: images/test   # required by Ultralytics even for test-only sets; reuse test
-val:   images/test
-test:  images/test
-
-nc: 32
-names:
-  0: Symbol_1
-  1: Symbol_2
-  2: Symbol_3
-  3: Symbol_4
-  4: Symbol_5
-  5: angle_valve
-  6: valve_handwheel
-  7: check_valve
-  8: Symbol_9
-  9: Symbol_10
-  10: Symbol_11
-  11: Symbol_12
-  12: Symbol_13
-  13: control_valve_diaphragm
-  14: Symbol_15
-  15: Symbol_16
-  16: Symbol_17
-  17: Symbol_18
-  18: Symbol_19
-  19: reducer
-  20: Symbol_21
-  21: strainer
-  22: heat_exchanger
-  23: flow_arrow
-  24: Symbol_25
-  25: instrument_bubble
-  26: instrument_bubble_RO10
-  27: instrument_bubble_SDL
-  28: instrument_bubble_DDL
-  29: tag_rectangle_simple
-  30: Symbol_31
-  31: tag_rectangle_multiline
-```
+So Tier 2 reports **3 supercategories** (valve / arrow / instrument), not 32
+indices. See `data/realworld_eval/open100/SOURCES.md` (generated by the build
+script) for the full rationale and known scoping limitations.
 
 ---
 
 ## Running evaluation
 
-Once the set is labelled and the YAML is in place:
-
 ```bash
+# Tier 1 (32-class, full per-index AP + delta vs docs/phase1_analysis.md)
 PYTHONPATH=src python -m pidetect.detect.evaluate \
     --weights runs/detect/train/weights/best.pt \
-    --realworld \
-    --split test
+    --realworld --tier ood_synthetic
+
+# Tier 2 (3-supercategory AP + delta)
+PYTHONPATH=src python -m pidetect.detect.evaluate \
+    --weights runs/detect/train/weights/best.pt \
+    --realworld --tier open100
 ```
 
-The `--realworld` flag points evaluate.py at `data/realworld_eval/realworld.yaml`
-instead of the default HF test split.
+`--tier` defaults to `ood_synthetic`. Each prints a per-class/supercategory
+table plus a delta column against `docs/class_identity/phase1_baseline_ap.json`
+(the in-distribution numbers transcribed from `docs/phase1_analysis.md`), and
+flags anything that dropped more than 0.1 AP@50.
+
+**Baseline coverage caveat:** that JSON only has explicit numbers for 8 of
+our 32 indices (whatever `docs/phase1_analysis.md` individually printed —
+the weakest-5 and honourable-mentions tables). Indices/supercategories
+without a recorded baseline print "not recorded" rather than a guess. A full
+32-class rerun of the in-distribution test split (on Colab/Kaggle, where the
+weights and GPU live) would let this baseline file be completed.
 
 ---
 
 ## Interpreting results
 
-Compare the per-class AP table from `--realworld` against the HF test-split table
-in `docs/phase1_analysis.md`. A drop of more than 0.1 in mAP50 on any class flags
-a real generalisation gap and becomes the primary target for the next training iteration.
+A drop of more than 0.1 AP@50 vs. the recorded in-distribution baseline flags
+a real generalisation gap and becomes the primary target for the next
+training iteration. Both `evaluate.py` paths print this flag automatically.

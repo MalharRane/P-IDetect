@@ -1,0 +1,14 @@
+{
+  "_comment": "In-distribution per-class AP, transcribed verbatim from docs/phase1_analysis.md (subtask 1.5/1.6b). Only these 8 of 32 indices have an explicitly recorded number there (the weakest-5 + honourable-mentions tables) -- the rest were never individually printed, only the overall mAP@50=0.994. Do NOT fill in the others with a guess; see the 'next step' note in docs/phase1_analysis.md -- a full 32-class rerun on Colab/Kaggle should replace this file.",
+  "overall": {"map50": 0.994, "map50_95": 0.985, "precision": 0.995, "recall": 0.988},
+  "by_index": {
+    "10": {"name": "Symbol_11", "ap50": 0.985, "ap50_95": 0.982, "recall": 0.969},
+    "16": {"name": "Symbol_17", "ap50": 0.980, "ap50_95": 0.960, "recall": 0.865},
+    "17": {"name": "Symbol_18", "ap50": 0.994, "ap50_95": 0.983, "recall": 0.969},
+    "18": {"name": "Symbol_19", "ap50": 0.991, "ap50_95": 0.983, "recall": 0.933},
+    "20": {"name": "Symbol_21", "ap50": null, "ap50_95": 0.967, "recall": null},
+    "23": {"name": "flow_arrow", "ap50": 0.995, "ap50_95": 0.957, "recall": 0.990},
+    "29": {"name": "tag_rectangle_simple", "ap50": null, "ap50_95": 0.955, "recall": null},
+    "31": {"name": "tag_rectangle_multiline", "ap50": null, "ap50_95": 0.968, "recall": null}
+  }
+}
