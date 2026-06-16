@@ -164,6 +164,24 @@ def _area_overlap_fraction(bx1: float, by1: float, bx2: float, by2: float,
     return inter / box_area
 
 
+def slice_image(
+    img_path: Path,
+    lbl_path: Path,
+    out_img_dir: Path,
+    out_lbl_dir: Path,
+    tile: int = 640,
+    overlap: float = 0.2,
+    neg_fraction: float = 0.0,
+) -> dict:
+    """Tile a single image/label pair (public wrapper around the same logic
+    `slice_dataset` uses per-image). For datasets that don't have a train/val
+    directory structure -- e.g. the real-world eval tiers (subtask 1.6c),
+    which tile one source sheet or a handful of standalone sheets at a time.
+    """
+    return _slice_image(img_path, lbl_path, out_img_dir, out_lbl_dir,
+                        tile, overlap, neg_fraction)
+
+
 def _slice_image(
     img_path: Path,
     lbl_path: Path,
