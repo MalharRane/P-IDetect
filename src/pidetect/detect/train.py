@@ -3,9 +3,15 @@
 Smoke mode (--smoke) runs 1 epoch on 50 images on CPU to verify the pipeline without
 needing a GPU or the full dataset.
 
-Heavy rotation (degrees=180) helps real-world rotated symbols but can depress in-distribution
-mAP on our axis-aligned synthetic test set — keep degrees moderate by default and treat
-aggressive rotation as an ablation.
+Use --aug to select an augmentation profile:
+  default       — original profile (degrees=15, scale=0.5, mosaic=1.0, fliplr=0.5)
+  small_objects — scale-focused profile targeting the 5× arrow size gap diagnosed in
+                  subtask 1.7a. scale=0.9 lets a 79 px synthetic arrow shrink to ~8 px,
+                  covering the real-world ~16 px regime. degrees capped at 10 (orientation
+                  is fine per diagnosis; rotation capacity is not needed).
+
+When a non-default profile is active, individual --degrees/--scale/--mosaic/--fliplr flags
+are ignored; the profile values take precedence.
 """
 
 from __future__ import annotations
@@ -16,6 +22,36 @@ import tempfile
 from pathlib import Path
 
 import yaml
+
+# ---------------------------------------------------------------------------
+# Augmentation profiles — select with --aug
+# ---------------------------------------------------------------------------
+
+AUG_PROFILES: dict[str, dict] = {
+    "default": {
+        # Matches the original explicit CLI arg defaults — no behaviour change.
+        "degrees": 15.0,
+        "scale":   0.5,
+        "mosaic":  1.0,
+        "fliplr":  0.5,
+    },
+    "small_objects": {
+        # Scale-focused profile (subtask 1.7c).
+        # Diagnosis: arrows miss because real arrows are ~5× smaller than synthetic
+        # (16 px vs 79 px median diagonal). scale=0.9 → zoom range [0.1×, 1.9×], so
+        # a 79 px arrow can appear as ~8 px — well below the 16 px real-world median.
+        # Orientation was confirmed NOT a factor; degrees kept low to avoid wasting
+        # capacity on a dimension that doesn't need fixing.
+        "degrees":    10.0,
+        "scale":       0.9,
+        "mosaic":      1.0,
+        "fliplr":      0.5,
+        "copy_paste":  0.1,   # extra small-object instances per batch
+        "hsv_h":     0.015,   # mild colour jitter (ultralytics defaults)
+        "hsv_s":       0.7,
+        "hsv_v":       0.4,
+    },
+}
 
 
 def _build_smoke_data(data_yaml: Path, n_images: int = 50) -> Path:
@@ -87,19 +123,31 @@ def train(args: argparse.Namespace) -> None:
 
     model = YOLO(args.model)
 
+    if args.aug == "default":
+        aug_kwargs: dict = {
+            "degrees": args.degrees,
+            "scale":   args.scale,
+            "mosaic":  args.mosaic,
+            "fliplr":  args.fliplr,
+        }
+    else:
+        aug_kwargs = AUG_PROFILES[args.aug]
+        print(f"[aug] Profile '{args.aug}': {aug_kwargs}")
+
+    run_name = f"train_{args.aug}" if args.aug != "default" else "train"
+    if args.smoke:
+        run_name = "smoke"
+
     results = model.train(
         data=str(data_yaml),
         imgsz=args.imgsz,
         epochs=epochs,
         batch=batch,
         device=device,
-        degrees=args.degrees,
-        scale=args.scale,
-        mosaic=args.mosaic,
-        fliplr=args.fliplr,
         project="runs/detect",
-        name="train" if not args.smoke else "smoke",
+        name=run_name,
         exist_ok=args.smoke,
+        **aug_kwargs,
     )
 
     # DDP multi-GPU returns None from model.train() on worker processes
@@ -123,11 +171,19 @@ def main() -> None:
     parser.add_argument("--device", default="", help="'' = auto, '0' = GPU 0, 'cpu' = CPU")
 
     # augmentation
+    parser.add_argument(
+        "--aug", default="default", choices=list(AUG_PROFILES),
+        help="Augmentation profile (default | small_objects). When non-default, "
+             "individual --degrees/--scale/--mosaic/--fliplr are ignored.",
+    )
     parser.add_argument("--degrees", type=float, default=15.0,
-                        help="Max rotation aug (°). Default 15 — keep moderate; 180 is an ablation")
-    parser.add_argument("--scale", type=float, default=0.5, help="Scale jitter ± fraction")
-    parser.add_argument("--mosaic", type=float, default=1.0, help="Mosaic probability")
-    parser.add_argument("--fliplr", type=float, default=0.5, help="Horizontal flip probability")
+                        help="Max rotation aug (°). Ignored when --aug is non-default.")
+    parser.add_argument("--scale", type=float, default=0.5,
+                        help="Scale jitter ± fraction. Ignored when --aug is non-default.")
+    parser.add_argument("--mosaic", type=float, default=1.0,
+                        help="Mosaic probability. Ignored when --aug is non-default.")
+    parser.add_argument("--fliplr", type=float, default=0.5,
+                        help="Horizontal flip probability. Ignored when --aug is non-default.")
 
     parser.add_argument("--smoke", action="store_true",
                         help="1 epoch on 50 images on CPU — just proves the pipeline runs")
