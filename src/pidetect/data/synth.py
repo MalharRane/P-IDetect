@@ -38,6 +38,13 @@ _FUNC_CODES: list[str] = [
 # Elongated/directional glyphs that look wrong at arbitrary angles
 _SNAP_CLASSES: frozenset[int] = frozenset({20, 21, 22})
 
+# 1.7d: per-class size overrides
+ARROW_IDX: int = 23
+VALVE_IDX: frozenset[int] = frozenset(range(14))   # classes 0–13
+# Log-uniform in [12, 80] px diagonal → geometric mean ≈ 31 px, covers real ~16 px regime.
+ARROW_DIAG_MIN: int = 12
+ARROW_DIAG_MAX: int = 80
+
 
 # ---------------------------------------------------------------------------
 # Glyph library
@@ -263,6 +270,84 @@ def _add_degradation(
     return cv2.imdecode(buf, cv2.IMREAD_COLOR)
 
 
+def _vary_thickness(patch: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """Randomly dilate or erode dark lines to simulate different pen/line weights.
+
+    Applied to arrows only (subtask 1.7d). 50% chance of no change; otherwise
+    dilate (thicker) or erode (thinner) with a 3- or 5-px kernel.
+    """
+    if rng.random() < 0.5:
+        return patch
+    k = int(rng.choice([3, 3, 5]))
+    gray = cv2.cvtColor(patch, cv2.COLOR_BGR2GRAY)
+    dark = (gray < 200).astype(np.uint8) * 255
+    kernel = np.ones((k, k), np.uint8)
+    if rng.random() < 0.5:
+        dark = cv2.dilate(dark, kernel, iterations=1)
+    else:
+        dark = cv2.erode(dark, kernel, iterations=1)
+    result = np.full_like(patch, 255)
+    result[dark > 0] = 0
+    return result
+
+
+def _add_valve_extension(
+    canvas: np.ndarray,
+    cx: int,
+    cy: int,
+    w_px: int,
+    h_px: int,
+    rng: np.random.Generator,
+    stem_prob: float = 0.35,
+) -> tuple[int, int, int, int]:
+    """Optionally draw a stem / actuator box / flanges extending from a valve glyph.
+
+    Real P&ID valves carry these appendages; the 1.7a diagnosis found predicted boxes
+    43% smaller than GT, which suggests the model never learned the full valve footprint.
+    Draws the extension directly onto canvas and returns the expanded bbox.
+
+    Returns (x1, y1, x2, y2) — canvas-clipped, suitable for YOLO label writing.
+    """
+    sh, sw = canvas.shape[:2]
+    x1, y1 = cx - w_px // 2, cy - h_px // 2
+    x2, y2 = cx + w_px // 2, cy + h_px // 2
+
+    if rng.random() > stem_prob:
+        return x1, y1, x2, y2
+
+    color = (35, 35, 35)
+    lw = max(1, int(rng.uniform(1.0, 2.5)))
+    ext = rng.choice(["stem", "actuator", "flanges"])
+
+    if ext == "stem":
+        stem_h = int(rng.uniform(0.3, 0.6) * h_px)
+        top = max(0, y1 - stem_h)
+        cv2.line(canvas, (cx, y1), (cx, top), color, lw)
+        y1 = top
+
+    elif ext == "actuator":
+        act_h = int(rng.uniform(0.25, 0.50) * h_px)
+        act_w = int(rng.uniform(0.40, 0.80) * w_px)
+        ax1 = max(0, cx - act_w // 2)
+        ay1 = max(0, y1 - act_h)
+        ax2 = min(sw, ax1 + act_w)
+        cv2.rectangle(canvas, (ax1, ay1), (ax2, y1), color, lw)
+        cv2.line(canvas, (cx, y1), (cx, ay1), color, lw)
+        x1, y1 = min(x1, ax1), min(y1, ay1)
+        x2 = max(x2, ax2)
+
+    else:  # flanges
+        fl = int(rng.uniform(0.15, 0.35) * w_px)
+        left = max(0, x1 - fl)
+        right = min(sw, x2 + fl)
+        cv2.line(canvas, (x1, cy), (left, cy), color, lw)
+        cv2.line(canvas, (x2, cy), (right, cy), color, lw)
+        x1 = left
+        x2 = right
+
+    return max(0, x1), max(0, y1), min(sw, x2), min(sh, y2)
+
+
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
@@ -317,8 +402,16 @@ def compose_sheet(
         src  = pool[int(rng.integers(len(pool)))]
 
         # --- scale ---
-        s = float(rng.uniform(scale_range[0], scale_range[1]))
-        target = int(np.clip(BASE_GLYPH_PX * s, 20, 200))
+        if cls == ARROW_IDX:
+            # log-uniform in [ARROW_DIAG_MIN, ARROW_DIAG_MAX]: smaller arrows sampled
+            # proportionally more often, covering the real ~16 px regime (1.7d fix).
+            diag_px = math.exp(
+                rng.uniform(math.log(ARROW_DIAG_MIN), math.log(ARROW_DIAG_MAX))
+            )
+            target = max(4, int(round(diag_px)))
+        else:
+            s = float(rng.uniform(scale_range[0], scale_range[1]))
+            target = int(np.clip(BASE_GLYPH_PX * s, 20, 200))
         h0, w0 = src.shape[:2]
         if w0 == 0 or h0 == 0:
             continue
@@ -327,6 +420,10 @@ def compose_sheet(
         else:
             th, tw = target, max(1, int(w0 * target / h0))
         resized = cv2.resize(src, (tw, th), interpolation=cv2.INTER_AREA)
+
+        # --- arrow line-weight variation (1.7d) ---
+        if cls == ARROW_IDX:
+            resized = _vary_thickness(resized, rng)
 
         # --- rotate ---
         if rotate:
@@ -360,11 +457,20 @@ def compose_sheet(
             continue
 
         # --- composite ---
-        bbox = _paste_glyph(canvas, patch, cx, cy)
-        if bbox is None:
+        paste_bbox = _paste_glyph(canvas, patch, cx, cy)
+        if paste_bbox is None:
             continue
-        placed_bboxes.append(bbox)
-        x1, y1, x2, y2 = bbox
+        x1, y1, x2, y2 = paste_bbox
+
+        # --- valve footprint extension (1.7d) ---
+        # Draws stems/actuators/flanges for ~35% of valves and expands the YOLO bbox
+        # to include the full extent — addressing the 43%-too-small prediction issue.
+        if cls in VALVE_IDX:
+            x1, y1, x2, y2 = _add_valve_extension(
+                canvas, (x1 + x2) // 2, (y1 + y2) // 2, x2 - x1, y2 - y1, rng
+            )
+
+        placed_bboxes.append((x1, y1, x2, y2))
         placed.append({
             "id":    len(placed),
             "cls":   cls,
