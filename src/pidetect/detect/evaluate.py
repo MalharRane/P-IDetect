@@ -17,7 +17,7 @@ import numpy as np
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from src.pidetect.data.open100 import (
+from pidetect.data.open100 import (
     OUR_ARROW_IDX, OUR_INSTRUMENT_IDX, OUR_VALVE_IDX, SUPERCATEGORY_NAMES,
 )
 
