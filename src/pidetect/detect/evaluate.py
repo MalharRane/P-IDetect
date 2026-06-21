@@ -213,6 +213,73 @@ def evaluate(args: argparse.Namespace) -> None:
 # Python/numpy and was verified locally without a working model.
 # ---------------------------------------------------------------------------
 
+def _predict_tiles_sahi(
+    weights: Path, images_dir: Path, conf: float, iou: float,
+    device: str, slice_size: int, overlap: float = 0.2,
+) -> tuple[dict[str, list[tuple]], float, int]:
+    """SAHI sub-sliced inference on pre-tiled 640px eval tiles.
+
+    Each tile is re-sliced to `slice_size` px sub-tiles; Ultralytics resizes each
+    sub-tile to its native imgsz=640, producing a 2× effective upscale when
+    slice_size=320.  GREEDYNMM merges cross-sub-tile duplicates back into 640px
+    tile space, so the scoring pipeline is unchanged.
+    """
+    import time
+
+    from sahi import AutoDetectionModel
+    from sahi.predict import get_sliced_prediction
+
+    dev = device if device else "cpu"
+    detection_model = AutoDetectionModel.from_pretrained(
+        model_type="yolov8",
+        model_path=str(weights),
+        confidence_threshold=conf,
+        device=dev,
+    )
+
+    preds: dict[str, list[tuple]] = {}
+    t0 = time.perf_counter()
+
+    tile_paths = sorted(images_dir.glob("*.jpg"))
+    for img_path in tile_paths:
+        result = get_sliced_prediction(
+            image=str(img_path),
+            detection_model=detection_model,
+            slice_height=slice_size,
+            slice_width=slice_size,
+            overlap_height_ratio=overlap,
+            overlap_width_ratio=overlap,
+            perform_standard_pred=False,
+            postprocess_type="GREEDYNMM",
+            postprocess_match_metric="IOS",
+            postprocess_match_threshold=iou,
+            auto_slice_resolution=False,
+            verbose=0,
+        )
+        boxes = []
+        for obj in result.object_prediction_list:
+            xyxy = obj.bbox.to_xyxy()
+            boxes.append((
+                obj.category.id,
+                float(xyxy[0]), float(xyxy[1]),
+                float(xyxy[2]), float(xyxy[3]),
+                float(obj.score.value),
+            ))
+        preds[img_path.stem] = boxes
+
+    elapsed = time.perf_counter() - t0
+    # Estimate sub-tile count using SAHI's own formula (get_slice_bboxes):
+    #   x_overlap = int(slice * overlap); x_step = slice - x_overlap
+    #   num_x = max(1, ceil((img_w - x_overlap) / x_step))
+    import math
+    x_overlap = int(slice_size * overlap)
+    x_step = slice_size - x_overlap
+    positions_per_axis = max(1, math.ceil((640 - x_overlap) / x_step))
+    subtiles_per_tile = positions_per_axis ** 2
+    total_subtiles = len(tile_paths) * subtiles_per_tile
+    return preds, elapsed, total_subtiles
+
+
 def _predict_tiles(model, images_dir: Path, conf: float, iou: float,
                     imgsz: int, device: str) -> dict[str, list[tuple]]:
     """Run inference on every tile. Returns {stem: [(cls, x1, y1, x2, y2, conf), ...]}
@@ -438,10 +505,27 @@ def evaluate_open100(args: argparse.Namespace) -> None:
     weights = Path(args.weights)
     if not weights.exists():
         raise FileNotFoundError(f"Weights not found: {weights}")
-    model = YOLO(str(weights))
 
-    raw_preds = _predict_tiles(model, images_dir, conf=args.conf, iou=args.iou,
-                               imgsz=args.imgsz, device=args.device)
+    slice_size = getattr(args, "slice_size", None)
+    if slice_size:
+        import time as _time
+        n_tiles = len(list(images_dir.glob("*.jpg")))
+        import math as _math
+        _x_ov = int(slice_size * 0.2); _x_step = slice_size - _x_ov
+        _pos = max(1, _math.ceil((640 - _x_ov) / _x_step))
+        print(f"[1.8b] SAHI sub-slicing: slice={slice_size}px, overlap=0.2, imgsz=640 "
+              f"({n_tiles} tiles × {_pos**2} sub-tiles = ~{n_tiles * _pos**2} model calls est.)")
+        raw_preds, sahi_elapsed, total_subtiles = _predict_tiles_sahi(
+            weights, images_dir, conf=args.conf, iou=args.iou,
+            device=args.device, slice_size=slice_size, overlap=0.2,
+        )
+        print(f"[1.8b] done: {sahi_elapsed:.1f}s, ~{total_subtiles} model calls "
+              f"(~{total_subtiles / n_tiles:.1f}x per tile)")
+        model = None  # not used in SAHI path
+    else:
+        model = YOLO(str(weights))
+        raw_preds = _predict_tiles(model, images_dir, conf=args.conf, iou=args.iou,
+                                   imgsz=args.imgsz, device=args.device)
 
     preds_by_image: dict[str, list[tuple]] = {}
     gts_by_image: dict[str, list[tuple]] = {}
@@ -549,6 +633,9 @@ def main() -> None:
     parser.add_argument("--extended", action="store_true",
                         help="(open100 only) also print recall, precision, AP@0.3, "
                              "CtrMatch@25%%/@50%% -- needed for resolution probe 1.8a")
+    parser.add_argument("--slice-size", dest="slice_size", type=int, default=None,
+                        help="(open100 only) SAHI sub-slice size in px; None = whole-tile "
+                             "predict (default). 320 = 1.8b higher-res probe")
 
     args = parser.parse_args()
 
