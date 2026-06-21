@@ -47,3 +47,21 @@ flow arrows are ~16 px (diagonal) vs ~79 px in synthetic training data (~5×). T
 **Arrow (Tier-2):** Arrow AP improved by +0.152 — scale jitter is working.  
 **Valve (Tier-2):** delta=+0.213 (valve fix requires more than aug alone — see valve root-cause).  
 **Regression check:** In-dist mAP held or improved (+0.000) — no regression.
+
+---
+
+## C. Task-relevant metrics (Tier-2, new model only)
+
+*(Phase 4 connectivity needs symbol **centres**, not tight boxes.
+AP@0.3 relaxes the IoU requirement; center-match asks only whether
+a prediction centre lands within X% of the GT box size.)*
+
+| Supercategory | AP@0.5 | AP@0.3 | Δ(0.3−0.5) | CtrMatch@25% | CtrMatch@50% |
+|:--------------|-------:|-------:|-----------:|-------------:|-------------:|
+| valve         |  0.790 |  0.935 |     +0.145 |       80.3% |       95.0% |
+| arrow         |  0.331 |  0.519 |     +0.188 |       55.0% |       57.9% |
+| instrument    |  0.989 |  0.994 |     +0.005 |       99.5% |       99.7% |
+
+**Reading:** AP@0.3 − AP@0.5 gap = how much of the 'failure' is strict-box IoU.
+CtrMatch@25%/@50% = fraction of GT symbols whose centre is within 25%/50% of
+their own box size from a predicted centre — the metric Phase 4 actually needs.

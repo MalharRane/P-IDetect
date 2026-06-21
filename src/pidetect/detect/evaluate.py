@@ -353,6 +353,56 @@ def _ap50(preds_by_image: dict, gts_by_image: dict, cls_id: int) -> float:
     return _ap_from_tp(tp, n_gt)
 
 
+def _ap_at_iou(preds_by_image: dict, gts_by_image: dict, cls_id: int,
+               iou_thr: float) -> float:
+    """AP at an arbitrary IoU threshold (reuses _match + _ap_from_tp)."""
+    tp, n_gt = _match(preds_by_image, gts_by_image, cls_id, iou_thr)
+    return _ap_from_tp(tp, n_gt)
+
+
+def _center_recall(
+    preds_by_image: dict[str, list[tuple]],
+    gts_by_image:  dict[str, list[tuple]],
+    cls_id: int,
+    threshold_frac: float,
+) -> tuple[int, int]:
+    """Greedy GT-first center-distance matching.
+
+    A GT box is 'center-matched' if the nearest unmatched prediction center
+    of the same class falls within threshold_frac × sqrt(gt_w × gt_h) pixels.
+    Returns (n_matched, n_gt).  Motivated by Phase 4: connectivity needs
+    symbol centres, not tight bounding boxes.
+    """
+    import math
+    n_matched = n_gt_total = 0
+
+    for stem, gt_list_full in gts_by_image.items():
+        gt_boxes  = [(g[1], g[2], g[3], g[4])
+                     for g in gt_list_full if g[0] == cls_id]
+        pred_list = [(p[1], p[2], p[3], p[4])
+                     for p in preds_by_image.get(stem, []) if p[0] == cls_id]
+        n_gt_total += len(gt_boxes)
+        pred_used  = [False] * len(pred_list)
+
+        for x1, y1, x2, y2 in gt_boxes:
+            gt_cx, gt_cy = (x1 + x2) / 2, (y1 + y2) / 2
+            thr = threshold_frac * math.sqrt(
+                max(x2 - x1, 1) * max(y2 - y1, 1))
+            best_dist, best_j = float("inf"), -1
+            for j, (px1, py1, px2, py2) in enumerate(pred_list):
+                if pred_used[j]:
+                    continue
+                d = math.sqrt(((px1 + px2) / 2 - gt_cx) ** 2
+                              + ((py1 + py2) / 2 - gt_cy) ** 2)
+                if d < thr and d < best_dist:
+                    best_dist, best_j = d, j
+            if best_j >= 0:
+                pred_used[best_j] = True
+                n_matched += 1
+
+    return n_matched, n_gt_total
+
+
 def _ap50_95(preds_by_image: dict, gts_by_image: dict, cls_id: int) -> float:
     aps = []
     for thr in np.arange(0.5, 1.0, 0.05):

@@ -24,7 +24,8 @@ sys.path.insert(0, "src")
 
 # ── reuse the low-level eval helpers from the main eval harness ───────────────
 from pidetect.detect.evaluate import (
-    _ap50, _ap50_95, _load_boxes_px, _match, _ap_from_tp,
+    _ap50, _ap50_95, _ap_at_iou, _center_recall,
+    _load_boxes_px, _match, _ap_from_tp,
     _remap_preds, _suppress_ignored,
 )
 from pidetect.data.open100 import (
@@ -59,7 +60,8 @@ def _predict_tiles(model, images_dir: Path, conf: float, iou: float,
 
 def eval_open100(model, conf: float = 0.25, iou: float = 0.6,
                   imgsz: int = 640, device: str = "") -> dict:
-    """Returns {supercategory_name: {ap50, ap5095, recall, n_gt, n_tp}}."""
+    """Returns {supercategory_name: {ap50, ap30, ap5095, recall, n_gt, n_tp,
+                                     ctr25, ctr50, ctr25_n, ctr50_n}}."""
     from PIL import Image
 
     if not TIER2_IMAGES.exists():
@@ -86,15 +88,23 @@ def eval_open100(model, conf: float = 0.25, iou: float = 0.6,
     for cls_id, name in SUPERCATEGORY_NAMES.items():
         tp_arr, n_gt = _match(preds_by_image, gts_by_image, cls_id, 0.5)
         ap50   = _ap_from_tp(tp_arr, n_gt)
+        ap30   = _ap_at_iou(preds_by_image, gts_by_image, cls_id, 0.3)
         ap5095 = _ap50_95(preds_by_image, gts_by_image, cls_id)
         n_tp   = int(tp_arr.sum()) if len(tp_arr) > 0 else 0
         recall = n_tp / n_gt if n_gt > 0 else float("nan")
+        cr25_n, _ = _center_recall(preds_by_image, gts_by_image, cls_id, 0.25)
+        cr50_n, _ = _center_recall(preds_by_image, gts_by_image, cls_id, 0.50)
         results[name] = {
             "ap50":   ap50,
+            "ap30":   ap30,
             "ap5095": ap5095,
             "recall": recall,
             "n_gt":   n_gt,
             "n_tp":   n_tp,
+            "ctr25":  cr25_n / n_gt if n_gt > 0 else float("nan"),
+            "ctr50":  cr50_n / n_gt if n_gt > 0 else float("nan"),
+            "ctr25_n": cr25_n,
+            "ctr50_n": cr50_n,
         }
     return results
 
@@ -242,6 +252,35 @@ def write_results(
         f"**Arrow (Tier-2):** {arrow_interp}  ",
         f"**Valve (Tier-2):** delta={_delta(baseline_open100['valve']['ap50'], new_open100['valve']['ap50'])} (valve fix requires more than aug alone — see valve root-cause).  ",
         f"**Regression check:** {indist_interp}",
+        "",
+        "---",
+        "",
+        "## C. Task-relevant metrics (Tier-2, new model only)",
+        "",
+        "*(Phase 4 connectivity needs symbol **centres**, not tight boxes.",
+        "AP@0.3 relaxes the IoU requirement; center-match asks only whether",
+        "a prediction centre lands within X% of the GT box size.)*",
+        "",
+        "| Supercategory | AP@0.5 | AP@0.3 | Δ(0.3−0.5) | CtrMatch@25% | CtrMatch@50% |",
+        "|:--------------|-------:|-------:|-----------:|-------------:|-------------:|",
+    ]
+    for name in ("valve", "arrow", "instrument"):
+        n = new_open100[name]
+        ap50  = n["ap50"]
+        ap30  = n["ap30"]
+        ctr25 = n["ctr25"]
+        ctr50 = n["ctr50"]
+        lines.append(
+            f"| {name:<13} | {_fmt(ap50):>6} | {_fmt(ap30):>6} | "
+            f"{_delta(ap50, ap30):>10} | "
+            f"{ctr25:>11.1%} | {ctr50:>11.1%} |"
+        )
+
+    lines += [
+        "",
+        "**Reading:** AP@0.3 − AP@0.5 gap = how much of the 'failure' is strict-box IoU.",
+        "CtrMatch@25%/@50% = fraction of GT symbols whose centre is within 25%/50% of",
+        "their own box size from a predicted centre — the metric Phase 4 actually needs.",
     ]
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -291,6 +330,13 @@ def main() -> None:
         b = baseline_open100[name]["ap50"]
         n = new_open100[name]["ap50"]
         print(f"  {name:<12}  {b:.3f} → {n:.3f}  ({_delta(b, n)})")
+    print("\n--- Task-relevant metrics (new model, Tier-2) ---")
+    print(f"  {'':13}  {'AP@0.5':>6}  {'AP@0.3':>6}  {'Δ':>6}  {'Ctr@25%':>8}  {'Ctr@50%':>8}")
+    for name in ("valve", "arrow", "instrument"):
+        n = new_open100[name]
+        print(f"  {name:<13}  {_fmt(n['ap50']):>6}  {_fmt(n['ap30']):>6}  "
+              f"{_delta(n['ap50'], n['ap30']):>6}  "
+              f"{n['ctr25']:>8.1%}  {n['ctr50']:>8.1%}")
     print("--- In-dist mAP50 ---")
     print(f"  {baseline_indist['overall']['map50']:.4f} → {new_indist['overall']['map50']:.4f}  "
           f"({_delta(baseline_indist['overall']['map50'], new_indist['overall']['map50'])})")
