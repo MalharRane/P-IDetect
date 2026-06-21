@@ -467,6 +467,7 @@ def evaluate_open100(args: argparse.Namespace) -> None:
     print(header)
     print("-" * len(header))
     flagged = []
+    extended_rows: list[tuple] = []
     for cls_id, name in SUPERCATEGORY_NAMES.items():
         ap50 = _ap50(preds_by_image, gts_by_image, cls_id)
         ap5095 = _ap50_95(preds_by_image, gts_by_image, cls_id)
@@ -480,6 +481,23 @@ def evaluate_open100(args: argparse.Namespace) -> None:
             if delta < -AP_DROP_FLAG_THRESHOLD:
                 flagged.append((name, delta))
         print(f"{name:<14}  {ap50:>7.3f}  {ap5095:>9.3f}  {base_s:>13}  {delta_s:>8}")
+
+        if getattr(args, "extended", False):
+            tp_arr, n_gt = _match(preds_by_image, gts_by_image, cls_id, 0.5)
+            n_tp = int(tp_arr.sum())
+            n_preds = sum(
+                sum(1 for p in preds_by_image[stem] if p[0] == cls_id)
+                for stem in preds_by_image
+            )
+            recall = n_tp / n_gt if n_gt > 0 else 0.0
+            precision = n_tp / n_preds if n_preds > 0 else 0.0
+            ap30 = _ap_at_iou(preds_by_image, gts_by_image, cls_id, 0.3)
+            cm25_n, _ = _center_recall(preds_by_image, gts_by_image, cls_id, 0.25)
+            cm50_n, _ = _center_recall(preds_by_image, gts_by_image, cls_id, 0.50)
+            cm25 = cm25_n / n_gt if n_gt > 0 else 0.0
+            cm50 = cm50_n / n_gt if n_gt > 0 else 0.0
+            extended_rows.append((name, n_gt, n_tp, recall, precision, ap50, ap30, cm25, cm50))
+
     print("=" * 70)
     print(
         "\nNote: 'In-dist AP50' is the mean of whatever individual our-class indices in\n"
@@ -492,6 +510,19 @@ def evaluate_open100(args: argparse.Namespace) -> None:
               f"vs in-distribution:")
         for name, delta in flagged:
             print(f"    {name:<14}  {delta:+.3f}")
+
+    if extended_rows:
+        print("\n" + "=" * 85)
+        print("Extended task-relevant metrics (--extended)")
+        print("=" * 85)
+        hdr2 = (f"{'Supercategory':<14}  {'n_gt':>5}  {'n_tp':>5}  {'Recall':>7}  "
+                f"{'Prec':>7}  {'AP@0.5':>7}  {'AP@0.3':>7}  {'CtrMt@25%':>10}  {'CtrMt@50%':>10}")
+        print(hdr2)
+        print("-" * len(hdr2))
+        for name, n_gt, n_tp, recall, prec, ap50_, ap30, cm25, cm50 in extended_rows:
+            print(f"{name:<14}  {n_gt:>5}  {n_tp:>5}  {recall:>7.3f}  "
+                  f"{prec:>7.3f}  {ap50_:>7.3f}  {ap30:>7.3f}  {cm25:>9.1%}  {cm50:>9.1%}")
+        print("=" * 85)
 
 
 def main() -> None:
@@ -515,6 +546,9 @@ def main() -> None:
                         choices=["ood_synthetic", "open100"],
                         help="Which real-world tier to use with --realworld "
                              "(default: ood_synthetic). See docs/realworld_eval_protocol.md")
+    parser.add_argument("--extended", action="store_true",
+                        help="(open100 only) also print recall, precision, AP@0.3, "
+                             "CtrMatch@25%%/@50%% -- needed for resolution probe 1.8a")
 
     args = parser.parse_args()
 
