@@ -16,8 +16,8 @@ flow arrows are ~16 px (diagonal) vs ~79 px in synthetic training data (~5×). T
 
 | Supercategory | default AP@50 | small_objects AP@50 | Delta |
 |:--------------|-------------------:|----------------:|------:|
-| valve         |              0.578 |           0.780 | +0.202 |
-| arrow         |              0.178 |           0.332 | +0.154 |  ← KEY
+| valve         |              0.578 |           0.790 | +0.213 |
+| arrow         |              0.178 |           0.331 | +0.152 |  ← KEY
 | instrument    |              0.979 |           0.989 | +0.010 |
 
 ### Arrow detail (Tier-2)
@@ -25,7 +25,7 @@ flow arrows are ~16 px (diagonal) vs ~79 px in synthetic training data (~5×). T
 | Model          | n_gt | TP  | Recall | AP@50 |
 |:---------------|-----:|----:|-------:|------:|
 | default        |  833 | 217 |  0.261 | 0.178 |
-| small_objects  |  833 | 376 |  0.451 | 0.332 |
+| small_objects  |  833 | 380 |  0.456 | 0.331 |
 
 ---
 
@@ -36,14 +36,14 @@ flow arrows are ~16 px (diagonal) vs ~79 px in synthetic training data (~5×). T
 | Metric              | default | small_objects | Delta |
 |:--------------------|----------:|------:|------:|
 | mAP@50 (32-class)   |     0.994 | 0.994 | +0.000 |
-| mAP@50-95           |     0.985 | 0.981 | -0.004 |
+| mAP@50-95           |     0.985 | 0.982 | -0.003 |
 | flow_arrow AP@50    |     0.995 | 0.995 | +0.000 |
-| flow_arrow recall   |     0.990 | 0.984 | -0.006 |
+| flow_arrow recall   |     0.990 | 0.990 | +0.000 |
 
 ---
 
 ## Interpretation
 
-**Arrow (Tier-2):** Arrow AP improved by +0.154 — scale jitter is working.  
-**Valve (Tier-2):** delta=+0.202 (valve fix requires more than aug alone — see valve root-cause).  
+**Arrow (Tier-2):** Arrow AP improved by +0.152 — scale jitter is working.  
+**Valve (Tier-2):** delta=+0.213 (valve fix requires more than aug alone — see valve root-cause).  
 **Regression check:** In-dist mAP held or improved (+0.000) — no regression.
