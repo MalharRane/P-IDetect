@@ -122,15 +122,16 @@ def predict(args: argparse.Namespace) -> None:
     if h_img is None:
         raise FileNotFoundError(f"Cannot read: {image_path}")
     img_h, img_w = h_img.shape[:2]
+    slice_hw = args.slice or args.imgsz
     print(f"Image size: {img_w}×{img_h}px")
-    print(f"Tiling: {args.imgsz}px tiles, {args.overlap:.0%} overlap")
+    print(f"Tiling: {slice_hw}px slices @ imgsz={args.imgsz}, {args.overlap:.0%} overlap")
 
     t0 = time.perf_counter()
     result = get_sliced_prediction(
         image=str(image_path),
         detection_model=detection_model,
-        slice_height=args.imgsz,
-        slice_width=args.imgsz,
+        slice_height=slice_hw,
+        slice_width=slice_hw,
         overlap_height_ratio=args.overlap,
         overlap_width_ratio=args.overlap,
         perform_standard_pred=False,   # whole-image pass useless at 640px
@@ -160,7 +161,8 @@ def predict(args: argparse.Namespace) -> None:
         "image_path":    str(image_path),
         "image_size":    [img_w, img_h],
         "model":         str(weights),
-        "tile_size":     args.imgsz,
+        "slice_size":    slice_hw,
+        "imgsz":         args.imgsz,
         "overlap":       args.overlap,
         "conf_threshold": args.conf,
         "iou_threshold":  args.iou,
@@ -201,7 +203,12 @@ def main() -> None:
     parser.add_argument("--out", default=None,
                         help="Output directory (default: weights/../predict/)")
     parser.add_argument("--imgsz", type=int, default=640,
-                        help="Tile size — must match training (default: 640)")
+                        help="Model input size (default 640). Use --slice to set crop "
+                             "size separately (e.g. --slice 320 --imgsz 640 for 1.8c).")
+    parser.add_argument("--slice", type=int, default=None,
+                        help="SAHI slice crop size in px. Default: same as --imgsz. "
+                             "Set smaller than --imgsz for sub-tile upscaling "
+                             "(e.g. --slice 320 --imgsz 640 gives 2x effective upscale).")
     parser.add_argument("--overlap", type=float, default=0.2,
                         help="Tile overlap fraction (default: 0.2)")
     parser.add_argument("--conf", type=float, default=0.25,
