@@ -33,13 +33,24 @@ from src.pidetect.data.inspect import save_class_distribution
 # ---------------------------------------------------------------------------
 
 SRC          = Path("data/digitize-pid-yolo/DigitizePID_Dataset")
-TILED        = Path("data/tiled")
-SYNTH        = Path("data/synthetic")
-SYNTH_TILED  = Path("data/synthetic_tiled")   # 640px tiles of the synthetic sheets
-MERGED       = Path("data/merged")
-YAML         = Path("configs/yolo_baseline.yaml")
 NC           = 32
 SEP          = "=" * 62
+
+
+def _paths(tile: int) -> tuple[Path, Path, Path, Path, Path]:
+    """Return (TILED, SYNTH, SYNTH_TILED, MERGED, YAML) for a given tile size.
+
+    tile=640 → current canonical paths (backward-compatible).
+    tile=320 → parallel paths so the 640px dataset is not overwritten.
+    """
+    suffix = "" if tile == 640 else f"_{tile}"
+    tiled       = Path(f"data/tiled{suffix}")
+    synth       = Path("data/synthetic")          # synthetic sheets are tile-independent
+    synth_tiled = Path(f"data/synthetic_tiled{suffix}")
+    merged      = Path(f"data/merged{suffix}")
+    yaml_path   = Path("configs/yolo_baseline.yaml" if tile == 640
+                       else f"configs/yolo_{tile}.yaml")
+    return tiled, synth, synth_tiled, merged, yaml_path
 
 
 # ---------------------------------------------------------------------------
@@ -83,22 +94,22 @@ def step_download(force: bool) -> None:
 # Step 2 — Tile real dataset
 # ---------------------------------------------------------------------------
 
-def step_tile(force: bool) -> None:
+def step_tile(force: bool, tiled: Path, tile: int) -> None:
     print(f"\n{SEP}")
-    print("Step 2: Tile real dataset (640px / 20% overlap)")
+    print(f"Step 2: Tile real dataset ({tile}px / 20% overlap)")
     print(SEP)
-    if not force and _has_files(TILED / "images/train"):
-        print(f"  SKIP: {TILED}/images/train already has tiles")
+    if not force and _has_files(tiled / "images/train"):
+        print(f"  SKIP: {tiled}/images/train already has tiles")
         return
     if force:
         for split in ("train", "val", "test"):
             for sub in ("images", "labels"):
-                d = TILED / sub / split
+                d = tiled / sub / split
                 if d.exists():
                     shutil.rmtree(d)
 
     print(f"  Source: {SRC}")
-    results = slice_dataset(SRC / "images", SRC / "labels", TILED)
+    results = slice_dataset(SRC / "images", SRC / "labels", tiled, tile=tile)
     for split, s in results.items():
         ret = s["boxes_out"] / max(s["boxes_in"], 1)
         print(f"  [{split}]  {s['tiles_written']:>6} tiles  "
@@ -109,18 +120,18 @@ def step_tile(force: bool) -> None:
 # Step 3 — Carve test split from tiled val (at source-image granularity)
 # ---------------------------------------------------------------------------
 
-def step_carve_test(seed: int, test_fraction: float, force: bool) -> None:
+def step_carve_test(seed: int, test_fraction: float, force: bool, tiled: Path) -> None:
     print(f"\n{SEP}")
     print("Step 3: Carve test split from tiled val  (real data only)")
     print(SEP)
-    if not force and _has_files(TILED / "images/test"):
-        print(f"  SKIP: {TILED}/images/test already has tiles")
+    if not force and _has_files(tiled / "images/test"):
+        print(f"  SKIP: {tiled}/images/test already has tiles")
         return
 
-    val_tiles = sorted((TILED / "images/val").glob("*.jpg"))
+    val_tiles = sorted((tiled / "images/val").glob("*.jpg"))
     if not val_tiles:
         raise RuntimeError(
-            f"No tiles in {TILED}/images/val -- step 2 must run first."
+            f"No tiles in {tiled}/images/val -- step 2 must run first."
         )
 
     # Tile filenames: "{original_stem}_{row:05d}.jpg"
@@ -135,19 +146,19 @@ def step_carve_test(seed: int, test_fraction: float, force: bool) -> None:
     print(f"  -> test sources   : {n_test}  ({test_fraction:.0%})")
     print(f"  -> val sources    : {len(src_stems) - n_test}")
 
-    (TILED / "images/test").mkdir(parents=True, exist_ok=True)
-    (TILED / "labels/test").mkdir(parents=True, exist_ok=True)
+    (tiled / "images/test").mkdir(parents=True, exist_ok=True)
+    (tiled / "labels/test").mkdir(parents=True, exist_ok=True)
 
     moved = 0
-    for tile in val_tiles:
-        if tile.stem.rsplit("_", 1)[0] in test_set:
-            tile.rename(TILED / "images/test" / tile.name)
-            lbl = TILED / "labels/val" / (tile.stem + ".txt")
+    for t in val_tiles:
+        if t.stem.rsplit("_", 1)[0] in test_set:
+            t.rename(tiled / "images/test" / t.name)
+            lbl = tiled / "labels/val" / (t.stem + ".txt")
             if lbl.exists():
-                lbl.rename(TILED / "labels/test" / lbl.name)
+                lbl.rename(tiled / "labels/test" / lbl.name)
             moved += 1
 
-    remaining = len(list((TILED / "images/val").glob("*.jpg")))
+    remaining = len(list((tiled / "images/val").glob("*.jpg")))
     print(f"  tiles moved to test : {moved}")
     print(f"  val tiles remaining : {remaining}")
 
@@ -156,15 +167,15 @@ def step_carve_test(seed: int, test_fraction: float, force: bool) -> None:
 # Step 4 — Synthetic dataset
 # ---------------------------------------------------------------------------
 
-def step_synthetic(synth_n: int, seed: int, force: bool) -> None:
+def step_synthetic(synth_n: int, seed: int, force: bool, synth: Path) -> None:
     print(f"\n{SEP}")
     print(f"Step 4a: Generate synthetic dataset  (n={synth_n}  seed={seed})")
     print(SEP)
-    if not force and _has_files(SYNTH / "images/train"):
-        print(f"  SKIP: {SYNTH}/images/train already has sheets")
+    if not force and _has_files(synth / "images/train"):
+        print(f"  SKIP: {synth}/images/train already has sheets")
         return
-    if force and SYNTH.exists():
-        shutil.rmtree(SYNTH)
+    if force and synth.exists():
+        shutil.rmtree(synth)
 
     glyphs = build_glyph_library(SRC / "images", SRC / "labels")
     missing = [c for c in range(NC) if not glyphs.get(c)]
@@ -173,21 +184,21 @@ def step_synthetic(synth_n: int, seed: int, force: bool) -> None:
     total_crops = sum(len(v) for v in glyphs.values())
     print(f"  glyph library: {total_crops} crops across {len(glyphs)} / {NC} classes")
 
-    generate_dataset(glyphs, n=synth_n, out_dir=SYNTH, seed=seed)
+    generate_dataset(glyphs, n=synth_n, out_dir=synth, seed=seed)
 
 
-def step_tile_synthetic(force: bool) -> None:
+def step_tile_synthetic(force: bool, synth: Path, synth_tiled: Path, tile: int) -> None:
     print(f"\n{SEP}")
-    print("Step 4b: Tile synthetic sheets  (640px / 20% overlap)")
+    print(f"Step 4b: Tile synthetic sheets  ({tile}px / 20% overlap)")
     print(SEP)
-    if not force and _has_files(SYNTH_TILED / "images/train"):
-        print(f"  SKIP: {SYNTH_TILED}/images/train already has tiles")
+    if not force and _has_files(synth_tiled / "images/train"):
+        print(f"  SKIP: {synth_tiled}/images/train already has tiles")
         return
-    if force and SYNTH_TILED.exists():
-        shutil.rmtree(SYNTH_TILED)
+    if force and synth_tiled.exists():
+        shutil.rmtree(synth_tiled)
 
-    print(f"  Source: {SYNTH}")
-    results = slice_dataset(SYNTH / "images", SYNTH / "labels", SYNTH_TILED)
+    print(f"  Source: {synth}")
+    results = slice_dataset(synth / "images", synth / "labels", synth_tiled, tile=tile)
     for split, s in results.items():
         ret = s["boxes_out"] / max(s["boxes_in"], 1)
         print(f"  [{split}]  {s['tiles_written']:>6} tiles  "
@@ -198,28 +209,28 @@ def step_tile_synthetic(force: bool) -> None:
 # Step 5 — Merge into data/merged/
 # ---------------------------------------------------------------------------
 
-def step_merge(force: bool) -> None:
+def step_merge(force: bool, tiled: Path, synth_tiled: Path, merged: Path) -> None:
     print(f"\n{SEP}")
-    print("Step 5: Merge into data/merged/  (hard links, copy fallback)")
+    print(f"Step 5: Merge into {merged}/  (hard links, copy fallback)")
     print(SEP)
-    if force and MERGED.exists():
-        shutil.rmtree(MERGED)
+    if force and merged.exists():
+        shutil.rmtree(merged)
 
     # Synthetic TILED tiles go into train ONLY — val and test stay real-only
     img_sources = {
-        "train": [TILED / "images/train", SYNTH_TILED / "images/train"],
-        "val":   [TILED / "images/val"],
-        "test":  [TILED / "images/test"],
+        "train": [tiled / "images/train", synth_tiled / "images/train"],
+        "val":   [tiled / "images/val"],
+        "test":  [tiled / "images/test"],
     }
     lbl_sources = {
-        "train": [TILED / "labels/train", SYNTH_TILED / "labels/train"],
-        "val":   [TILED / "labels/val"],
-        "test":  [TILED / "labels/test"],
+        "train": [tiled / "labels/train", synth_tiled / "labels/train"],
+        "val":   [tiled / "labels/val"],
+        "test":  [tiled / "labels/test"],
     }
 
     for split in ("train", "val", "test"):
-        img_dst = MERGED / "images" / split
-        lbl_dst = MERGED / "labels" / split
+        img_dst = merged / "images" / split
+        lbl_dst = merged / "labels" / split
         img_dst.mkdir(parents=True, exist_ok=True)
         lbl_dst.mkdir(parents=True, exist_ok=True)
 
@@ -239,19 +250,22 @@ def step_merge(force: bool) -> None:
 # Step 6 — Write dataset YAML
 # ---------------------------------------------------------------------------
 
-def step_write_yaml() -> None:
+def step_write_yaml(merged: Path, yaml_path: Path) -> None:
     print(f"\n{SEP}")
-    print("Step 6: Update configs/yolo_baseline.yaml")
+    print(f"Step 6: Update {yaml_path}")
     print(SEP)
 
-    with open(YAML) as fh:
+    # Read names from the canonical baseline yaml (always present after first build)
+    baseline = Path("configs/yolo_baseline.yaml")
+    src_yaml = baseline if baseline.exists() else yaml_path
+    with open(src_yaml) as fh:
         cfg = yaml.safe_load(fh)
     names = cfg["names"]
     nc    = cfg.get("nc", NC)
 
     lines = [
         "# Auto-generated by scripts/build_dataset.py -- edit the script, not this file.",
-        "path: data/merged",
+        f"path: {merged}",
         "train: images/train",
         "val: images/val",
         "test: images/test",
@@ -262,21 +276,21 @@ def step_write_yaml() -> None:
     for i in range(nc):
         lines.append(f"  {i}: {names[i]}")
 
-    YAML.write_text("\n".join(lines) + "\n")
-    print(f"  Written {YAML}")
-    print(f"  path=data/merged   nc={nc}   splits=train/val/test")
+    yaml_path.write_text("\n".join(lines) + "\n")
+    print(f"  Written {yaml_path}")
+    print(f"  path={merged}   nc={nc}   splits=train/val/test")
 
 
 # ---------------------------------------------------------------------------
 # Step 7 — Per-class histogram
 # ---------------------------------------------------------------------------
 
-def step_histogram() -> None:
+def step_histogram(merged: Path) -> None:
     print(f"\n{SEP}")
-    print("Step 7: Per-class instance counts  (merged train)")
+    print(f"Step 7: Per-class instance counts  ({merged}/labels/train)")
     print(SEP)
     counts: Counter = Counter()
-    for lbl in sorted((MERGED / "labels/train").glob("*.txt")):
+    for lbl in sorted((merged / "labels/train").glob("*.txt")):
         for line in lbl.read_text().splitlines():
             if line.strip():
                 counts[int(line.split()[0])] += 1
@@ -293,7 +307,8 @@ def step_histogram() -> None:
         bar = "#" * max(1, round(n * 40 / max_c))
         print(f"    cls {cls:>2}: {n:>6}  {bar}")
 
-    hist_out = Path("data/merged_class_distribution.png")
+    stem = merged.name  # "merged" or "merged_320"
+    hist_out = Path(f"data/{stem}_class_distribution.png")
     save_class_distribution(counts, NC, hist_out)
     print(f"\n  histogram -> {hist_out}")
 
@@ -310,35 +325,45 @@ def main() -> None:
                     help="number of synthetic sheets to generate")
     ap.add_argument("--test-fraction", type=float, default=0.20,
                     help="fraction of HF val source images reserved for test")
+    ap.add_argument("--tile",          type=int,   default=640,
+                    help="tile side length in px (default 640). Use 320 for phase 1.8c "
+                         "higher-resolution training. Non-640 values write to separate "
+                         "data/tiled_<N>, data/merged_<N> and configs/yolo_<N>.yaml so "
+                         "the canonical 640px dataset is not overwritten.")
     ap.add_argument("--force",         action="store_true",
                     help="clear and re-run all steps from scratch")
     args = ap.parse_args()
 
+    tiled, synth, synth_tiled, merged, yaml_path = _paths(args.tile)
+
     print(f"\n{SEP}")
     print("PIDetect -- Phase 0 one-command dataset build")
-    print(f"  seed={args.seed}  synth_n={args.synth_n}  "
+    print(f"  seed={args.seed}  synth_n={args.synth_n}  tile={args.tile}px  "
           f"test_fraction={args.test_fraction}  force={args.force}")
+    print(f"  -> tiled:      {tiled}")
+    print(f"  -> merged:     {merged}")
+    print(f"  -> yaml:       {yaml_path}")
     print(SEP)
 
     step_download(args.force)
-    step_tile(args.force)
-    step_carve_test(args.seed, args.test_fraction, args.force)
-    step_synthetic(args.synth_n, args.seed, args.force)
-    step_tile_synthetic(args.force)
-    step_merge(args.force)
-    step_write_yaml()
-    step_histogram()
+    step_tile(args.force, tiled, args.tile)
+    step_carve_test(args.seed, args.test_fraction, args.force, tiled)
+    step_synthetic(args.synth_n, args.seed, args.force, synth)
+    step_tile_synthetic(args.force, synth, synth_tiled, args.tile)
+    step_merge(args.force, tiled, synth_tiled, merged)
+    step_write_yaml(merged, yaml_path)
+    step_histogram(merged)
 
     # Summary
     print(f"\n{SEP}")
     print("Phase 0 COMPLETE")
     for split in ("train", "val", "test"):
-        n = len(list((MERGED / "images" / split).glob("*.jpg")))
+        n = len(list((merged / "images" / split).glob("*.jpg")))
         real = "real+synth" if split == "train" else "real only"
         print(f"  {split:<5}: {n:>6} tiles  ({real})")
-    print(f"\n  Config   : {YAML}")
+    print(f"\n  Config   : {yaml_path}")
     print(f"  Histogram: data/merged_class_distribution.png")
-    print(f"  Rebuild  : python scripts/build_dataset.py")
+    print(f"  Rebuild  : python scripts/build_dataset.py --tile {args.tile}")
     print(SEP + "\n")
 
 
