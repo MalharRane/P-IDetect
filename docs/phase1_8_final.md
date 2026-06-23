@@ -1,38 +1,41 @@
 # Phase 1.8 Final — Resolution Fix Decision & Phase 2 Go/No-Go
 
-**Eval date:** 2026-06-21  
+**Eval date:** 2026-06-21 (1.8a/b), 2026-06-24 (1.8c post-retrain)  
 **Gate target:** Arrow CtrMt@50% > ~80%, valve + instrument recall intact
 
 ---
 
-## A. Branch decision
+## A. Branch decision & outcome
 
 | Condition | Value | Threshold | Status |
 |:----------|------:|----------:|:-------|
-| Arrow CtrMt@50% (best so far) | 65.2% | ≥ 80% | **Below — retrain needed** |
+| Arrow CtrMt@50% after 1.8c retrain | 65.2% | ≥ 80% | **Below gate — plateau confirmed** |
 | Valve recall | 0.922 | ≥ baseline (0.821) | No regression |
 | Instrument recall | 0.994 | ≥ baseline (0.992) | No regression |
 
-**Branch: retile train set to 320px + retrain.**  
-Two-pass inference is NOT needed — large symbols held at 320px slice in 1.8b.
+**Branch taken:** Retile train set to 320px + retrain (50 epochs, batch=32).
 
-**Why the 65% ceiling exists:** 1.8a and 1.8b both plateau at ~65% because the model
-was trained on 640px tiles where flow arrows appear ~16px. At inference time (imgsz=1280
-or SAHI slice=320) it sees arrows at ~32px — out-of-distribution. The fix is to train on
-320px tiles at imgsz=640 so training and inference are consistent at 2× upscale.
+**Outcome:** No improvement. CtrMt@50% for arrows is identical to 1.8b (65.2%).
+The 320px retrain hypothesis was that the ceiling was a training/inference resolution
+mismatch. That hypothesis is **falsified**. The model trained on 320px tiles sees arrows
+at ~32px during training — identical to 320px SAHI inference — but the OPEN100 number
+doesn't move. The bottleneck is not model resolution.
 
 ---
 
 ## B. Phase 1.8 summary — all configurations
 
-| Config | Arrow recall | Arrow CtrMt@50% | Arrow prec | Valve recall | Instr recall | Cost |
-|:-------|------------:|----------------:|-----------:|-------------:|-------------:|-----:|
-| 640 whole-tile (baseline) | 0.456 | 57.9% | 0.696 | 0.821 | 0.992 | 1× |
-| 1280 whole-tile (1.8a) | 0.525 | 64.9% | 0.722 | 0.907 | 0.990 | ~2× |
-| SAHI slice=320 (1.8b) | 0.493 | 65.2% | 0.667 | 0.922 | 0.994 | 37.5× |
-| **320px retrain (1.8c)** | **TBD** | **TBD** | **TBD** | **TBD** | **TBD** | **~2×** |
+| Config | Arrow recall | Arrow CtrMt@50% | Arrow AP@0.5 | Valve recall | Instr recall | Cost |
+|:-------|------------:|----------------:|------------:|-------------:|-------------:|-----:|
+| 640 whole-tile (baseline) | 0.456 | 57.9% | — | 0.821 | 0.992 | 1× |
+| 1280 whole-tile (1.8a) | 0.525 | 64.9% | — | 0.907 | 0.990 | ~2× |
+| SAHI slice=320 (1.8b) | 0.493 | 65.2% | 0.337 | 0.922 | 0.994 | 37.5× |
+| **320px retrain + SAHI slice=320 (1.8c)** | **0.493** | **65.2%** | **0.337** | **0.922** | **0.994** | **~2×** |
 
-1.8c target: inference at `--slice 320 --imgsz 640`, same 1.8b eval path.
+**1.8c result: no improvement over 1.8b.** The plateau at ~65% is not a training/inference
+distribution mismatch — the 320px retrain (50 epochs, val mAP50 0.9945) produces identical
+OPEN100 Tier-2 metrics to the 640px-trained model with SAHI inference. The ceiling is
+elsewhere (see Section D).
 
 ---
 
@@ -89,22 +92,45 @@ python -m pidetect.detect.predict \
 
 ---
 
-## D. Phase 2 go/no-go
+## D. Phase 2 go/no-go & arrow diagnosis
 
-**Current status: NOT GO.**
+**Current status: NOT GO on arrow gate. Valve and instrument: GO.**
 
-Arrow CtrMt@50% = 65.2% (best: 1.8b sahi-320) is below the ~80% gate. Valve and
-instrument recall are intact and actually improved. The blocker is the training/inference
-distribution mismatch for arrows — addressed by 1.8c retrain on 320px tiles.
+| Supercategory | CtrMt@50% | Gate | Status |
+|:--------------|----------:|-----:|:-------|
+| valve | 97.6% | ≥ 80% | **GO** |
+| instrument | 99.4% | ≥ 80% | **GO** |
+| arrow | 65.2% | ≥ 80% | **NOT GO** |
 
-**Becomes GO when:** After 1.8c Kaggle training, re-eval at `--slice-size 320` shows
-arrow CtrMt@50% ≥ 80% with valve recall ≥ 0.821 and instrument recall ≥ 0.992.
+**Why the 320px retrain didn't help — candidate root causes:**
+
+1. **OPEN100 ground truth coverage.** The OPEN100 Tier-2 arrow labels were
+   annotated at coarse supercategory granularity for real sheets. Arrows with unusual
+   styles (filled triangle vs open, very thin signal-line arrows, diagonal arrows on
+   flow lines) may be in the GT but absent from the synthetic training distribution
+   entirely — a domain gap that no resolution fix can close.
+
+2. **Class imbalance in training.** Arrow instances in the 32-class training set
+   (hamzas/digitize-pid-yolo) may be concentrated in one or two sub-classes while
+   the OPEN100 sheets contain a wider variety. Per-class AP was not tracked on the
+   arrow sub-classes during training.
+
+3. **Annotation quality ceiling.** CtrMt@50% requires a predicted center within
+   50% of the GT box size. If 35% of OPEN100 GT arrows are occluded, truncated,
+   or labeled at slightly wrong scale, the ceiling is below 80% regardless of model
+   quality.
+
+**Recommended next step before escalating to model changes:**
+Inspect the 35% miss cases directly — load OPEN100 Tier-2 tiles, overlay GT vs
+predictions, classify misses as: (a) model missed a real arrow, (b) GT box is
+low-quality, (c) arrow style not in training distribution. This takes one eval
+notebook session and determines whether the fix is data, annotation, or architecture.
 
 **Phase 2 scope (pending go):** Fine-grained classifier for:
-- idx 16/17/18 — spectacle-blind-like fittings (excluded from valve supercategory; need own class)
+- idx 16/17/18 — spectacle-blind-like fittings (excluded from valve supercategory)
 - idx 3/10 — valve look-alikes in the bowtie/pinch family
-- Initial step: build a dedicated classifier for these families; OPEN100 doesn't cover them so
-  real-world signal must come from manual annotation or domain-specific augmentation
+- Real-world signal must come from manual annotation or domain augmentation since
+  OPEN100 doesn't cover fine-grained valve sub-types
 
 ---
 
