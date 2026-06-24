@@ -94,39 +94,44 @@ python -m pidetect.detect.predict \
 
 ## D. Phase 2 go/no-go & arrow diagnosis
 
-**Current status: NOT GO on arrow gate. Valve and instrument: GO.**
+**Updated 2026-06-24 (post-triage). Arrows: ACCEPT-AND-DOCUMENT. Phase 2 GO.**
 
 | Supercategory | CtrMt@50% | Gate | Status |
 |:--------------|----------:|-----:|:-------|
 | valve | 97.6% | ≥ 80% | **GO** |
 | instrument | 99.4% | ≥ 80% | **GO** |
-| arrow | 65.2% | ≥ 80% | **NOT GO** |
+| arrow | 65.2% | ≥ 80% | **accept-and-document** |
 
-**Why the 320px retrain didn't help — candidate root causes:**
+**Arrow triage completed — see `docs/arrow_triage/miss_breakdown.md`.**
 
-1. **OPEN100 ground truth coverage.** The OPEN100 Tier-2 arrow labels were
-   annotated at coarse supercategory granularity for real sheets. Arrows with unusual
-   styles (filled triangle vs open, very thin signal-line arrows, diagonal arrows on
-   flow lines) may be in the GT but absent from the synthetic training distribution
-   entirely — a domain gap that no resolution fix can close.
+**Question 1 — Is OPEN100 'arrow' the same class as our flow_arrow?**  
+YES. Visual inspection of 30 GT crops confirms all are solid filled-triangle arrowheads
+on solid process lines — identical semantically to idx-23 `flow_arrow`. Bucket (d)
+(semantic mismatch) contributes **0%** to the miss rate. The eval is apples-to-apples.
 
-2. **Class imbalance in training.** Arrow instances in the 32-class training set
-   (hamzas/digitize-pid-yolo) may be concentrated in one or two sub-classes while
-   the OPEN100 sheets contain a wider variety. Per-class AP was not tracked on the
-   arrow sub-classes during training.
+**Question 2 — Why are the ~35% missed?**  
+Root cause is a pure **training-distribution scale gap** (bucket c):
 
-3. **Annotation quality ceiling.** CtrMt@50% requires a predicted center within
-   50% of the GT box size. If 35% of OPEN100 GT arrows are occluded, truncated,
-   or labeled at slightly wrong scale, the ceiling is below 80% regardless of model
-   quality.
+| Bucket | Description | Est. % of missed |
+|:---|:---|---:|
+| (c) Training distribution gap | 99.8% of OPEN100 arrows are 8–30px; synth median is 79.2px | ~100% |
+| (b) GT quality issue | 0 arrows below 8px, 0 near edge | 0% |
+| (d) Semantic mismatch | confirmed 0% by visual inspection | 0% |
+| (a) Genuine model miss | 1 arrow (30px) in detectable range | <1% |
 
-**Recommended next step before escalating to model changes:**
-Inspect the 35% miss cases directly — load OPEN100 Tier-2 tiles, overlay GT vs
-predictions, classify misses as: (a) model missed a real arrow, (b) GT box is
-low-quality, (c) arrow style not in training distribution. This takes one eval
-notebook session and determines whether the fix is data, annotation, or architecture.
+All 451 OPEN100 arrows fall in 8.8–30.0 px diagonal (median 17.8px). The synthetic
+training distribution has zero overlap with this range (synth median 79.2px, 4.4× larger).
+The 1.8c retrain confirmed this: changing training tile resolution does not change the
+size of synthetic arrows relative to the tile, so the scale gap is unaffected.
 
-**Phase 2 scope (pending go):** Fine-grained classifier for:
+**Gate decision:**
+- Arrow gate is formally not met (65.2% vs 80% target)
+- Root cause is training data, not model architecture
+- Fix: add real arrow crops as synth templates from a held-out OPEN100 slice — low effort,
+  no full retrain needed. Not a P2 prerequisite.
+- **Phase 2 starts immediately. Arrows are a separate, lower-criticality track.**
+
+**Phase 2 scope:** Fine-grained classifier for:
 - idx 16/17/18 — spectacle-blind-like fittings (excluded from valve supercategory)
 - idx 3/10 — valve look-alikes in the bowtie/pinch family
 - Real-world signal must come from manual annotation or domain augmentation since
