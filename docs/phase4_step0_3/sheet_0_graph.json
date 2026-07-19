@@ -1,0 +1,1614 @@
+{
+  "sheet_id": 0,
+  "nodes": [
+    {
+      "id": "sym_0",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1553.0,
+        444.0,
+        1568.0,
+        465.0
+      ],
+      "conf": 0.9215
+    },
+    {
+      "id": "sym_1",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1116.0,
+        333.0,
+        1131.0,
+        355.0
+      ],
+      "conf": 0.9203
+    },
+    {
+      "id": "sym_2",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        894.0,
+        718.0,
+        915.0,
+        733.0
+      ],
+      "conf": 0.9175
+    },
+    {
+      "id": "sym_3",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1167.0,
+        718.0,
+        1188.0,
+        733.0
+      ],
+      "conf": 0.9175
+    },
+    {
+      "id": "sym_4",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1567.0,
+        718.0,
+        1589.0,
+        733.0
+      ],
+      "conf": 0.9173
+    },
+    {
+      "id": "sym_5",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        930.0,
+        718.0,
+        952.0,
+        732.0
+      ],
+      "conf": 0.9172
+    },
+    {
+      "id": "sym_6",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1531.0,
+        718.0,
+        1553.0,
+        732.0
+      ],
+      "conf": 0.9165
+    },
+    {
+      "id": "sym_7",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1203.0,
+        718.0,
+        1225.0,
+        733.0
+      ],
+      "conf": 0.9158
+    },
+    {
+      "id": "sym_8",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1546.0,
+        1123.0,
+        1568.0,
+        1139.0
+      ],
+      "conf": 0.9146
+    },
+    {
+      "id": "sym_9",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1541.0,
+        652.0,
+        1563.0,
+        667.0
+      ],
+      "conf": 0.9133
+    },
+    {
+      "id": "sym_10",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1610.0,
+        652.0,
+        1631.0,
+        667.0
+      ],
+      "conf": 0.911
+    },
+    {
+      "id": "sym_11",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1504.0,
+        1189.0,
+        1526.0,
+        1204.0
+      ],
+      "conf": 0.9109
+    },
+    {
+      "id": "sym_12",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        972.0,
+        652.0,
+        994.0,
+        667.0
+      ],
+      "conf": 0.9106
+    },
+    {
+      "id": "sym_13",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1468.0,
+        1189.0,
+        1489.0,
+        1204.0
+      ],
+      "conf": 0.9092
+    },
+    {
+      "id": "sym_14",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1245.0,
+        652.0,
+        1267.0,
+        667.0
+      ],
+      "conf": 0.9088
+    },
+    {
+      "id": "sym_15",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        903.0,
+        652.0,
+        925.0,
+        667.0
+      ],
+      "conf": 0.9076
+    },
+    {
+      "id": "sym_16",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1477.0,
+        1123.0,
+        1499.0,
+        1139.0
+      ],
+      "conf": 0.9069
+    },
+    {
+      "id": "sym_17",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1176.0,
+        652.0,
+        1198.0,
+        667.0
+      ],
+      "conf": 0.9009
+    },
+    {
+      "id": "sym_18",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1662.0,
+        479.0,
+        1684.0,
+        489.0
+      ],
+      "conf": 0.4058
+    },
+    {
+      "id": "sym_19",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1737.0,
+        481.0,
+        1759.0,
+        489.0
+      ],
+      "conf": 0.2539
+    },
+    {
+      "id": "sym_20",
+      "node_type": "valve",
+      "cls_name": "valve_handwheel",
+      "bbox": [
+        1262.0,
+        299.0,
+        1280.0,
+        319.0
+      ],
+      "conf": 0.857
+    },
+    {
+      "id": "sym_21",
+      "node_type": "valve",
+      "cls_name": "valve_handwheel",
+      "bbox": [
+        1208.0,
+        293.0,
+        1226.0,
+        319.0
+      ],
+      "conf": 0.8537
+    },
+    {
+      "id": "sym_22",
+      "node_type": "valve",
+      "cls_name": "valve_handwheel",
+      "bbox": [
+        1317.0,
+        298.0,
+        1335.0,
+        318.0
+      ],
+      "conf": 0.7802
+    },
+    {
+      "id": "sym_23",
+      "node_type": "valve",
+      "cls_name": "valve_handwheel",
+      "bbox": [
+        1153.0,
+        294.0,
+        1171.0,
+        318.0
+      ],
+      "conf": 0.7757
+    },
+    {
+      "id": "sym_24",
+      "node_type": "valve",
+      "cls_name": "check_valve",
+      "bbox": [
+        702.0,
+        615.0,
+        730.0,
+        658.0
+      ],
+      "conf": 0.8625
+    },
+    {
+      "id": "sym_25",
+      "node_type": "valve",
+      "cls_name": "Symbol_10",
+      "bbox": [
+        1317.0,
+        298.0,
+        1335.0,
+        318.0
+      ],
+      "conf": 0.3746
+    },
+    {
+      "id": "sym_26",
+      "node_type": "valve",
+      "cls_name": "Symbol_10",
+      "bbox": [
+        1208.0,
+        295.0,
+        1225.0,
+        318.0
+      ],
+      "conf": 0.2999
+    },
+    {
+      "id": "sym_27",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1494.0,
+        1071.0,
+        1525.0,
+        1108.0
+      ],
+      "conf": 0.9458
+    },
+    {
+      "id": "sym_28",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1094.0,
+        260.0,
+        1131.0,
+        283.0
+      ],
+      "conf": 0.9434
+    },
+    {
+      "id": "sym_29",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1641.0,
+        908.0,
+        1669.0,
+        946.0
+      ],
+      "conf": 0.9434
+    },
+    {
+      "id": "sym_30",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        925.0,
+        598.0,
+        948.0,
+        635.0
+      ],
+      "conf": 0.9381
+    },
+    {
+      "id": "sym_31",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1550.0,
+        598.0,
+        1572.0,
+        635.0
+      ],
+      "conf": 0.9377
+    },
+    {
+      "id": "sym_32",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        466.0,
+        700.0,
+        489.0,
+        737.0
+      ],
+      "conf": 0.9364
+    },
+    {
+      "id": "sym_33",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1185.0,
+        598.0,
+        1208.0,
+        635.0
+      ],
+      "conf": 0.9353
+    },
+    {
+      "id": "sym_34",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1635.0,
+        983.0,
+        1671.0,
+        1006.0
+      ],
+      "conf": 0.9342
+    },
+    {
+      "id": "sym_35",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1330.0,
+        351.0,
+        1354.0,
+        389.0
+      ],
+      "conf": 0.924
+    },
+    {
+      "id": "sym_36",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1274.0,
+        452.0,
+        1300.0,
+        489.0
+      ],
+      "conf": 0.8934
+    },
+    {
+      "id": "sym_37",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1662.0,
+        448.0,
+        1684.0,
+        488.0
+      ],
+      "conf": 0.4692
+    },
+    {
+      "id": "sym_38",
+      "node_type": "valve",
+      "cls_name": "control_valve_diaphragm",
+      "bbox": [
+        1737.0,
+        465.0,
+        1758.0,
+        488.0
+      ],
+      "conf": 0.2744
+    },
+    {
+      "id": "sym_39",
+      "node_type": "unknown_fitting",
+      "cls_name": "reducer",
+      "bbox": [
+        1661.0,
+        1024.0,
+        1679.0,
+        1033.0
+      ],
+      "conf": 0.5523
+    },
+    {
+      "id": "sym_40",
+      "node_type": "unknown_fitting",
+      "cls_name": "reducer",
+      "bbox": [
+        1577.0,
+        650.0,
+        1595.0,
+        669.0
+      ],
+      "conf": 0.2657
+    },
+    {
+      "id": "sym_41",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        578.0,
+        929.0,
+        586.0,
+        944.0
+      ],
+      "conf": 0.8975
+    },
+    {
+      "id": "sym_42",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        324.0,
+        1075.0,
+        332.0,
+        1090.0
+      ],
+      "conf": 0.8926
+    },
+    {
+      "id": "sym_43",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        642.0,
+        1003.0,
+        657.0,
+        1011.0
+      ],
+      "conf": 0.8903
+    },
+    {
+      "id": "sym_44",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        606.0,
+        1003.0,
+        620.0,
+        1011.0
+      ],
+      "conf": 0.8817
+    },
+    {
+      "id": "sym_45",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        677.0,
+        784.0,
+        685.0,
+        799.0
+      ],
+      "conf": 0.8665
+    },
+    {
+      "id": "sym_46",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        312.0,
+        1275.0,
+        321.0,
+        1292.0
+      ],
+      "conf": 0.8575
+    },
+    {
+      "id": "sym_47",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        260.0,
+        966.0,
+        275.0,
+        974.0
+      ],
+      "conf": 0.8543
+    },
+    {
+      "id": "sym_48",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        231.0,
+        1326.0,
+        249.0,
+        1338.0
+      ],
+      "conf": 0.4171
+    },
+    {
+      "id": "sym_49",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        285.0,
+        1325.0,
+        305.0,
+        1338.0
+      ],
+      "conf": 0.3154
+    },
+    {
+      "id": "sym_50",
+      "node_type": "unknown_fitting",
+      "cls_name": "heat_exchanger",
+      "bbox": [
+        1340.0,
+        485.0,
+        1384.0,
+        500.0
+      ],
+      "conf": 0.7312
+    },
+    {
+      "id": "sym_51",
+      "node_type": "unknown_fitting",
+      "cls_name": "heat_exchanger",
+      "bbox": [
+        784.0,
+        461.0,
+        831.0,
+        482.0
+      ],
+      "conf": 0.5501
+    },
+    {
+      "id": "sym_52",
+      "node_type": "unknown_fitting",
+      "cls_name": "heat_exchanger",
+      "bbox": [
+        784.0,
+        484.0,
+        830.0,
+        501.0
+      ],
+      "conf": 0.523
+    },
+    {
+      "id": "sym_53",
+      "node_type": "unknown_fitting",
+      "cls_name": "heat_exchanger",
+      "bbox": [
+        1340.0,
+        462.0,
+        1384.0,
+        480.0
+      ],
+      "conf": 0.4768
+    },
+    {
+      "id": "sym_80",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        945.0,
+        568.0,
+        987.0,
+        609.0
+      ],
+      "conf": 0.9607
+    },
+    {
+      "id": "sym_81",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        486.0,
+        669.0,
+        527.0,
+        712.0
+      ],
+      "conf": 0.9593
+    },
+    {
+      "id": "sym_82",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1516.0,
+        1039.0,
+        1558.0,
+        1081.0
+      ],
+      "conf": 0.9585
+    },
+    {
+      "id": "sym_83",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1577.0,
+        405.0,
+        1617.0,
+        448.0
+      ],
+      "conf": 0.9562
+    },
+    {
+      "id": "sym_84",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1609.0,
+        942.0,
+        1651.0,
+        983.0
+      ],
+      "conf": 0.9557
+    },
+    {
+      "id": "sym_85",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1527.0,
+        862.0,
+        1568.0,
+        903.0
+      ],
+      "conf": 0.9554
+    },
+    {
+      "id": "sym_86",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1558.0,
+        533.0,
+        1600.0,
+        575.0
+      ],
+      "conf": 0.9552
+    },
+    {
+      "id": "sym_87",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1149.0,
+        247.0,
+        1191.0,
+        288.0
+      ],
+      "conf": 0.9551
+    },
+    {
+      "id": "sym_88",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1204.0,
+        572.0,
+        1245.0,
+        614.0
+      ],
+      "conf": 0.9548
+    },
+    {
+      "id": "sym_89",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        786.0,
+        388.0,
+        828.0,
+        429.0
+      ],
+      "conf": 0.9547
+    },
+    {
+      "id": "sym_90",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1569.0,
+        577.0,
+        1611.0,
+        618.0
+      ],
+      "conf": 0.9535
+    },
+    {
+      "id": "sym_91",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        783.0,
+        616.0,
+        824.0,
+        658.0
+      ],
+      "conf": 0.9529
+    },
+    {
+      "id": "sym_92",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1042.0,
+        388.0,
+        1084.0,
+        429.0
+      ],
+      "conf": 0.9528
+    },
+    {
+      "id": "sym_93",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        932.0,
+        388.0,
+        974.0,
+        429.0
+      ],
+      "conf": 0.9523
+    },
+    {
+      "id": "sym_94",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1569.0,
+        862.0,
+        1610.0,
+        903.0
+      ],
+      "conf": 0.952
+    },
+    {
+      "id": "sym_95",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1617.0,
+        406.0,
+        1659.0,
+        448.0
+      ],
+      "conf": 0.9517
+    },
+    {
+      "id": "sym_96",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        878.0,
+        388.0,
+        920.0,
+        429.0
+      ],
+      "conf": 0.9516
+    },
+    {
+      "id": "sym_97",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        987.0,
+        388.0,
+        1029.0,
+        429.0
+      ],
+      "conf": 0.9515
+    },
+    {
+      "id": "sym_98",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1341.0,
+        388.0,
+        1383.0,
+        429.0
+      ],
+      "conf": 0.9512
+    },
+    {
+      "id": "sym_99",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        921.0,
+        515.0,
+        963.0,
+        557.0
+      ],
+      "conf": 0.9501
+    },
+    {
+      "id": "sym_100",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1601.0,
+        533.0,
+        1642.0,
+        575.0
+      ],
+      "conf": 0.9492
+    },
+    {
+      "id": "sym_101",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1355.0,
+        325.0,
+        1397.0,
+        366.0
+      ],
+      "conf": 0.9488
+    },
+    {
+      "id": "sym_102",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        964.0,
+        515.0,
+        1007.0,
+        557.0
+      ],
+      "conf": 0.9459
+    },
+    {
+      "id": "sym_103",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1312.0,
+        243.0,
+        1366.0,
+        297.0
+      ],
+      "conf": 0.9456
+    },
+    {
+      "id": "sym_104",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1260.0,
+        240.0,
+        1309.0,
+        312.0
+      ],
+      "conf": 0.9451
+    },
+    {
+      "id": "sym_105",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1194.0,
+        515.0,
+        1235.0,
+        557.0
+      ],
+      "conf": 0.9446
+    },
+    {
+      "id": "sym_106",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        640.0,
+        569.0,
+        682.0,
+        612.0
+      ],
+      "conf": 0.9444
+    },
+    {
+      "id": "sym_107",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1205.0,
+        248.0,
+        1248.0,
+        290.0
+      ],
+      "conf": 0.9431
+    },
+    {
+      "id": "sym_108",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1235.0,
+        515.0,
+        1277.0,
+        557.0
+      ],
+      "conf": 0.9409
+    },
+    {
+      "id": "sym_109",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        745.0,
+        615.0,
+        786.0,
+        658.0
+      ],
+      "conf": 0.9391
+    },
+    {
+      "id": "sym_110",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        635.0,
+        530.0,
+        683.0,
+        575.0
+      ],
+      "conf": 0.9304
+    },
+    {
+      "id": "sym_111",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1683.0,
+        421.0,
+        1725.0,
+        463.0
+      ],
+      "conf": 0.9094
+    },
+    {
+      "id": "sym_112",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1763.0,
+        422.0,
+        1805.0,
+        463.0
+      ],
+      "conf": 0.9044
+    },
+    {
+      "id": "sym_113",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1237.0,
+        415.0,
+        1279.0,
+        457.0
+      ],
+      "conf": 0.9015
+    },
+    {
+      "id": "sym_114",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1068.0,
+        282.0,
+        1110.0,
+        325.0
+      ],
+      "conf": 0.3821
+    },
+    {
+      "id": "sym_115",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble_RO10",
+      "bbox": [
+        1066.0,
+        280.0,
+        1110.0,
+        329.0
+      ],
+      "conf": 0.9205
+    },
+    {
+      "id": "sym_116",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble_RO10",
+      "bbox": [
+        1664.0,
+        868.0,
+        1706.0,
+        909.0
+      ],
+      "conf": 0.9183
+    },
+    {
+      "id": "sym_117",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble_RO10",
+      "bbox": [
+        1237.0,
+        415.0,
+        1279.0,
+        457.0
+      ],
+      "conf": 0.7381
+    },
+    {
+      "id": "sym_118",
+      "node_type": "vessel",
+      "cls_name": "tank",
+      "bbox": [
+        219.68,
+        985.9,
+        313.5,
+        1326.8
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_119",
+      "node_type": "vessel",
+      "cls_name": "tank",
+      "bbox": [
+        587.83,
+        752.84,
+        676.06,
+        994.3
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_120",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        116.0,
+        6.0,
+        124.0,
+        14.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_121",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        118.0,
+        19.0,
+        126.0,
+        27.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_122",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1764.0,
+        6.0,
+        1772.0,
+        14.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_123",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1764.0,
+        17.0,
+        1772.0,
+        25.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_124",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1948.0,
+        7.0,
+        1956.0,
+        15.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_125",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1398.0,
+        8.0,
+        1406.0,
+        16.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_126",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        665.0,
+        16.0,
+        673.0,
+        24.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_127",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        18.0,
+        869.0,
+        26.0,
+        877.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_128",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        5.0,
+        350.0,
+        13.0,
+        358.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_129",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        8.0,
+        1182.0,
+        16.0,
+        1190.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_130",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        8.0,
+        1193.0,
+        16.0,
+        1201.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_131",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        115.0,
+        1720.0,
+        123.0,
+        1728.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_132",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        122.0,
+        1733.0,
+        130.0,
+        1741.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_133",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1948.0,
+        1720.0,
+        1956.0,
+        1728.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_134",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1952.0,
+        1732.0,
+        1960.0,
+        1740.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_135",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1216.0,
+        1722.0,
+        1224.0,
+        1730.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_136",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1398.0,
+        1722.0,
+        1406.0,
+        1730.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_137",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1394.0,
+        1731.0,
+        1402.0,
+        1739.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_138",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        844.0,
+        1725.0,
+        852.0,
+        1733.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_139",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        850.0,
+        1725.0,
+        858.0,
+        1733.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_140",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        665.0,
+        1730.0,
+        673.0,
+        1738.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_141",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        486.0,
+        4.0,
+        494.0,
+        12.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_142",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        847.0,
+        8.0,
+        855.0,
+        16.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_143",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1214.0,
+        8.0,
+        1222.0,
+        16.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_144",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        -2.0,
+        924.0,
+        6.0,
+        932.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_145",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        -1.0,
+        1393.0,
+        7.0,
+        1401.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_146",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        484.0,
+        1718.0,
+        492.0,
+        1726.0
+      ],
+      "conf": 1.0
+    }
+  ],
+  "edges": [
+    {
+      "u": "sym_8",
+      "v": "sym_27",
+      "flow_direction": "sym_27 -> sym_8"
+    },
+    {
+      "u": "sym_10",
+      "v": "sym_31",
+      "flow_direction": "sym_31 -> sym_10"
+    },
+    {
+      "u": "sym_12",
+      "v": "sym_30"
+    },
+    {
+      "u": "sym_14",
+      "v": "sym_33",
+      "flow_direction": "sym_33 -> sym_14"
+    },
+    {
+      "u": "sym_18",
+      "v": "sym_19",
+      "branch_id": 145,
+      "length_px": 33.82842712474619,
+      "branch_type": 0
+    },
+    {
+      "u": "sym_21",
+      "v": "sym_35",
+      "flow_direction": "sym_21 -> sym_35"
+    },
+    {
+      "u": "sym_21",
+      "v": "sym_51",
+      "flow_direction": "sym_51 -> sym_21"
+    },
+    {
+      "u": "sym_21",
+      "v": "sym_36"
+    },
+    {
+      "u": "sym_21",
+      "v": "sym_30",
+      "flow_direction": "sym_30 -> sym_21"
+    },
+    {
+      "u": "sym_24",
+      "v": "sym_52"
+    },
+    {
+      "u": "sym_24",
+      "v": "sym_32",
+      "flow_direction": "sym_24 -> sym_32"
+    },
+    {
+      "u": "sym_24",
+      "v": "sym_119",
+      "flow_direction": "sym_24 -> sym_119"
+    },
+    {
+      "u": "sym_30",
+      "v": "sym_51"
+    },
+    {
+      "u": "sym_30",
+      "v": "sym_35"
+    },
+    {
+      "u": "sym_30",
+      "v": "sym_36",
+      "flow_direction": "sym_36 -> sym_30"
+    },
+    {
+      "u": "sym_32",
+      "v": "sym_119"
+    },
+    {
+      "u": "sym_32",
+      "v": "sym_47",
+      "flow_direction": "sym_32 -> sym_47"
+    },
+    {
+      "u": "sym_35",
+      "v": "sym_51"
+    },
+    {
+      "u": "sym_35",
+      "v": "sym_36"
+    },
+    {
+      "u": "sym_36",
+      "v": "sym_50",
+      "flow_direction": "sym_36 -> sym_50",
+      "branch_id": 140,
+      "length_px": 20.82842712474619,
+      "branch_type": 0
+    },
+    {
+      "u": "sym_36",
+      "v": "sym_51"
+    },
+    {
+      "u": "sym_47",
+      "v": "sym_119",
+      "flow_direction": "sym_47 -> sym_119"
+    },
+    {
+      "u": "sym_120",
+      "v": "sym_121",
+      "branch_id": 9,
+      "length_px": 24.55634918610405,
+      "branch_type": 1
+    },
+    {
+      "u": "sym_122",
+      "v": "sym_123",
+      "branch_id": 10,
+      "length_px": 32.55634918610405,
+      "branch_type": 0
+    },
+    {
+      "u": "sym_129",
+      "v": "sym_130",
+      "branch_id": 392,
+      "length_px": 39.384776310850235,
+      "branch_type": 0
+    },
+    {
+      "u": "sym_131",
+      "v": "sym_132",
+      "branch_id": 754,
+      "length_px": 28.970562748477146,
+      "branch_type": 0
+    },
+    {
+      "u": "sym_133",
+      "v": "sym_134",
+      "branch_id": 758,
+      "length_px": 25.55634918610405,
+      "branch_type": 1
+    },
+    {
+      "u": "sym_136",
+      "v": "sym_137",
+      "branch_id": 767,
+      "length_px": 22.55634918610405,
+      "branch_type": 1
+    },
+    {
+      "u": "sym_138",
+      "v": "sym_139",
+      "branch_id": 770,
+      "length_px": 24.72792206135786,
+      "branch_type": 2
+    }
+  ]
+}

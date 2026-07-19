@@ -1,0 +1,16 @@
+  Sheet     free_tip_unbd   (a) dangling  (b) radius_miss  (c) near_miss
+  ------------------------------------------------------------------------
+  0                   157            153                4              0
+
+  Legend:
+    (a) No symbol within 2x bind zone -- legitimately dangling
+    (b) Symbol within 2x but outside 1x, symbol has NO other bound ports
+         -> would recover a connection by expanding radius
+    (c) Symbol within 2x but outside 1x, symbol already has bound ports
+         -> expanding radius would add parallel edge only
+
+  Crop legend (in the 160x160px images):
+    red circle    = unbound endpoint
+    yellow rect   = nearby symbol bbox
+    green border  = current 1x bind zone  (dilated_bbox + 5px)
+    cyan border   = 2x bind zone  (dilated_bbox + 10px)

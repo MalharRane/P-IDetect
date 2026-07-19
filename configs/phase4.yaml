@@ -1,0 +1,72 @@
+# Phase 4 — Connectivity Graph Extraction
+# All tunable parameters. Referenced by scripts/run_phase4_steps03.py and later step scripts.
+
+# --- Step 0: ROI filter + centroid-NMS ---
+roi_border_margin_frac: 0.04  # fallback border margin when GraphML has no background bbox
+nms_centroid_frac: 0.5        # suppress lower-conf pred if centroid within frac*sqrt(w*h) of kept pred
+
+# --- Step 2: Erasure ---
+erase_dilation_px: 8          # expand each symbol bbox by M px on all 4 sides before fill
+
+# --- Step 3: Line extraction ---
+blur_sigma: 0.8               # Gaussian blur sigma before Otsu binarization
+morph_close_disk: 2           # closing disk radius (bridge tiny line gaps in px)
+morph_open_disk: 1            # opening disk radius (remove noise pixels)
+min_branch_len_px: 15         # discard skeleton branches shorter than this
+                              # (lowered from 20: a ~17px surviving stub in a 20px dil-gap — e.g.
+                              #  sym_14↔sym_8 on sheet 3 — was filtered before binding; 15px catches it)
+endpoint_bind_extra_px: 5     # extra px beyond dilated bbox edge for endpoint binding
+off_page_border_px: 30        # unbound endpoint within this many px of sheet edge -> off_page node
+
+# --- Step 4: Junction analysis (not yet implemented — params reserved) ---
+junction_radius_R: 10         # endpoint cluster radius for candidate intersection (px)
+collinear_angle_tol: 30       # tolerance for "opposite direction" branch pairing (degrees)
+min_crossing_gap: 5           # min bridge-gap to classify facing stubs as crossing (px)
+max_crossing_gap: 110         # max bridge-gap (above = broken pipe, not crossing) (px)
+elbow_angle_min: 20           # min bend angle to classify degree-2 node as elbow connector (degrees)
+
+# --- Step 2b: Vessel body erasure (GT-assisted, evaluation pipeline only) ---
+# Vessels (tank, pump -- IGNORE_OPEN100_LABELS) are not detected by YOLO. For the
+# OPEN100 evaluation we read their bboxes directly from the GT GraphML and treat them
+# as SymbolNodes so their outlines get erased and pipe stubs bind to them.
+vessel_erase_dilation_px: 12      # extra bbox expansion (px) applied when erasing GT vessel bodies
+                                  # (stacked on top of erase_dilation_px; vessels need more margin)
+
+# --- Short-gap bridging ---
+# When two symbol dilated-bboxes are within short_gap_max_px, the connecting pipe may
+# have been fully consumed by erasure.  We require a directionally-aligned stripe of
+# dark pixels in the pre-erasure binary along the A->B corridor.
+# See _has_aligned_corridor_path in src/pidetect/graph/lines.py.
+#
+# Production floor (C1, corrected 2026-08-xx -- see docs/phase4_final.md):
+#   mask_all_nodes=True, mask_all_nodes_fallback=False
+# Masking is applied PER-PAIR inside find_short_gap_pairs/_corridor_ink_check: every
+# node OTHER than the current (A, B) pair has its dilated bbox cleared (excludes
+# third-symbol-body ink), while A's and B's own dilation margins are left intact
+# (a genuine connecting stub commonly lives there). An earlier whole-image version of
+# this masking cleared A's/B's own dilated bboxes too and silently cost 5 TPs on sheet
+# 0 before this was caught and fixed -- see docs/phase4_final.md Task 1.
+# sym_12<->sym_74 (sheet 3), previously documented here as an intentionally-sacrificed
+# TP, is recovered by the corrected per-pair masking and is no longer sacrificed.
+mask_all_nodes: true            # clear ALL OTHER nodes' dilated bboxes from each pair's corridor crop
+mask_all_nodes_fallback: false  # DO NOT re-run on unmasked binary (see note above)
+short_gap_max_px: 50           # max gap (px) between dilated bboxes to consider pair
+short_gap_interpose_tol_px: 20 # reject pair if a third node interposes on the A->B segment
+short_gap_corridor_half_width_px: 10 # half-width (px) of the along-axis sampling corridor
+short_gap_continuity_frac: 0.5       # min fraction of 2px along-axis bins with corridor pixels
+short_gap_perp_reject_ratio: 3.0     # reject if perp annular band has > ratio * corridor pixels
+short_gap_stub_angle_tol_deg: 55     # shared-header discriminator: reject a short-gap pair if
+                                     # A or B has a surviving skeleton stub whose direction is
+                                     # NOT within this many degrees of pointing at the other node
+                                     # (evidence of an independent perpendicular tap onto a shared
+                                     # trunk). Nodes with no surviving stub at all are not
+                                     # penalised -- see _stub_direction_ok in lines.py.
+
+# --- Step 7: Direction tagging ---
+arrow_max_dist_px: 200        # max distance (px) from arrow centre to sym-to-sym segment for assignment
+
+# --- Step 9: Evaluation ---
+junction_match_radius_px: 40  # Phase B: predicted junction -> GT general max centroid distance (px)
+
+# --- Diagnostic render ---
+render_scale: 0.35            # downsample factor for diagnostic JPEG (full sheets are ~7000px wide)
