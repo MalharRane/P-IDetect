@@ -10,7 +10,24 @@ requests>=2.31.0          # PID2Graph OPEN100 download (subtask 1.6c)
 networkx>=3.2              # PID2Graph OPEN100 .graphml parsing (subtask 1.6c);
                             # pulled forward from Phase 4, only graph build uses it there
 
-# --- later phases (install when you reach them) ---
-# paddleocr>=2.7.0        # Phase 3 OCR
-# paddlepaddle            # Phase 3 OCR backend
-# fastapi uvicorn         # Phase 5 deploy
+# --- Phase 4 (lines + connectivity graph) ---
+# NOTE: missing from this file until Phase 5's end-to-end API test surfaced the gap --
+# these were installed ad hoc during Phase 4 development and never added here.
+scikit-image>=0.24.0      # morphology (skeletonize, closing/opening) in pidetect.graph.lines
+skan>=0.11.0              # skeleton-to-branch graph extraction in pidetect.graph.lines
+
+# --- Phase 3 (tag/text extraction) ---
+# NOTE: paddlepaddle has no published wheel for Python 3.14 as of this writing (verified
+# 2026-07-20 -- `pip install paddlepaddle` resolves zero candidates on this interpreter).
+# PIN THE WHOLE PROJECT TO PYTHON 3.12 (confirmed this session: torch/ultralytics/sahi
+# install cleanly under 3.12 too, so one venv covers detection AND OCR -- see
+# docs/phase5_design.md §0). Don't run detection on 3.14 and OCR on a separate 3.12 venv
+# for anything beyond ad hoc local exploration; the Phase 5 API requires both in one
+# process.
+paddleocr>=2.7.0          # Phase 3 OCR: tag detection + recognition
+paddlepaddle              # Phase 3 OCR backend (CPU build; swap for paddlepaddle-gpu on CUDA)
+
+# --- Phase 5 (API deploy) ---
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9   # required by FastAPI for UploadFile/form parsing
