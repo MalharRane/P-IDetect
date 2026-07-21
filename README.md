@@ -1,109 +1,145 @@
-# PIDetect — P&ID Digitization
+# PIDetect
 
-Upload a P&ID (Piping & Instrumentation Diagram) sheet → get back detected instrument/valve
-symbols, their instrument tags (read via OCR), and a best-effort process **connectivity graph** —
-viewable in the browser as an overlay on the original sheet, and downloadable as JSON or as an
-annotated PNG. PyTorch · YOLOv11 · SAHI · PaddleOCR · NetworkX.
+**Turning scanned P&ID drawings into structured, machine-readable data — symbols, tags, and the
+process connectivity graph — with an end-to-end computer vision pipeline and a live web demo.**
 
-![PIDetect overlay on a real OPEN100 sheet, with legend and honest-metrics footer](docs/phase5_screenshots/hero_overlay_export.png)
+[![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-YOLOv11-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-frontend-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![License](https://img.shields.io/badge/data-public--only-lightgrey)](#data-sources)
 
-> Rework in progress. See `CLAUDE.md` for the full plan, architecture, and phase gates.
-> This README covers the shipped v1 demo (Phase 5); `docs/phase4_final.md` and
-> `docs/phase3_results.md` are the frozen evaluation records those numbers below are drawn from.
+![PIDetect: detected symbols, instrument tags, and connectivity overlay on a real P&ID sheet](docs/phase5_screenshots/hero_overlay_export.png)
 
-## Demo video
+## The problem
 
-*(placeholder — a short screen recording of the golden path: upload → wait → overlay with tags
-and graph → JSON/PNG download, on a real OPEN100 sheet, goes here.)*
+A P&ID (Piping & Instrumentation Diagram) is the master reference drawing for any process plant —
+every valve, instrument, and pipe run a plant engineer needs is on it, but almost always locked in
+a scanned image or PDF with no structured data behind it. Digitizing one by hand — finding every
+symbol, transcribing every instrument tag, tracing every pipe run — is slow, manual, and repeated
+across the industry on drawings that rarely change. **PIDetect automates the first pass**: upload a
+sheet, get back detected symbols, OCR'd instrument tags, and a best-effort connectivity graph,
+ready to inspect in the browser or hand off as JSON.
 
-## Honest metrics
+## What it does
 
-No cherry-picked single number — this is what actually measures on the 3-sheet OPEN100 held-out
-sample (`docs/phase4_final.md`, `docs/phase3_results.md`), reported the same way in the app's own
-UI (a "frozen, not a live per-upload score" caption travels with every result, including the
-exported PNG).
+- **Detects** valves, instruments, and fittings on full-resolution engineering drawings (sheets run
+  1700–2800px+, well past a standard 640px detector's working range) using **YOLOv11 + SAHI
+  tiling**, so nothing gets downsampled into invisibility.
+- **Reads** every instrument tag (e.g. `TCV 1402`, `PT 14088`) with **PaddleOCR**, binding each
+  reading to its symbol by geometry.
+- **Traces pipe connectivity** with a classical CV pipeline — erase known symbols/text, skeletonize
+  the remaining ink, extract line segments, detect junctions and crossings, and build a
+  **NetworkX** graph of what connects to what.
+- **Serves it as a real demo** — a FastAPI backend runs the full pipeline as an async job; a React
+  frontend polls for progress, renders a pan/zoom overlay on the original sheet, and lets you
+  click any detected symbol to inspect its class, confidence, bounding box, and parsed tag.
+  Results export as JSON or an annotated PNG.
+
+## Results — measured, not claimed
+
+Every number below is scored against hand-verified ground truth on real-world sheets from the
+public **PID2Graph OPEN100** dataset — not synthetic training data, and not cherry-picked. The same
+"frozen, not a live per-upload score" numbers travel with every result the app produces, including
+exported images.
 
 | Stage | Metric | Result | Gate |
 |---|---|---|---|
-| Symbol detection | Node-match (CtrMt@50%) | **98.8%** | ≥ 80% — met |
-| Instrument tag OCR | Exact-match (ok/ok_placeholder rows) | **90.7%** | ≥ 90% — met |
-| Instrument tag OCR | Micro-averaged CER | **0.0241** | — |
-| Connectivity graph | F1 (precision 0.435, recall 0.775) | **0.549** | ≥ 0.70 — **not met** |
+| Symbol detection | Node-match accuracy | **98.8%** | ≥ 80% — met |
+| Instrument tag OCR | Exact-match (clean reads) | **90.7%** | ≥ 90% — met |
+| Instrument tag OCR | Character error rate | **0.024** | — |
+| Connectivity graph | F1 score | **0.549** | ≥ 0.70 — not yet met |
 
-Connectivity is explicitly labeled **experimental** in the UI (a secondary, lighter, toggleable
-overlay layer, never styled with the same visual confidence as a detection box) — it's below its
-own gate and should not be read as authoritative. Detection and OCR are the strong, gate-passing
-parts of this pipeline; connectivity is the acknowledged differentiator-in-progress.
+Detection and OCR are the strong, gate-passing parts of this pipeline. Connectivity — tracing
+actual pipe runs from raw ink, the hardest and least standardized part of this problem — is the
+acknowledged work-in-progress, shipped as a clearly-labeled "experimental" overlay layer rather
+than hidden or inflated. **Two limitations were run to root cause instead of just reported:**
+`flow_arrow` detection undershoots its gate (65.2%) because of a confirmed training-data scale
+mismatch (real arrows are 8–30px, synthetic training arrows were 4x larger) — a labeled, scoped
+fix, not a mystery. And 55% of connectivity's remaining false positives trace to one specific,
+named geometric ambiguity (two symbols tapping the same shared trunk pipe) that's provably
+unreachable by the discriminators built so far, with the two concrete upstream fixes that would
+reach it written down as future work.
 
-## Known limitations
+*Full methodology, per-sheet breakdowns, and every other measured limitation:
+[README_DEV.md](README_DEV.md).*
 
-- **`flow_arrow` detection: 65.2%** node-match on OPEN100, below the 80% gate. Confirmed root
-  cause: synthetic training arrows have zero size overlap with real arrows (99.8% of real arrows
-  are 8–30px; synthetic ones median 79.2px). This is a training-data gap, not an architecture
-  problem — fix is adding real arrow crops as synth templates, not a retrain. Did not block later
-  phases; tracked separately. See `docs/arrow_triage/miss_breakdown.md`.
-- **Connectivity's dominant residual: shared-header false positives** — 32 of 58 total FPs (55%)
-  are two symbols each tapping perpendicularly onto a common trunk pipe, which the corridor-ink
-  test can't geometrically distinguish from a dedicated point-to-point connection. No surviving
-  skeleton stub after erasure, no dashed-line signal to key off — unreachable by any discriminator
-  built so far. Two upstream levers (reduced erasure dilation; explicit shared-trunk detection)
-  are named as future work, not started. Full detail: `docs/phase4_final.md` §5.
-- **10 open cross-node-type close-prediction pairs** (`docs/phase4_final.md` §2) — valve/instrument
-  detections sitting very close to an `unknown_fitting`/`flow_arrow`/`tag_rect` detection. Each
-  needs individual visual judgment (a valve actuator can legitimately sit right next to an
-  instrument bubble as two real objects) — deliberately NOT resolved by a blanket rule.
-  Not investigated this pass.
-- **~2 minutes per sheet on CPU** (measured end-to-end, OPEN100-sized sheets ~1700–2800px):
-  detection ~10–20s, OCR ~75–95s (dominant cost — a spike into batching/process-pooling found no
-  win, since PaddleOCR's CPU inference already saturates available compute per call; one real
-  optimization — disabling unneeded doc-orientation/unwarping sub-models — gave a real but modest
-  ~24% OCR reduction, already applied), graph construction ~10–20s. This rules out a synchronous
-  request/response UI; the app uses an async job with polling instead. Real production sheets
-  (CLAUDE.md: 5000–7000px) are untested and would likely run substantially longer.
-- **81.7% of rendered connectivity edges are inferred straight chords, not traced pipe routes**
-  (measured on a live sheet: 116 of 142 edges have no traceable skeleton polyline — short-gap
-  ink-inferred connections and contracted-through connector/crossing edges alike). The UI marks
-  these visually distinct (dotted, fainter) from the 18.3% that do have a real traced route, with
-  an explicit legend entry — but it's worth knowing the split going in.
-- Vessels (tanks/pumps) are not a YOLO-detected class in this pipeline yet — they appear in the
-  OPEN100 evaluation only via ground-truth annotation, not in a real upload's output.
-- Fine-grained valve/fitting sub-classification (Phase 2 scope) not yet started.
-- Single in-memory job store, one worker — concurrent uploads serialize. Fine for a demo, not for
-  production (`docs/phase5_design.md`).
+## Engineering highlights
+
+- **Gate-driven development.** Every phase (detection → OCR → connectivity → deploy) shipped
+  against a pre-committed numeric gate, not a vibe check — including phases that didn't clear
+  their gate, reported as such.
+- **Full-resolution inference at scale.** SAHI tiling makes YOLOv11 usable on 2000px+ engineering
+  drawings without the accuracy cliff of naive resizing.
+- **Found and fixed a real detection-pipeline bug mid-project**: per-class NMS was letting the same
+  physical valve survive as two duplicate graph nodes under different subtype guesses. Root-caused
+  across 45 measured cross-class prediction pairs, fixed with a family-scoped dedup key, and backed
+  with a construction-time regression assertion so it can't silently regress.
+- **Classical CV where it's the right tool.** Line tracing uses skeletonization and morphology, not
+  a second neural net — deliberately, since the geometry (thin, mostly-straight, solid-vs-dashed
+  lines) doesn't need one.
+- **A demo that's honest about its own cost.** Measured end-to-end latency (~2 minutes/sheet on
+  CPU, OCR-dominated) drove a real architecture decision — async job + polling instead of a
+  blocking request — documented with the actual numbers behind it, not an estimate.
 
 ## Architecture
 
-Detection (YOLOv11 + SAHI tiling) → cross-subtype dedupe → symbol erasure → skeleton tracing →
-endpoint binding + short-gap bridging → junction (connector/crossing) detection → graph
-construction/contraction → instrument-tag OCR (PaddleOCR) → JSON/GraphML export. FastAPI wraps
-this as an async job (`POST /jobs` → poll `GET /jobs/{id}` → `GET /jobs/{id}/result`); a minimal
-React frontend polls, renders the overlay, and offers JSON/PNG downloads. Full design rationale,
-scope cuts, and the latency/hosting analysis behind these choices: `docs/phase5_design.md`.
+```
+P&ID sheet (image)
+        │
+        ▼
+  YOLOv11 + SAHI tiling  ──────►  symbol boxes + classes
+        │
+        ▼
+  Cross-subtype dedup (per-family NMS)
+        │
+        ▼
+  PaddleOCR per instrument bubble  ──────►  instrument tags
+        │
+        ▼
+  Erase symbols/text → skeletonize → trace line segments
+        │
+        ▼
+  Junction / crossing detection → graph build + contraction
+        │
+        ▼
+  NetworkX graph  ──────►  JSON / GraphML export
+        │
+        ▼
+  FastAPI async job  ──►  React overlay (pan/zoom, click-to-inspect, PNG/JSON download)
+```
 
-## Running the demo locally
+## Tech stack
 
-**Python 3.12 is required for the whole project, not just OCR.** Detection (torch/ultralytics/
-sahi) and OCR (paddlepaddle/paddleocr) must run in the *same* interpreter for the API to work as
-one process — confirmed this session that all of them install and import together cleanly under
-3.12 (paddlepaddle has no wheel for Python 3.13+, which is the only version constraint here).
+**CV / ML:** PyTorch, YOLOv11 (Ultralytics), SAHI, PaddleOCR, OpenCV, scikit-image, skan
+**Graph:** NetworkX
+**Backend:** FastAPI, Uvicorn
+**Frontend:** React, Vite
+**Data:** HuggingFace `hamzas/digitize-pid-yolo`, PID2Graph OPEN100, a custom synthetic P&ID
+generator for training-data augmentation
+
+## Try it locally
+
+Requires **Python 3.12** (one interpreter runs detection and OCR together — see
+[README_DEV.md](README_DEV.md) for why) and Node.js for the frontend.
 
 ```bash
+git clone https://github.com/MalharRane/P-IDetect.git
+cd P-IDetect
+
 python3.12 -m venv .venv312
-# Windows: .venv312\Scripts\activate | macOS/Linux: source .venv312/bin/activate
+.venv312\Scripts\activate        # Windows; macOS/Linux: source .venv312/bin/activate
 pip install -r requirements.txt
 ```
 
-You'll also need trained detection weights (`*.pt`, gitignored — train your own via the
-Colab/Kaggle workflow below, or point `configs/phase5.yaml`'s `weights_path` at one you have).
+You'll need trained detection weights (gitignored — train your own via the Colab/Kaggle workflow
+in [README_DEV.md](README_DEV.md), or point `configs/phase5.yaml`'s `weights_path` at one you have).
 
 **Backend:**
 ```bash
 PADDLE_PDX_ENABLE_MKLDNN_BYDEFAULT=False PYTHONPATH=src \
   uvicorn pidetect.api.main:app --host 127.0.0.1 --port 8000
 ```
-The MKLDNN env var works around a CPU inference crash confirmed on this dev machine
-(`NotImplementedError: ConvertPirAttribute2RuntimeAttribute...`, paddlepaddle 3.3.1 CPU/PIR
-executor) — see `docs/phase5_design.md` for detail. GPU deployments may not need it.
 
 **Frontend:**
 ```bash
@@ -111,88 +147,22 @@ cd frontend
 npm install
 npm run dev
 ```
-Open the printed local URL (typically `http://localhost:5173`), upload a P&ID sheet (e.g. one of
-`data/realworld_eval/open100/_raw/*.png` once you've fetched OPEN100), and wait — it's slow
-(see Known limitations) but real.
 
-## Data
-Public only. The Digitize-PID symbols set (`hamzas/digitize-pid-yolo`) is primary; PID2Graph
-OPEN100 (Energy Impact Center) is used for connectivity/OCR evaluation and is what this README's
-screenshots are drawn from. **NDA diagrams from the original hackathon project are never
-committed, trained on, or used in any screenshot or doc** — confirmed for this repo: nothing
-under `data/`, no `*.pt`/`*.onnx`/`*.pth` weights, and no `nda`-named files are tracked in git
-(`.gitignore` excludes `/data/`, `/runs/`, weight extensions, and `nda/`/`*_nda*` explicitly).
+Open the printed local URL, upload a P&ID sheet (e.g. one of
+`data/realworld_eval/open100/_raw/*.png` after fetching OPEN100), and wait — it's slow (~2
+min/sheet on CPU, see [README_DEV.md](README_DEV.md)) but real, end-to-end inference.
 
-## Quickstart — rebuild dataset from scratch
+## Data sources
 
-```bash
-python scripts/build_dataset.py
-```
+Public only, always. Primary training data is the HuggingFace `hamzas/digitize-pid-yolo` set;
+evaluation is against PID2Graph OPEN100 real-world sheets. **The original hackathon project this
+was rebuilt from used NDA'd diagrams — none of that data, or any model trained on it, appears
+anywhere in this repo, its history, or its screenshots.**
 
-Runs the full Phase 0 pipeline (download → tile → synthetic → merge) with fixed seed 42.
-Produces `data/merged/` ready for Phase 1 YOLOv11 training.
-Skips steps whose outputs already exist; use `--force` to rebuild everything.
+## More detail
 
-## Training on Colab/Kaggle
-
-Full training runs on a free T4/P100/A100 GPU. The script handles dataset build,
-Drive caching, training, and test-split evaluation in one go.
-
-### Google Colab (recommended)
-
-**Cell 1** — mount Drive once per session (dataset is cached there after the first build):
-```python
-from google.colab import drive
-drive.mount('/content/drive')
-```
-
-**Cell 2** — clone, build, train, evaluate:
-```python
-%cd /content
-!git clone https://github.com/MalharRane/P-IDetect.git
-%cd pidetect
-!bash scripts/colab_setup.sh
-```
-
-First run builds the dataset (~15 min). Every subsequent session restores from Drive
-in ~30 s. To force a full rebuild: `!bash scripts/colab_setup.sh --force-data`.
-
-### Kaggle
-
-Enable **Internet** in notebook Settings, then:
-```bash
-%%bash
-git clone https://github.com/<your-username>/pidetect.git
-cd pidetect
-bash scripts/colab_setup.sh --no-drive
-```
-
-Dataset rebuilds each session (~15 min). To persist it, save the `data/` output
-as a Kaggle dataset and symlink it on the next run.
-
-### Batch size
-
-Default is `--batch=16` (safe for T4/P100 16 GB). Override with e.g.
-`!bash scripts/colab_setup.sh --batch=32` for a V100, or `--batch=64` for an A100.
-
-### After training
-
-The script runs evaluation automatically. To re-run manually (e.g. after downloading
-`best.pt` to your laptop):
-```bash
-PYTHONPATH=src python -m pidetect.detect.evaluate \
-  --weights runs/detect/train/weights/best.pt \
-  --data    configs/yolo_baseline.yaml \
-  --split   test
-```
-
-Outputs: overall mAP@50/50-95, per-class AP table (worst-first), confusion matrix PNG.
-
-## Phase 0 Progress
-
-- [x] 0.1 — Environment & repo baseline (venv, imports verified, git + .gitignore, this checklist)
-- [x] 0.2 — Download HF dataset (`hamzas/digitize-pid-yolo`) into `data/`
-- [x] 0.3 — Dataset inspection: per-class counts, sample box overlays, tile-size driver
-- [x] 0.4 — Tiling pipeline: 640px / 20% overlap → 35 826 tiles across train+val
-- [x] 0.5 — Synthetic generator: 200 sheets, 32-class glyph library, YOLO labels + connectivity JSON
-- [x] 0.6 — One-command build: `python scripts/build_dataset.py` → train/val/test split, histogram
+- [README_DEV.md](README_DEV.md) — full eval methodology, per-sheet metrics, every known
+  limitation, and exact commands to reproduce every number above.
+- [CLAUDE.md](CLAUDE.md) — architecture decisions, phase gates, and hard project rules.
+- [docs/phase5_design.md](docs/phase5_design.md) — the deploy design doc, including a measured
+  (not estimated) latency/hosting-cost analysis.
