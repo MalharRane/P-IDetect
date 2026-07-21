@@ -37,6 +37,8 @@ sys.path.insert(0, str(REPO / "src"))
 from pidetect.data.open100 import parse_graphml
 from pidetect.graph.erase import (
     SymbolNode,
+    assert_no_duplicate_scored_nodes,
+    scored_family_group_key,
     build_node_set,
     centroid_nms,
     erase_symbols,
@@ -56,6 +58,7 @@ from pidetect.graph.evaluate import Step9Result, run_step9
 
 RAW_DIR  = REPO / "data" / "realworld_eval" / "open100" / "_raw"
 CFG_PATH = REPO / "configs" / "phase4.yaml"
+PHASE3_CFG_PATH = REPO / "configs" / "phase3.yaml"
 OUT_DIR  = REPO / "docs" / "phase4_step0_3"
 SHEETS   = [0, 3, 10]
 
@@ -519,6 +522,9 @@ def main() -> None:
     p.add_argument("--device", default="",
                    help="'' = auto, 'cpu', '0' = GPU 0")
     p.add_argument("--sheets", nargs="+", type=int, default=SHEETS)
+    p.add_argument("--run-ocr", action="store_true",
+                   help="Run Phase 3 instrument-bubble tag OCR (requires paddleocr; "
+                        "see configs/phase3.yaml). Off by default -- opt in explicitly.")
     args = p.parse_args()
 
     weights = REPO / args.weights
@@ -537,6 +543,12 @@ def main() -> None:
 
     cache_dir = REPO / args.cache_dir
     cfg = _load_cfg()
+
+    phase3_cfg = None
+    if args.run_ocr:
+        with open(PHASE3_CFG_PATH) as f:
+            phase3_cfg = yaml.safe_load(f)
+        phase3_cfg["nms_centroid_frac"] = cfg["nms_centroid_frac"]  # for the dedup assertion in ocr.py
 
     print("=" * 58)
     print("Phase 4 -- Steps 0-3 diagnostic run")
@@ -579,16 +591,20 @@ def main() -> None:
         print(f"  After ROI filter: {len(preds_after_roi)} "
               f"(-{n_roi_dropped} dropped)")
 
-        # Step 0b: centroid NMS
+        # Step 0b: centroid NMS -- instrument_bubble* subtypes (5 classes) share one
+        # NMS group since they're mutually-exclusive guesses at the same physical
+        # object; every other class keeps its own group (unchanged behaviour).
         preds_deduped, n_nms_dropped = centroid_nms(
             preds_after_roi,
             centroid_frac=cfg["nms_centroid_frac"],
+            group_key=scored_family_group_key,
         )
         print(f"  After centroid-NMS: {len(preds_deduped)} "
               f"(-{n_nms_dropped} suppressed)")
 
         # Step 1: node set -- YOLO detections + GT vessel bodies
         nodes = build_node_set(preds_deduped)
+        assert_no_duplicate_scored_nodes(nodes, centroid_frac=cfg["nms_centroid_frac"])
         vessel_nodes = _build_vessel_nodes(vessel_entries, start_id=len(nodes))
         all_symbol_nodes = nodes + vessel_nodes  # combined for erasure, binding, render
         n_graph = sum(1 for n in all_symbol_nodes if n.is_graph_node)
@@ -604,6 +620,22 @@ def main() -> None:
         if img_bgr is None:
             print(f"  ERROR: cannot read {png}")
             continue
+
+        # Phase 3: instrument-bubble tag OCR. Must run on the ORIGINAL (pre-erasure)
+        # image and the DEDUPED node set (assert_no_duplicate_scored_nodes above
+        # already confirmed this). Opt-in via --run-ocr; skipped by default and on
+        # ImportError so a Phase-3-less environment (e.g. no paddlepaddle wheel for
+        # this Python) doesn't break the Phase 4 connectivity pipeline.
+        if phase3_cfg is not None:
+            try:
+                from pidetect.text.ocr import run_ocr_on_nodes
+                run_ocr_on_nodes(img_bgr, all_symbol_nodes, phase3_cfg)
+                n_instr = sum(1 for n in all_symbol_nodes if n.node_type == "instrument")
+                n_ok = sum(1 for n in all_symbol_nodes
+                           if n.node_type == "instrument" and n.tag_parse_status in ("ok", "ok_placeholder"))
+                print(f"  Phase 3 OCR: {n_ok}/{n_instr} instrument bubbles parsed ok/ok_placeholder")
+            except ImportError as exc:
+                print(f"  Phase 3 OCR skipped -- paddleocr not available ({exc})")
 
         # Pre-erasure binary: binarize the ORIGINAL image before any symbol is erased.
         # Used by find_short_gap_pairs to confirm connectivity for close-together symbols

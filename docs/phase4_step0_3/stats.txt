@@ -2,188 +2,70 @@
 ==========================================================
   Sheet 0
 ==========================================================
-  Detections -- raw: 126, after ROI: 119, after NMS: 118
+  Detections -- raw: 126, after ROI: 119, after NMS: 113
   Detections suppressed by ROI:  7
-  Detections suppressed by NMS:  1
+  Detections suppressed by NMS:  6
 
   Nodes by type:
-    valve                39
-    instrument           38
+    valve                36
+    instrument           36
     unknown_fitting      15
     vessel               2
-    off_page             27
-    TOTAL (graph nodes)  121
+    off_page             43
+    flow_arrow           26
+    TOTAL (graph nodes)  158
     flow_arrow (set aside) 26
 
-  Skeleton branches:     161
-  Endpoints total:       322
-  Endpoints bound:       69
-  Endpoints unbound:     253
-  Stub contests:         10
-  Off-page nodes created:27
+  Skeleton branches:     238
+  Endpoints total:       476
+  Endpoints bound:       127
+  Endpoints unbound:     349
+  Stub contests:         9
+  Off-page nodes created:43
+  Short-gap pairs (pre-erasure path confirmed): 96
 
   No symbols with implausible port counts.
 
-  Connectors detected:   49
-    elbow        10
-    tee          19
-    straight     20
-  Crossings detected:    3
-
-  Graph (step 5 -- raw, pre-contraction):
-    Nodes total:         173
-      valve                39
-      instrument           38
-      unknown_fitting      15
-      vessel               2
-      off_page             27
-      connector            49
-      crossing             3
-    Edges total:         62
-    Dangling branches:   85
-    Components:          112  (largest=20, isolated=94)
-
-  Graph (step 6 -- contracted, symbol-to-symbol):
-    Contracted connectors: 49
-    Contracted crossings:  3
-    Nodes remaining:     121
-      valve                39
-      instrument           38
-      unknown_fitting      15
-      vessel               2
-      off_page             27
-    Edges total:         29
-    Components:          100  (largest=7, isolated=87)
-
-  Arrows (step 7 -- direction tagging):
-    Arrows total:        26
-    Assigned to edge:    23  (88%)
-    Direction tagged:    23  (100% of assigned)
-    Edges directed:      12 / 29
-
-==========================================================
-  Sheet 3
-==========================================================
-  Detections -- raw: 88, after ROI: 82, after NMS: 82
-  Detections suppressed by ROI:  6
-  Detections suppressed by NMS:  0
-
-  Nodes by type:
-    valve                16
-    instrument           36
-    unknown_fitting      24
-    vessel               4
-    off_page             24
-    TOTAL (graph nodes)  104
-    flow_arrow (set aside) 5
-    tag_rect (erased only)  1
-
-  Skeleton branches:     143
-  Endpoints total:       286
-  Endpoints bound:       69
-  Endpoints unbound:     217
-  Stub contests:         4
-  Off-page nodes created:24
-
-  No symbols with implausible port counts.
-
-  Connectors detected:   46
-    elbow        19
-    tee          11
-    straight     16
+  Connectors detected:   65
+    elbow        16
+    tee          22
+    4way         1
+    straight     26
   Crossings detected:    7
 
   Graph (step 5 -- raw, pre-contraction):
-    Nodes total:         157
-      valve                16
+    Nodes total:         230
+      valve                36
       instrument           36
-      unknown_fitting      24
-      vessel               4
-      off_page             24
-      connector            46
+      unknown_fitting      15
+      vessel               2
+      off_page             43
+      connector            65
       crossing             7
-    Edges total:         52
-    Dangling branches:   75
-    Components:          108  (largest=12, isolated=89)
+    Edges total:         184
+    Dangling branches:   126
+    Components:          71  (largest=52, isolated=38)
 
   Graph (step 6 -- contracted, symbol-to-symbol):
-    Contracted connectors: 46
+    Contracted connectors: 65
     Contracted crossings:  7
-    Nodes remaining:     104
-      valve                16
+    Nodes remaining:     158
+      valve                36
       instrument           36
-      unknown_fitting      24
-      vessel               4
-      off_page             24
-    Edges total:         24
-    Components:          87  (largest=5, isolated=75)
+      unknown_fitting      15
+      vessel               2
+      off_page             43
+    Edges total:         147
+    Components:          47  (largest=39, isolated=22)
 
   Arrows (step 7 -- direction tagging):
-    Arrows total:        5
-    Assigned to edge:    4  (80%)
-    Direction tagged:    4  (100% of assigned)
-    Edges directed:      3 / 24
+    Arrows total:        8
+    Assigned to edge:    8  (100%)
+    Direction tagged:    8  (100% of assigned)
+    Edges directed:      8 / 147
 
-==========================================================
-  Sheet 10
-==========================================================
-  Detections -- raw: 216, after ROI: 208, after NMS: 208
-  Detections suppressed by ROI:  8
-  Detections suppressed by NMS:  0
-
-  Nodes by type:
-    valve                51
-    instrument           46
-    unknown_fitting      52
-    vessel               7
-    off_page             24
-    TOTAL (graph nodes)  180
-    flow_arrow (set aside) 52
-    tag_rect (erased only)  7
-
-  Skeleton branches:     326
-  Endpoints total:       652
-  Endpoints bound:       106
-  Endpoints unbound:     546
-  Stub contests:         17
-  Off-page nodes created:24
-
-  No symbols with implausible port counts.
-
-  Connectors detected:   112
-    elbow        36
-    tee          25
-    4way         1
-    straight     50
-  Crossings detected:    8
-
-  Graph (step 5 -- raw, pre-contraction):
-    Nodes total:         300
-      valve                51
-      instrument           46
-      unknown_fitting      52
-      vessel               7
-      off_page             24
-      connector            112
-      crossing             8
-    Edges total:         114
-    Dangling branches:   195
-    Components:          188  (largest=25, isolated=159)
-
-  Graph (step 6 -- contracted, symbol-to-symbol):
-    Contracted connectors: 112
-    Contracted crossings:  8
-    Nodes remaining:     180
-      valve                51
-      instrument           46
-      unknown_fitting      52
-      vessel               7
-      off_page             24
-    Edges total:         45
-    Components:          149  (largest=9, isolated=134)
-
-  Arrows (step 7 -- direction tagging):
-    Arrows total:        52
-    Assigned to edge:    43  (83%)
-    Direction tagged:    43  (100% of assigned)
-    Edges directed:      20 / 45
+  Evaluation vs GT (step 9):
+  Node match: 70/71 GT scoreable  (recall 98.6%)
+  Edges (matched pairs): TP=23 FP=27 FN=8  [31 GT edges scoreable]
+    Precision=0.460  Recall=0.742  F1=0.568
+  Crossing sep-pairs: 12  violations=3  non-edge rate=75.0%  (cross-connect rate=25.0%)

@@ -28,7 +28,10 @@ import yaml
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
 
-from pidetect.graph.erase import build_node_set, centroid_nms, erase_symbols, roi_filter
+from pidetect.graph.erase import (
+    assert_no_duplicate_scored_nodes, scored_family_group_key,
+    build_node_set, centroid_nms, erase_symbols, roi_filter,
+)
 from pidetect.graph.lines import binarize as _binarize_orig, run_step3, assert_run_step3_wired
 from pidetect.graph.junction import run_step4
 from pidetect.graph.build import (
@@ -68,9 +71,13 @@ def main() -> None:
         raw_preds, bg_bboxes, img_w, img_h,
         border_margin_frac=cfg["roi_border_margin_frac"],
     )
-    preds_deduped, _ = centroid_nms(preds_after_roi, centroid_frac=cfg["nms_centroid_frac"])
+    preds_deduped, _ = centroid_nms(
+        preds_after_roi, centroid_frac=cfg["nms_centroid_frac"],
+        group_key=scored_family_group_key,
+    )
 
     nodes = build_node_set(preds_deduped)
+    assert_no_duplicate_scored_nodes(nodes, centroid_frac=cfg["nms_centroid_frac"])
     vessel_nodes = _build_vessel_nodes(vessel_entries, start_id=len(nodes))
     all_symbol_nodes = nodes + vessel_nodes
 

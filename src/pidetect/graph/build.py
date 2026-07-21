@@ -127,15 +127,28 @@ def build_graph(
     for node in all_symbol_nodes:
         if not node.is_graph_node:
             continue  # flow_arrow / tag_rect: excluded from graph
-        G.add_node(sym_gid(node.node_id),
-                   node_type=node.node_type,
-                   cls_name=node.cls_name,
-                   cx=float(node.cx),
-                   cy=float(node.cy),
-                   x1=float(node.x1), y1=float(node.y1),
-                   x2=float(node.x2), y2=float(node.y2),
-                   conf=float(node.conf),
-                   n_ports=len(node.ports))
+        attrs = dict(
+            node_type=node.node_type,
+            cls_name=node.cls_name,
+            cx=float(node.cx),
+            cy=float(node.cy),
+            x1=float(node.x1), y1=float(node.y1),
+            x2=float(node.x2), y2=float(node.y2),
+            conf=float(node.conf),
+            n_ports=len(node.ports),
+        )
+        if node.node_type == "instrument":
+            # Phase 3 (docs/phase3_design.md) -- present only when pidetect.text.ocr
+            # actually ran; tag_parse_status defaults to "not_run" otherwise (never
+            # fabricated as "ok").
+            attrs.update(
+                tag_raw_text=node.tag_raw_text,
+                tag_function=node.tag_function,
+                tag_loop_number=node.tag_loop_number,
+                tag_confidence=float(node.tag_confidence),
+                tag_parse_status=node.tag_parse_status,
+            )
+        G.add_node(sym_gid(node.node_id), **attrs)
 
     # --- off-page nodes (synthetic border terminals from step 3) ---
     for node in off_page_nodes:
