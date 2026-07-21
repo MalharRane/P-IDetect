@@ -1,0 +1,24 @@
+# Phase 5 — API deployment config. See docs/phase5_design.md.
+
+weights_path: runs/detect/train_small_objects/weights/best.pt
+device: cpu          # this dev machine has no CUDA; CPU-only throughout
+upload_dir: data/uploads   # gitignored (under data/, per CLAUDE.md hard rules)
+
+# Frozen evaluation metrics (docs/phase4_final.md, docs/phase3_results.md), attached
+# verbatim to every job result so the UI can show them alongside the output. These are
+# NOT computed per-upload (no ground truth exists for a real sheet) -- they're the
+# pipeline's known accuracy on the 3-sheet OPEN100 held-out sample. Update these two
+# numbers only when their source doc is re-frozen; never let them silently drift from it.
+metrics:
+  detection_node_match_pct: 98.8
+  tag_exact_match_ok_rows_pct: 90.7
+  tag_cer: 0.0241
+  connectivity_precision: 0.435
+  connectivity_recall: 0.775
+  connectivity_f1: 0.549
+  connectivity_gate_pct: 0.70
+  note: >-
+    Frozen evaluation metrics from the 3-sheet OPEN100 held-out sample
+    (docs/phase4_final.md, docs/phase3_results.md), not a live score for this
+    upload. Connectivity F1 is below the 0.70 gate -- treat graph edges as
+    experimental, not authoritative.

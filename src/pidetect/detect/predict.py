@@ -63,6 +63,59 @@ def _draw_overlay(image_path: Path, predictions: list[dict], out_path: Path) -> 
     cv2.imwrite(str(out_path), img, [cv2.IMWRITE_JPEG_QUALITY, 90])
 
 
+def run_sliced_inference(
+    image_path: Path,
+    weights_path: Path,
+    conf: float = 0.25,
+    iou: float = 0.5,
+    device: str = "cpu",
+    slice_px: int = 320,
+    imgsz: int = 640,
+    overlap: float = 0.2,
+) -> list[dict]:
+    """SAHI sliced inference, returning raw per-tile-merged predictions as plain dicts.
+
+    The reusable core of this module's CLI (`predict()`), extracted for callers that
+    need predictions in-process (e.g. `pidetect.pipeline`) rather than as a written
+    JSON/overlay pair. Matches the SAHI call parameters used throughout Phase 4 eval
+    (slice=320, imgsz=640, GREEDYNMM/IOS cross-tile merge).
+    """
+    from sahi import AutoDetectionModel
+    from sahi.predict import get_sliced_prediction
+
+    model = AutoDetectionModel.from_pretrained(
+        model_type="yolov8",
+        model_path=str(weights_path),
+        confidence_threshold=conf,
+        device=device,
+    )
+    result = get_sliced_prediction(
+        image=str(image_path),
+        detection_model=model,
+        slice_height=slice_px,
+        slice_width=slice_px,
+        overlap_height_ratio=overlap,
+        overlap_width_ratio=overlap,
+        perform_standard_pred=False,
+        postprocess_type="GREEDYNMM",
+        postprocess_match_metric="IOS",
+        postprocess_match_threshold=iou,
+        auto_slice_resolution=False,
+        verbose=0,
+    )
+    predictions = []
+    for obj in result.object_prediction_list:
+        xyxy = obj.bbox.to_xyxy()
+        predictions.append({
+            "cls_id":   obj.category.id,
+            "cls_name": obj.category.name,
+            "conf":     round(float(obj.score.value), 4),
+            "x1": int(xyxy[0]), "y1": int(xyxy[1]),
+            "x2": int(xyxy[2]), "y2": int(xyxy[3]),
+        })
+    return predictions
+
+
 def predict(args: argparse.Namespace) -> None:
     from sahi import AutoDetectionModel
     from sahi.predict import get_sliced_prediction
