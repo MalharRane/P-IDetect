@@ -1,0 +1,36 @@
+# Phase 3 — Tag/Text Extraction (instrument-bubble tags, v1)
+# See docs/phase3_design.md for the full design and the crop-geometry measurement
+# (predicted-vs-GT bbox ratio study) that the padding value below is based on.
+
+# --- Crop geometry ---
+crop_padding_px: 6        # padding on each side of a bubble's own bbox before OCR.
+                          # Measured (docs/phase3_design.md §2): predicted instrument_bubble*
+                          # boxes run ~13% LARGER than GT on average (opposite of the valve
+                          # undersize finding), worst observed single-edge undersize was
+                          # 4.13px -- 6px clears that with headroom.
+mask_third_party: true   # white-fill any OTHER detected symbol's bbox that falls inside
+                          # the padded crop region before OCR (reuses the Phase 4
+                          # third_party_nodes masking pattern -- see _corridor_ink_check
+                          # in src/pidetect/graph/lines.py). Needed because 4/8 sanity
+                          # crops at 6px showed neighbour-bubble text bleeding in.
+upscale_factor: 6         # LANCZOS upscale factor applied before OCR (median bubble is
+                          # ~42x42px raw; each text line is only ~15-18px tall, well
+                          # below reliable OCR height without upscaling)
+
+# --- PaddleOCR ---
+ocr_lang: en
+ocr_det: true             # REQUIRED -- multi-line detection is what separates the
+                          # function-code line from the loop-number line (docs/phase3_design.md
+                          # §1 correction: det=False cannot produce per-line boxes)
+ocr_rec: true
+
+# --- Tag parsing (docs/phase3_design.md §3) ---
+function_regex: '^[A-Z]{1,5}$'
+loop_number_regex: '^\d{2,6}[A-Z]{0,2}$'
+placeholder_regex: '^X{2,6}$'    # "typical detail" callouts (e.g. AORV XXX) -- a real,
+                                 # readable tag whose loop number is a literal placeholder,
+                                 # not a parse failure. yields parse_status="ok_placeholder".
+single_line_regex: '^([A-Z]{1,5})[\s\-]?(\d{2,6}[A-Z]{0,2}|X{2,6})$'
+
+# --- Scope: instrument_bubble* classes only (v1) ---
+bubble_cls_ids: [25, 26, 27, 28]   # instrument_bubble, _RO10, _SDL, _DDL
