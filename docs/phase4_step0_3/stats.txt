@@ -69,3 +69,146 @@
   Edges (matched pairs): TP=23 FP=27 FN=8  [31 GT edges scoreable]
     Precision=0.460  Recall=0.742  F1=0.568
   Crossing sep-pairs: 12  violations=3  non-edge rate=75.0%  (cross-connect rate=25.0%)
+
+==========================================================
+  Sheet 3
+==========================================================
+  Detections -- raw: 88, after ROI: 82, after NMS: 79
+  Detections suppressed by ROI:  6
+  Detections suppressed by NMS:  3
+
+  Nodes by type:
+    valve                16
+    instrument           33
+    unknown_fitting      24
+    vessel               4
+    off_page             33
+    flow_arrow           5
+    TOTAL (graph nodes)  115
+    flow_arrow (set aside) 5
+    tag_rect (erased only)  1
+
+  Skeleton branches:     210
+  Endpoints total:       420
+  Endpoints bound:       94
+  Endpoints unbound:     326
+  Stub contests:         4
+  Off-page nodes created:33
+  Short-gap pairs (pre-erasure path confirmed): 51
+
+  No symbols with implausible port counts.
+
+  Connectors detected:   67
+    elbow        27
+    tee          15
+    4way         2
+    straight     23
+  Crossings detected:    16
+
+  Graph (step 5 -- raw, pre-contraction):
+    Nodes total:         198
+      valve                16
+      instrument           33
+      unknown_fitting      24
+      vessel               4
+      off_page             33
+      connector            67
+      crossing             16
+    Edges total:         132
+    Dangling branches:   105
+    Components:          76  (largest=42, isolated=52)
+
+  Graph (step 6 -- contracted, symbol-to-symbol):
+    Contracted connectors: 67
+    Contracted crossings:  16
+    Nodes remaining:     115
+      valve                16
+      instrument           33
+      unknown_fitting      24
+      vessel               4
+      off_page             33
+    Edges total:         77
+    Components:          47  (largest=18, isolated=32)
+
+  Arrows (step 7 -- direction tagging):
+    Arrows total:        0
+    Assigned to edge:    0  (0%)
+    Edges directed:      0 / 77
+
+  Evaluation vs GT (step 9):
+  Node match: 45/46 GT scoreable  (recall 97.8%)
+  Edges (matched pairs): TP=9 FP=16 FN=1  [10 GT edges scoreable]
+    Precision=0.360  Recall=0.900  F1=0.514
+  Crossing sep-pairs: 6  violations=4  non-edge rate=33.3%  (cross-connect rate=66.7%)
+
+==========================================================
+  Sheet 10
+==========================================================
+  Detections -- raw: 216, after ROI: 208, after NMS: 186
+  Detections suppressed by ROI:  8
+  Detections suppressed by NMS:  22
+
+  Nodes by type:
+    valve                36
+    instrument           39
+    unknown_fitting      52
+    vessel               7
+    off_page             51
+    flow_arrow           52
+    TOTAL (graph nodes)  237
+    flow_arrow (set aside) 52
+    tag_rect (erased only)  7
+
+  Skeleton branches:     514
+  Endpoints total:       1028
+  Endpoints bound:       207
+  Endpoints unbound:     821
+  Stub contests:         8
+  Off-page nodes created:51
+  Short-gap pairs (pre-erasure path confirmed): 116
+
+  No symbols with implausible port counts.
+
+  Connectors detected:   164
+    elbow        60
+    tee          35
+    4way         2
+    straight     67
+  Crossings detected:    43
+
+  Graph (step 5 -- raw, pre-contraction):
+    Nodes total:         444
+      valve                36
+      instrument           39
+      unknown_fitting      52
+      vessel               7
+      off_page             51
+      connector            164
+      crossing             43
+    Edges total:         305
+    Dangling branches:   285
+    Components:          161  (largest=88, isolated=95)
+
+  Graph (step 6 -- contracted, symbol-to-symbol):
+    Contracted connectors: 164
+    Contracted crossings:  43
+    Nodes remaining:     237
+      valve                36
+      instrument           39
+      unknown_fitting      52
+      vessel               7
+      off_page             51
+    Edges total:         187
+    Components:          80  (largest=58, isolated=38)
+
+  Arrows (step 7 -- direction tagging):
+    Arrows total:        12
+    Assigned to edge:    12  (100%)
+    Direction tagged:    12  (100% of assigned)
+    Edges directed:      11 / 187
+
+  Evaluation vs GT (step 9):
+  Node match: 72/72 GT scoreable  (recall 100.0%)
+  Edges (matched pairs): TP=15 FP=16 FN=7  [22 GT edges scoreable]
+    Precision=0.484  Recall=0.682  F1=0.566
+  Crossing sep-pairs: 8  violations=2  non-edge rate=75.0%  (cross-connect rate=25.0%)

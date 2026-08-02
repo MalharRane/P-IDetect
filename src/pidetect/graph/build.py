@@ -190,7 +190,9 @@ def build_graph(
                        branch_id=branch.branch_id,
                        length_px=float(branch.length_px),
                        branch_type=int(branch.branch_type),
-                       coords_rc=branch.coords_rc)  # (N,2) polyline for geometry
+                       coords_rc=branch.coords_rc,  # (N,2) polyline for geometry
+                       route_u=src_gid,             # orientation: coords_rc runs route_u -> route_v
+                       route_v=dst_gid)
 
     # --- short-gap edges: pipe fully erased by overlapping dilated bboxes ---
     # These pairs were confirmed connected in the pre-erasure binary image.
@@ -253,6 +255,46 @@ def run_step5(
 
 
 # ---------------------------------------------------------------------------
+# Route tracing helpers — reconstruct the real traced polyline through a
+# contracted chain of junction nodes, instead of discarding it (docs/phase4_final.md
+# fix: contracted edges were falling back to a straight centroid-to-centroid chord).
+# ---------------------------------------------------------------------------
+
+def _oriented_coords(node_from: str, node_to: str, edata: dict) -> Optional[list]:
+    """Return edata's coords_rc as a plain [[row, col], ...] list, ordered node_from -> node_to.
+
+    None when the edge carries no reconstructable path (short-gap edges, or a
+    prior contraction step that itself couldn't trace a route).
+    """
+    coords = edata.get("coords_rc")
+    if coords is None or len(coords) == 0:
+        return None
+    route_u, route_v = edata.get("route_u"), edata.get("route_v")
+    pts = [[float(r), float(c)] for r, c in coords]
+    if route_u == node_from and route_v == node_to:
+        return pts
+    if route_u == node_to and route_v == node_from:
+        return pts[::-1]
+    return None  # orientation unknown -- shouldn't happen for edges we constructed
+
+
+def _concat_routes(coords_a: list, coords_b: list) -> list:
+    """Concatenate two node_from->node_to polylines sharing their joining point."""
+    if coords_a and coords_b and coords_a[-1] == coords_b[0]:
+        return coords_a + coords_b[1:]
+    return coords_a + coords_b
+
+
+def _constituent_branch_ids(edata: dict) -> list:
+    """Ordered list of original skeleton branch IDs folded into this edge so far."""
+    if "constituent_branch_ids" in edata:
+        return list(edata["constituent_branch_ids"])
+    if "branch_id" in edata:
+        return [edata["branch_id"]]
+    return []
+
+
+# ---------------------------------------------------------------------------
 # Step 6a: connector contraction (standard — connect all neighbour pairs)
 # ---------------------------------------------------------------------------
 
@@ -261,7 +303,9 @@ def _contract_connectors(G: nx.Graph) -> int:
 
     For each connector C: add edges between every pair of C's neighbours,
     then remove C.  This is the standard topology-node contraction for
-    pipe bends and T-junctions.
+    pipe bends and T-junctions. When both legs (neighbour->C) carry a traced
+    polyline, the two are concatenated onto the new edge so the contracted
+    edge still renders the real pipe route instead of a straight chord.
 
     Returns the number of connector nodes contracted.
     """
@@ -276,8 +320,23 @@ def _contract_connectors(G: nx.Graph) -> int:
         for i in range(len(neighbors)):
             for j in range(i + 1, len(neighbors)):
                 u, v = neighbors[i], neighbors[j]
-                if u != v and not G.has_edge(u, v):
-                    G.add_edge(u, v, contracted=True, via_type="connector")
+                if u == v or G.has_edge(u, v):
+                    continue
+                edata_u = G.get_edge_data(u, gid)
+                edata_v = G.get_edge_data(gid, v)
+                coords_u = _oriented_coords(u, gid, edata_u)
+                coords_v = _oriented_coords(gid, v, edata_v)
+                edge_attrs = dict(contracted=True, via_type="connector")
+                if coords_u is not None and coords_v is not None:
+                    edge_attrs.update(
+                        coords_rc=_concat_routes(coords_u, coords_v),
+                        route_u=u,
+                        route_v=v,
+                        constituent_branch_ids=(
+                            _constituent_branch_ids(edata_u) + _constituent_branch_ids(edata_v)
+                        ),
+                    )
+                G.add_edge(u, v, **edge_attrs)
         G.remove_node(gid)
         n_contracted += 1
     return n_contracted
@@ -306,21 +365,38 @@ def _contract_crossings(G: nx.Graph) -> int:
     for gid, attrs in crossing_items:
         if gid not in G:
             continue
-        # Map branch_id -> neighbour for every edge incident to this crossing
-        branch_to_nbr: dict[int, str] = {}
+        # Map branch_id -> (neighbour, edge attrs) for every edge incident to this crossing
+        branch_to_edge: dict[int, tuple[str, dict]] = {}
         for u, v, edata in G.edges(gid, data=True):
             bid = edata.get("branch_id")
             if bid is not None:
-                branch_to_nbr[bid] = v if u == gid else u
+                nbr = v if u == gid else u
+                branch_to_edge[bid] = (nbr, edata)
 
         for (bid_A, bid_B) in attrs.get("pass_through_pairs", []):
             if bid_A == bid_B:
                 continue  # degenerate single-overpass entry — skip
-            nbr_A = branch_to_nbr.get(bid_A)
-            nbr_B = branch_to_nbr.get(bid_B)
-            if nbr_A is not None and nbr_B is not None and nbr_A != nbr_B:
-                if not G.has_edge(nbr_A, nbr_B):
-                    G.add_edge(nbr_A, nbr_B, contracted=True, via_type="crossing")
+            entry_A = branch_to_edge.get(bid_A)
+            entry_B = branch_to_edge.get(bid_B)
+            if entry_A is None or entry_B is None:
+                continue
+            nbr_A, edata_A = entry_A
+            nbr_B, edata_B = entry_B
+            if nbr_A == nbr_B or G.has_edge(nbr_A, nbr_B):
+                continue
+            coords_A = _oriented_coords(nbr_A, gid, edata_A)
+            coords_B = _oriented_coords(gid, nbr_B, edata_B)
+            edge_attrs = dict(contracted=True, via_type="crossing")
+            if coords_A is not None and coords_B is not None:
+                edge_attrs.update(
+                    coords_rc=_concat_routes(coords_A, coords_B),
+                    route_u=nbr_A,
+                    route_v=nbr_B,
+                    constituent_branch_ids=(
+                        _constituent_branch_ids(edata_A) + _constituent_branch_ids(edata_B)
+                    ),
+                )
+            G.add_edge(nbr_A, nbr_B, **edge_attrs)
 
         G.remove_node(gid)
         n_contracted += 1
