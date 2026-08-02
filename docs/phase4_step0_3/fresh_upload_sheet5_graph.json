@@ -1,0 +1,10154 @@
+{
+  "sheet_id": "5",
+  "nodes": [
+    {
+      "id": "sym_0",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1618.0,
+        1110.0,
+        1636.0,
+        1136.0
+      ],
+      "conf": 0.9301
+    },
+    {
+      "id": "sym_1",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1485.0,
+        1560.0,
+        1503.0,
+        1586.0
+      ],
+      "conf": 0.9278
+    },
+    {
+      "id": "sym_2",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        2302.0,
+        1408.0,
+        2328.0,
+        1425.0
+      ],
+      "conf": 0.9255
+    },
+    {
+      "id": "sym_3",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        708.0,
+        538.0,
+        727.0,
+        565.0
+      ],
+      "conf": 0.9224
+    },
+    {
+      "id": "sym_4",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        709.0,
+        427.0,
+        726.0,
+        453.0
+      ],
+      "conf": 0.9213
+    },
+    {
+      "id": "sym_5",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1552.0,
+        1560.0,
+        1569.0,
+        1586.0
+      ],
+      "conf": 0.9212
+    },
+    {
+      "id": "sym_6",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1707.0,
+        1110.0,
+        1724.0,
+        1136.0
+      ],
+      "conf": 0.9182
+    },
+    {
+      "id": "sym_7",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1796.0,
+        1110.0,
+        1813.0,
+        1136.0
+      ],
+      "conf": 0.9173
+    },
+    {
+      "id": "sym_8",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        2413.0,
+        1408.0,
+        2439.0,
+        1425.0
+      ],
+      "conf": 0.9172
+    },
+    {
+      "id": "sym_9",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1596.0,
+        312.0,
+        1613.0,
+        338.0
+      ],
+      "conf": 0.9171
+    },
+    {
+      "id": "sym_10",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1507.0,
+        1116.0,
+        1525.0,
+        1142.0
+      ],
+      "conf": 0.9161
+    },
+    {
+      "id": "sym_11",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1419.0,
+        1559.0,
+        1436.0,
+        1586.0
+      ],
+      "conf": 0.9154
+    },
+    {
+      "id": "sym_12",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1547.0,
+        1652.0,
+        1573.0,
+        1670.0
+      ],
+      "conf": 0.9148
+    },
+    {
+      "id": "sym_13",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        526.0,
+        823.0,
+        553.0,
+        840.0
+      ],
+      "conf": 0.9134
+    },
+    {
+      "id": "sym_14",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1263.0,
+        1192.0,
+        1281.0,
+        1219.0
+      ],
+      "conf": 0.9112
+    },
+    {
+      "id": "sym_15",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1791.0,
+        1208.0,
+        1818.0,
+        1226.0
+      ],
+      "conf": 0.9083
+    },
+    {
+      "id": "sym_16",
+      "node_type": "valve",
+      "cls_name": "Symbol_5",
+      "bbox": [
+        1127.0,
+        512.0,
+        1154.0,
+        529.0
+      ],
+      "conf": 0.9033
+    },
+    {
+      "id": "sym_17",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1041.0,
+        1626.0,
+        1059.0,
+        1652.0
+      ],
+      "conf": 0.9016
+    },
+    {
+      "id": "sym_18",
+      "node_type": "valve",
+      "cls_name": "Symbol_4",
+      "bbox": [
+        1308.0,
+        1567.0,
+        1325.0,
+        1593.0
+      ],
+      "conf": 0.8552
+    },
+    {
+      "id": "sym_19",
+      "node_type": "valve",
+      "cls_name": "check_valve",
+      "bbox": [
+        1169.0,
+        1226.0,
+        1197.0,
+        1247.0
+      ],
+      "conf": 0.7051
+    },
+    {
+      "id": "sym_20",
+      "node_type": "valve",
+      "cls_name": "check_valve",
+      "bbox": [
+        945.0,
+        1693.0,
+        972.0,
+        1715.0
+      ],
+      "conf": 0.6854
+    },
+    {
+      "id": "sym_21",
+      "node_type": "valve",
+      "cls_name": "Symbol_9",
+      "bbox": [
+        1024.0,
+        1029.0,
+        1034.0,
+        1071.0
+      ],
+      "conf": 0.3797
+    },
+    {
+      "id": "sym_22",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_17",
+      "bbox": [
+        1004.0,
+        635.0,
+        1021.0,
+        653.0
+      ],
+      "conf": 0.2928
+    },
+    {
+      "id": "sym_23",
+      "node_type": "unknown_fitting",
+      "cls_name": "reducer",
+      "bbox": [
+        2304.0,
+        1014.0,
+        2383.0,
+        1087.0
+      ],
+      "conf": 0.2739
+    },
+    {
+      "id": "sym_24",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        1198.0,
+        1697.0,
+        1207.0,
+        1714.0
+      ],
+      "conf": 0.8975
+    },
+    {
+      "id": "sym_25",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        1241.0,
+        1648.0,
+        1258.0,
+        1657.0
+      ],
+      "conf": 0.8975
+    },
+    {
+      "id": "sym_26",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        1420.0,
+        1229.0,
+        1429.0,
+        1247.0
+      ],
+      "conf": 0.8737
+    },
+    {
+      "id": "sym_27",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        877.0,
+        628.0,
+        896.0,
+        639.0
+      ],
+      "conf": 0.7638
+    },
+    {
+      "id": "sym_28",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_21",
+      "bbox": [
+        1463.0,
+        1179.0,
+        1480.0,
+        1188.0
+      ],
+      "conf": 0.5215
+    },
+    {
+      "id": "sym_29",
+      "node_type": "unknown_fitting",
+      "cls_name": "heat_exchanger",
+      "bbox": [
+        2779.0,
+        1834.0,
+        2880.0,
+        1854.0
+      ],
+      "conf": 0.613
+    },
+    {
+      "id": "sym_30",
+      "node_type": "unknown_fitting",
+      "cls_name": "heat_exchanger",
+      "bbox": [
+        179.0,
+        1280.0,
+        296.0,
+        1315.0
+      ],
+      "conf": 0.5705
+    },
+    {
+      "id": "sym_31",
+      "node_type": "unknown_fitting",
+      "cls_name": "heat_exchanger",
+      "bbox": [
+        2779.0,
+        1585.0,
+        2880.0,
+        1603.0
+      ],
+      "conf": 0.3058
+    },
+    {
+      "id": "sym_32",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2745.0,
+        1041.0,
+        2783.0,
+        1084.0
+      ],
+      "conf": 0.9247
+    },
+    {
+      "id": "sym_33",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2474.0,
+        433.0,
+        2493.0,
+        448.0
+      ],
+      "conf": 0.8638
+    },
+    {
+      "id": "sym_34",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1375.0,
+        440.0,
+        1390.0,
+        460.0
+      ],
+      "conf": 0.8604
+    },
+    {
+      "id": "sym_35",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2041.0,
+        1486.0,
+        2056.0,
+        1509.0
+      ],
+      "conf": 0.8497
+    },
+    {
+      "id": "sym_36",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2263.0,
+        1398.0,
+        2277.0,
+        1421.0
+      ],
+      "conf": 0.8425
+    },
+    {
+      "id": "sym_37",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        699.0,
+        1254.0,
+        718.0,
+        1269.0
+      ],
+      "conf": 0.8327
+    },
+    {
+      "id": "sym_38",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1324.0,
+        92.0,
+        1342.0,
+        117.0
+      ],
+      "conf": 0.8155
+    },
+    {
+      "id": "sym_39",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        697.0,
+        1322.0,
+        718.0,
+        1337.0
+      ],
+      "conf": 0.8095
+    },
+    {
+      "id": "sym_40",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        708.0,
+        195.0,
+        725.0,
+        216.0
+      ],
+      "conf": 0.7969
+    },
+    {
+      "id": "sym_41",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2029.0,
+        1409.0,
+        2052.0,
+        1425.0
+      ],
+      "conf": 0.7898
+    },
+    {
+      "id": "sym_42",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1008.0,
+        1077.0,
+        1029.0,
+        1093.0
+      ],
+      "conf": 0.7848
+    },
+    {
+      "id": "sym_43",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        715.0,
+        1699.0,
+        737.0,
+        1713.0
+      ],
+      "conf": 0.7764
+    },
+    {
+      "id": "sym_44",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1896.0,
+        360.0,
+        1918.0,
+        378.0
+      ],
+      "conf": 0.7641
+    },
+    {
+      "id": "sym_45",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2328.0,
+        1301.0,
+        2348.0,
+        1314.0
+      ],
+      "conf": 0.758
+    },
+    {
+      "id": "sym_46",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        866.0,
+        389.0,
+        887.0,
+        405.0
+      ],
+      "conf": 0.7573
+    },
+    {
+      "id": "sym_47",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        877.0,
+        366.0,
+        894.0,
+        390.0
+      ],
+      "conf": 0.7471
+    },
+    {
+      "id": "sym_48",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1907.0,
+        1059.0,
+        1924.0,
+        1084.0
+      ],
+      "conf": 0.7375
+    },
+    {
+      "id": "sym_49",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2273.0,
+        1178.0,
+        2291.0,
+        1191.0
+      ],
+      "conf": 0.7268
+    },
+    {
+      "id": "sym_50",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2048.0,
+        1255.0,
+        2068.0,
+        1269.0
+      ],
+      "conf": 0.7256
+    },
+    {
+      "id": "sym_51",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1364.0,
+        1099.0,
+        1386.0,
+        1114.0
+      ],
+      "conf": 0.6993
+    },
+    {
+      "id": "sym_52",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1008.0,
+        1144.0,
+        1028.0,
+        1160.0
+      ],
+      "conf": 0.6778
+    },
+    {
+      "id": "sym_53",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        709.0,
+        590.0,
+        732.0,
+        617.0
+      ],
+      "conf": 0.6641
+    },
+    {
+      "id": "sym_54",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1469.0,
+        1166.0,
+        1490.0,
+        1179.0
+      ],
+      "conf": 0.6579
+    },
+    {
+      "id": "sym_55",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1017.0,
+        1024.0,
+        1037.0,
+        1071.0
+      ],
+      "conf": 0.4622
+    },
+    {
+      "id": "sym_56",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1543.0,
+        1471.0,
+        1577.0,
+        1492.0
+      ],
+      "conf": 0.4593
+    },
+    {
+      "id": "sym_57",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2161.0,
+        1070.0,
+        2184.0,
+        1088.0
+      ],
+      "conf": 0.4251
+    },
+    {
+      "id": "sym_58",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1027.0,
+        1231.0,
+        1048.0,
+        1246.0
+      ],
+      "conf": 0.4199
+    },
+    {
+      "id": "sym_59",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1248.0,
+        1610.0,
+        1269.0,
+        1624.0
+      ],
+      "conf": 0.4128
+    },
+    {
+      "id": "sym_60",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2201.0,
+        1019.0,
+        2238.0,
+        1066.0
+      ],
+      "conf": 0.4065
+    },
+    {
+      "id": "sym_61",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2175.0,
+        1594.0,
+        2200.0,
+        1623.0
+      ],
+      "conf": 0.3999
+    },
+    {
+      "id": "sym_62",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1787.0,
+        1030.0,
+        1822.0,
+        1051.0
+      ],
+      "conf": 0.3975
+    },
+    {
+      "id": "sym_63",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2325.0,
+        1178.0,
+        2346.0,
+        1191.0
+      ],
+      "conf": 0.3254
+    },
+    {
+      "id": "sym_64",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1409.0,
+        1471.0,
+        1445.0,
+        1492.0
+      ],
+      "conf": 0.3064
+    },
+    {
+      "id": "sym_65",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2183.0,
+        1108.0,
+        2205.0,
+        1126.0
+      ],
+      "conf": 0.3024
+    },
+    {
+      "id": "sym_66",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        2042.0,
+        1171.0,
+        2055.0,
+        1193.0
+      ],
+      "conf": 0.2956
+    },
+    {
+      "id": "sym_67",
+      "node_type": "flow_arrow",
+      "cls_name": "flow_arrow",
+      "bbox": [
+        1609.0,
+        1029.0,
+        1644.0,
+        1048.0
+      ],
+      "conf": 0.2864
+    },
+    {
+      "id": "sym_68",
+      "node_type": "unknown_fitting",
+      "cls_name": "Symbol_25",
+      "bbox": [
+        857.0,
+        815.0,
+        929.0,
+        832.0
+      ],
+      "conf": 0.4673
+    },
+    {
+      "id": "sym_69",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1207.0,
+        528.0,
+        1259.0,
+        579.0
+      ],
+      "conf": 0.9563,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_70",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1624.0,
+        255.0,
+        1675.0,
+        306.0
+      ],
+      "conf": 0.9562,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_71",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1535.0,
+        1059.0,
+        1586.0,
+        1109.0
+      ],
+      "conf": 0.9559,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_72",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        429.0,
+        762.0,
+        481.0,
+        814.0
+      ],
+      "conf": 0.9557,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_73",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1535.0,
+        255.0,
+        1586.0,
+        306.0
+      ],
+      "conf": 0.9546,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_74",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1291.0,
+        1125.0,
+        1342.0,
+        1176.0
+      ],
+      "conf": 0.9542,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_75",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1091.0,
+        1125.0,
+        1141.0,
+        1177.0
+      ],
+      "conf": 0.9541,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_76",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1207.0,
+        462.0,
+        1258.0,
+        512.0
+      ],
+      "conf": 0.954,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_77",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1202.0,
+        1125.0,
+        1252.0,
+        1177.0
+      ],
+      "conf": 0.954,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_78",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1446.0,
+        1059.0,
+        1497.0,
+        1109.0
+      ],
+      "conf": 0.9539,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_79",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1247.0,
+        1511.0,
+        1298.0,
+        1563.0
+      ],
+      "conf": 0.9532,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_80",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        560.0,
+        740.0,
+        611.0,
+        792.0
+      ],
+      "conf": 0.9528,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_81",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1141.0,
+        1125.0,
+        1191.0,
+        1176.0
+      ],
+      "conf": 0.9526,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_82",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        429.0,
+        851.0,
+        481.0,
+        901.0
+      ],
+      "conf": 0.9525,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_83",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1798.0,
+        277.0,
+        1853.0,
+        328.0
+      ],
+      "conf": 0.9521,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_84",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1335.0,
+        1511.0,
+        1387.0,
+        1562.0
+      ],
+      "conf": 0.9511,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_85",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        898.0,
+        1570.0,
+        948.0,
+        1620.0
+      ],
+      "conf": 0.9499,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_86",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        606.0,
+        874.0,
+        655.0,
+        924.0
+      ],
+      "conf": 0.9494,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_87",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        847.0,
+        1569.0,
+        898.0,
+        1621.0
+      ],
+      "conf": 0.9485,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_88",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1757.0,
+        277.0,
+        1810.0,
+        328.0
+      ],
+      "conf": 0.9484,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_89",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        515.0,
+        740.0,
+        572.0,
+        792.0
+      ],
+      "conf": 0.9475,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_90",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1069.0,
+        1569.0,
+        1120.0,
+        1620.0
+      ],
+      "conf": 0.9474,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_91",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        785.0,
+        1569.0,
+        836.0,
+        1621.0
+      ],
+      "conf": 0.9452,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_92",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        559.0,
+        873.0,
+        610.0,
+        925.0
+      ],
+      "conf": 0.9441,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_93",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        736.0,
+        1568.0,
+        787.0,
+        1621.0
+      ],
+      "conf": 0.9418,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_94",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1046.0,
+        1302.0,
+        1099.0,
+        1354.0
+      ],
+      "conf": 0.9386,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_95",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        981.0,
+        1569.0,
+        1031.0,
+        1620.0
+      ],
+      "conf": 0.9376,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_96",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1094.0,
+        1303.0,
+        1145.0,
+        1354.0
+      ],
+      "conf": 0.9318,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_97",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1690.0,
+        1033.0,
+        1742.0,
+        1090.0
+      ],
+      "conf": 0.9114,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_98",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1468.0,
+        1476.0,
+        1520.0,
+        1531.0
+      ],
+      "conf": 0.9097,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_99",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1779.0,
+        1032.0,
+        1831.0,
+        1090.0
+      ],
+      "conf": 0.9047,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_100",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1534.0,
+        1474.0,
+        1586.0,
+        1531.0
+      ],
+      "conf": 0.8845,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_101",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        924.0,
+        580.0,
+        988.0,
+        640.0
+      ],
+      "conf": 0.8739,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_102",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1114.0,
+        590.0,
+        1172.0,
+        645.0
+      ],
+      "conf": 0.8662,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_103",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        953.0,
+        542.0,
+        1017.0,
+        605.0
+      ],
+      "conf": 0.8614,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_104",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1601.0,
+        1034.0,
+        1654.0,
+        1090.0
+      ],
+      "conf": 0.8609,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_105",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1401.0,
+        1476.0,
+        1453.0,
+        1531.0
+      ],
+      "conf": 0.8506,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_106",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1083.0,
+        618.0,
+        1150.0,
+        685.0
+      ],
+      "conf": 0.8483,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_107",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1345.0,
+        1799.0,
+        1415.0,
+        1857.0
+      ],
+      "conf": 0.7357,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_108",
+      "node_type": "instrument",
+      "cls_name": "instrument_bubble",
+      "bbox": [
+        1526.0,
+        1311.0,
+        1588.0,
+        1366.0
+      ],
+      "conf": 0.6922,
+      "tag": {
+        "function": null,
+        "loop_number": null,
+        "raw_text": "",
+        "confidence": 0.0,
+        "parse_status": "not_run"
+      }
+    },
+    {
+      "id": "sym_115",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1296.0,
+        7.0,
+        1304.0,
+        15.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_116",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        156.0,
+        10.0,
+        164.0,
+        18.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_117",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2164.0,
+        10.0,
+        2172.0,
+        18.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_118",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2172.0,
+        15.0,
+        2180.0,
+        23.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_119",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2388.0,
+        10.0,
+        2396.0,
+        18.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_120",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        367.0,
+        11.0,
+        375.0,
+        19.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_121",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        591.0,
+        11.0,
+        599.0,
+        19.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_122",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2626.0,
+        11.0,
+        2634.0,
+        19.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_123",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1285.0,
+        12.0,
+        1293.0,
+        20.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_124",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1717.0,
+        12.0,
+        1725.0,
+        20.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_125",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1944.0,
+        13.0,
+        1952.0,
+        21.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_126",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1946.0,
+        21.0,
+        1954.0,
+        29.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_127",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1044.0,
+        15.0,
+        1052.0,
+        23.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_128",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1050.0,
+        15.0,
+        1058.0,
+        23.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_129",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        823.0,
+        19.0,
+        831.0,
+        27.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_130",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        830.0,
+        19.0,
+        838.0,
+        27.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_131",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        21.0,
+        428.0,
+        29.0,
+        436.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_132",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        5.0,
+        549.0,
+        13.0,
+        557.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_133",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        25.0,
+        673.0,
+        33.0,
+        681.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_134",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        25.0,
+        928.0,
+        33.0,
+        936.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_135",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        15.0,
+        1047.0,
+        23.0,
+        1055.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_136",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        14.0,
+        1073.0,
+        22.0,
+        1081.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_137",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        5.0,
+        1315.0,
+        13.0,
+        1323.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_138",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        24.0,
+        1440.0,
+        32.0,
+        1448.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_139",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        12.0,
+        1702.0,
+        20.0,
+        1710.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_140",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1300.0,
+        2113.0,
+        1308.0,
+        2121.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_141",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        156.0,
+        2097.0,
+        164.0,
+        2105.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_142",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        159.0,
+        2111.0,
+        167.0,
+        2119.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_143",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2164.0,
+        2097.0,
+        2172.0,
+        2105.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_144",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2172.0,
+        2102.0,
+        2180.0,
+        2110.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_145",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2388.0,
+        2097.0,
+        2396.0,
+        2105.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_146",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2392.0,
+        2112.0,
+        2400.0,
+        2120.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_147",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        367.0,
+        2098.0,
+        375.0,
+        2106.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_148",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        368.0,
+        2113.0,
+        376.0,
+        2121.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_149",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        591.0,
+        2098.0,
+        599.0,
+        2106.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_150",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        592.0,
+        2113.0,
+        600.0,
+        2121.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_151",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2626.0,
+        2098.0,
+        2634.0,
+        2106.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_152",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2627.0,
+        2113.0,
+        2635.0,
+        2121.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_153",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1285.0,
+        2099.0,
+        1293.0,
+        2107.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_154",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1717.0,
+        2099.0,
+        1725.0,
+        2107.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_155",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1713.0,
+        2110.0,
+        1721.0,
+        2118.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_156",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1944.0,
+        2100.0,
+        1952.0,
+        2108.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_157",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1946.0,
+        2108.0,
+        1954.0,
+        2116.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_158",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1044.0,
+        2102.0,
+        1052.0,
+        2110.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_159",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1050.0,
+        2102.0,
+        1058.0,
+        2110.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_160",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        2165.0,
+        2112.0,
+        2173.0,
+        2120.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_161",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1275.0,
+        2125.0,
+        1283.0,
+        2133.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_162",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        823.0,
+        2106.0,
+        831.0,
+        2114.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_163",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        830.0,
+        2106.0,
+        838.0,
+        2114.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_164",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1495.0,
+        11.0,
+        1503.0,
+        19.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_165",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        13.0,
+        1127.0,
+        21.0,
+        1135.0
+      ],
+      "conf": 1.0
+    },
+    {
+      "id": "sym_166",
+      "node_type": "off_page",
+      "cls_name": "off_page",
+      "bbox": [
+        1495.0,
+        2098.0,
+        1503.0,
+        2106.0
+      ],
+      "conf": 1.0
+    }
+  ],
+  "edges": [
+    {
+      "u": "sym_0",
+      "v": "sym_71",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_2",
+      "v": "sym_36",
+      "flow_direction": "sym_2 -> sym_36",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_5",
+      "v": "sym_61",
+      "branch_type": "connector",
+      "path": [
+        [
+          1561.0,
+          1596.0
+        ],
+        [
+          1562.0,
+          1611.0
+        ],
+        [
+          1575.0,
+          1617.0
+        ],
+        [
+          1590.0,
+          1617.0
+        ],
+        [
+          1605.0,
+          1617.0
+        ],
+        [
+          1620.0,
+          1617.0
+        ],
+        [
+          1635.0,
+          1617.0
+        ],
+        [
+          1650.0,
+          1617.0
+        ],
+        [
+          1665.0,
+          1617.0
+        ],
+        [
+          1680.0,
+          1617.0
+        ],
+        [
+          1695.0,
+          1617.0
+        ],
+        [
+          1710.0,
+          1617.0
+        ],
+        [
+          1725.0,
+          1617.0
+        ],
+        [
+          1740.0,
+          1617.0
+        ],
+        [
+          1755.0,
+          1617.0
+        ],
+        [
+          1770.0,
+          1617.0
+        ],
+        [
+          1785.0,
+          1617.0
+        ],
+        [
+          1800.0,
+          1617.0
+        ],
+        [
+          1815.0,
+          1617.0
+        ],
+        [
+          1830.0,
+          1617.0
+        ],
+        [
+          1845.0,
+          1617.0
+        ],
+        [
+          1860.0,
+          1617.0
+        ],
+        [
+          1875.0,
+          1617.0
+        ],
+        [
+          1890.0,
+          1617.0
+        ],
+        [
+          1905.0,
+          1617.0
+        ],
+        [
+          1920.0,
+          1617.0
+        ],
+        [
+          1935.0,
+          1617.0
+        ],
+        [
+          1950.0,
+          1617.0
+        ],
+        [
+          1965.0,
+          1617.0
+        ],
+        [
+          1980.0,
+          1617.0
+        ],
+        [
+          1995.0,
+          1617.0
+        ],
+        [
+          2010.0,
+          1617.0
+        ],
+        [
+          2025.0,
+          1617.0
+        ],
+        [
+          2040.0,
+          1617.0
+        ],
+        [
+          2055.0,
+          1617.0
+        ],
+        [
+          2070.0,
+          1617.0
+        ],
+        [
+          2085.0,
+          1617.0
+        ],
+        [
+          2100.0,
+          1617.0
+        ],
+        [
+          2115.0,
+          1617.0
+        ],
+        [
+          2130.0,
+          1617.0
+        ],
+        [
+          2145.0,
+          1617.0
+        ],
+        [
+          2160.0,
+          1617.0
+        ],
+        [
+          2164.0,
+          1617.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_5",
+      "v": "sym_11",
+      "branch_type": "connector",
+      "path": [
+        [
+          1428.0,
+          1596.0
+        ],
+        [
+          1428.0,
+          1600.0
+        ],
+        [
+          1428.0,
+          1604.0
+        ],
+        [
+          1428.0,
+          1608.0
+        ],
+        [
+          1428.0,
+          1612.0
+        ],
+        [
+          1428.0,
+          1616.0
+        ],
+        [
+          1431.0,
+          1617.0
+        ],
+        [
+          1435.0,
+          1617.0
+        ],
+        [
+          1439.0,
+          1617.0
+        ],
+        [
+          1443.0,
+          1617.0
+        ],
+        [
+          1447.0,
+          1617.0
+        ],
+        [
+          1451.0,
+          1617.0
+        ],
+        [
+          1455.0,
+          1617.0
+        ],
+        [
+          1459.0,
+          1617.0
+        ],
+        [
+          1463.0,
+          1617.0
+        ],
+        [
+          1467.0,
+          1617.0
+        ],
+        [
+          1471.0,
+          1617.0
+        ],
+        [
+          1475.0,
+          1617.0
+        ],
+        [
+          1479.0,
+          1617.0
+        ],
+        [
+          1483.0,
+          1617.0
+        ],
+        [
+          1487.0,
+          1618.0
+        ],
+        [
+          1495.0,
+          1617.0
+        ],
+        [
+          1499.0,
+          1617.0
+        ],
+        [
+          1503.0,
+          1617.0
+        ],
+        [
+          1507.0,
+          1617.0
+        ],
+        [
+          1511.0,
+          1617.0
+        ],
+        [
+          1515.0,
+          1617.0
+        ],
+        [
+          1519.0,
+          1617.0
+        ],
+        [
+          1523.0,
+          1617.0
+        ],
+        [
+          1527.0,
+          1617.0
+        ],
+        [
+          1531.0,
+          1617.0
+        ],
+        [
+          1535.0,
+          1617.0
+        ],
+        [
+          1539.0,
+          1617.0
+        ],
+        [
+          1543.0,
+          1617.0
+        ],
+        [
+          1547.0,
+          1617.0
+        ],
+        [
+          1551.0,
+          1617.0
+        ],
+        [
+          1555.0,
+          1617.0
+        ],
+        [
+          1559.0,
+          1617.0
+        ],
+        [
+          1563.0,
+          1615.0
+        ],
+        [
+          1563.0,
+          1612.0
+        ],
+        [
+          1561.0,
+          1608.0
+        ],
+        [
+          1561.0,
+          1604.0
+        ],
+        [
+          1561.0,
+          1600.0
+        ],
+        [
+          1561.0,
+          1596.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_5",
+      "v": "sym_59",
+      "branch_type": "connector",
+      "path": [
+        [
+          1279.0,
+          1618.0
+        ],
+        [
+          1286.0,
+          1617.0
+        ],
+        [
+          1293.0,
+          1617.0
+        ],
+        [
+          1300.0,
+          1617.0
+        ],
+        [
+          1307.0,
+          1617.0
+        ],
+        [
+          1314.0,
+          1617.0
+        ],
+        [
+          1321.0,
+          1617.0
+        ],
+        [
+          1328.0,
+          1617.0
+        ],
+        [
+          1335.0,
+          1617.0
+        ],
+        [
+          1342.0,
+          1617.0
+        ],
+        [
+          1349.0,
+          1617.0
+        ],
+        [
+          1356.0,
+          1617.0
+        ],
+        [
+          1363.0,
+          1617.0
+        ],
+        [
+          1370.0,
+          1617.0
+        ],
+        [
+          1377.0,
+          1617.0
+        ],
+        [
+          1384.0,
+          1617.0
+        ],
+        [
+          1391.0,
+          1617.0
+        ],
+        [
+          1398.0,
+          1617.0
+        ],
+        [
+          1405.0,
+          1617.0
+        ],
+        [
+          1412.0,
+          1617.0
+        ],
+        [
+          1419.0,
+          1617.0
+        ],
+        [
+          1426.0,
+          1617.0
+        ],
+        [
+          1433.0,
+          1617.0
+        ],
+        [
+          1440.0,
+          1617.0
+        ],
+        [
+          1447.0,
+          1617.0
+        ],
+        [
+          1454.0,
+          1617.0
+        ],
+        [
+          1461.0,
+          1617.0
+        ],
+        [
+          1468.0,
+          1617.0
+        ],
+        [
+          1475.0,
+          1617.0
+        ],
+        [
+          1482.0,
+          1617.0
+        ],
+        [
+          1493.0,
+          1616.0
+        ],
+        [
+          1500.0,
+          1617.0
+        ],
+        [
+          1507.0,
+          1617.0
+        ],
+        [
+          1514.0,
+          1617.0
+        ],
+        [
+          1521.0,
+          1617.0
+        ],
+        [
+          1528.0,
+          1617.0
+        ],
+        [
+          1535.0,
+          1617.0
+        ],
+        [
+          1542.0,
+          1617.0
+        ],
+        [
+          1549.0,
+          1617.0
+        ],
+        [
+          1556.0,
+          1617.0
+        ],
+        [
+          1563.0,
+          1615.0
+        ],
+        [
+          1561.0,
+          1609.0
+        ],
+        [
+          1561.0,
+          1602.0
+        ],
+        [
+          1561.0,
+          1596.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_7",
+      "v": "sym_66",
+      "branch_type": "connector",
+      "path": [
+        [
+          2031.0,
+          1173.0
+        ],
+        [
+          2025.0,
+          1173.0
+        ],
+        [
+          2019.0,
+          1173.0
+        ],
+        [
+          2013.0,
+          1173.0
+        ],
+        [
+          2007.0,
+          1173.0
+        ],
+        [
+          2001.0,
+          1173.0
+        ],
+        [
+          1995.0,
+          1173.0
+        ],
+        [
+          1989.0,
+          1173.0
+        ],
+        [
+          1983.0,
+          1173.0
+        ],
+        [
+          1977.0,
+          1173.0
+        ],
+        [
+          1971.0,
+          1173.0
+        ],
+        [
+          1965.0,
+          1173.0
+        ],
+        [
+          1959.0,
+          1173.0
+        ],
+        [
+          1953.0,
+          1173.0
+        ],
+        [
+          1947.0,
+          1173.0
+        ],
+        [
+          1941.0,
+          1173.0
+        ],
+        [
+          1935.0,
+          1173.0
+        ],
+        [
+          1929.0,
+          1173.0
+        ],
+        [
+          1923.0,
+          1173.0
+        ],
+        [
+          1917.0,
+          1173.0
+        ],
+        [
+          1911.0,
+          1173.0
+        ],
+        [
+          1905.0,
+          1173.0
+        ],
+        [
+          1899.0,
+          1173.0
+        ],
+        [
+          1893.0,
+          1173.0
+        ],
+        [
+          1887.0,
+          1173.0
+        ],
+        [
+          1881.0,
+          1173.0
+        ],
+        [
+          1875.0,
+          1173.0
+        ],
+        [
+          1869.0,
+          1173.0
+        ],
+        [
+          1863.0,
+          1173.0
+        ],
+        [
+          1857.0,
+          1173.0
+        ],
+        [
+          1851.0,
+          1173.0
+        ],
+        [
+          1845.0,
+          1173.0
+        ],
+        [
+          1839.0,
+          1173.0
+        ],
+        [
+          1833.0,
+          1173.0
+        ],
+        [
+          1827.0,
+          1173.0
+        ],
+        [
+          1821.0,
+          1173.0
+        ],
+        [
+          1806.0,
+          1172.0
+        ],
+        [
+          1805.0,
+          1166.0
+        ],
+        [
+          1805.0,
+          1160.0
+        ],
+        [
+          1805.0,
+          1154.0
+        ],
+        [
+          1805.0,
+          1148.0
+        ],
+        [
+          1805.0,
+          1146.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_7",
+      "v": "sym_15",
+      "branch_type": "connector",
+      "path": [
+        [
+          1781.0,
+          1218.0
+        ],
+        [
+          1778.0,
+          1218.0
+        ],
+        [
+          1775.0,
+          1218.0
+        ],
+        [
+          1772.0,
+          1218.0
+        ],
+        [
+          1769.0,
+          1218.0
+        ],
+        [
+          1766.0,
+          1218.0
+        ],
+        [
+          1763.0,
+          1218.0
+        ],
+        [
+          1761.0,
+          1215.0
+        ],
+        [
+          1761.0,
+          1212.0
+        ],
+        [
+          1761.0,
+          1209.0
+        ],
+        [
+          1761.0,
+          1206.0
+        ],
+        [
+          1761.0,
+          1203.0
+        ],
+        [
+          1761.0,
+          1200.0
+        ],
+        [
+          1761.0,
+          1197.0
+        ],
+        [
+          1761.0,
+          1194.0
+        ],
+        [
+          1761.0,
+          1191.0
+        ],
+        [
+          1761.0,
+          1188.0
+        ],
+        [
+          1761.0,
+          1185.0
+        ],
+        [
+          1761.0,
+          1182.0
+        ],
+        [
+          1761.0,
+          1179.0
+        ],
+        [
+          1761.0,
+          1176.0
+        ],
+        [
+          1762.0,
+          1174.0
+        ],
+        [
+          1765.0,
+          1173.0
+        ],
+        [
+          1768.0,
+          1173.0
+        ],
+        [
+          1771.0,
+          1173.0
+        ],
+        [
+          1774.0,
+          1173.0
+        ],
+        [
+          1777.0,
+          1173.0
+        ],
+        [
+          1780.0,
+          1173.0
+        ],
+        [
+          1783.0,
+          1173.0
+        ],
+        [
+          1786.0,
+          1173.0
+        ],
+        [
+          1789.0,
+          1173.0
+        ],
+        [
+          1792.0,
+          1173.0
+        ],
+        [
+          1795.0,
+          1173.0
+        ],
+        [
+          1798.0,
+          1173.0
+        ],
+        [
+          1801.0,
+          1173.0
+        ],
+        [
+          1804.0,
+          1173.0
+        ],
+        [
+          1806.0,
+          1171.0
+        ],
+        [
+          1805.0,
+          1168.0
+        ],
+        [
+          1805.0,
+          1165.0
+        ],
+        [
+          1805.0,
+          1162.0
+        ],
+        [
+          1805.0,
+          1159.0
+        ],
+        [
+          1805.0,
+          1156.0
+        ],
+        [
+          1805.0,
+          1153.0
+        ],
+        [
+          1805.0,
+          1150.0
+        ],
+        [
+          1805.0,
+          1147.0
+        ],
+        [
+          1805.0,
+          1146.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_7",
+      "v": "sym_54",
+      "branch_type": "connector",
+      "path": [
+        [
+          1805.0,
+          1146.0
+        ],
+        [
+          1805.0,
+          1154.0
+        ],
+        [
+          1805.0,
+          1162.0
+        ],
+        [
+          1806.0,
+          1170.0
+        ],
+        [
+          1800.0,
+          1173.0
+        ],
+        [
+          1792.0,
+          1173.0
+        ],
+        [
+          1784.0,
+          1173.0
+        ],
+        [
+          1776.0,
+          1173.0
+        ],
+        [
+          1768.0,
+          1173.0
+        ],
+        [
+          1760.0,
+          1174.0
+        ],
+        [
+          1752.0,
+          1173.0
+        ],
+        [
+          1744.0,
+          1173.0
+        ],
+        [
+          1736.0,
+          1173.0
+        ],
+        [
+          1728.0,
+          1173.0
+        ],
+        [
+          1716.0,
+          1173.0
+        ],
+        [
+          1708.0,
+          1173.0
+        ],
+        [
+          1700.0,
+          1173.0
+        ],
+        [
+          1692.0,
+          1173.0
+        ],
+        [
+          1684.0,
+          1173.0
+        ],
+        [
+          1676.0,
+          1173.0
+        ],
+        [
+          1668.0,
+          1173.0
+        ],
+        [
+          1660.0,
+          1173.0
+        ],
+        [
+          1652.0,
+          1173.0
+        ],
+        [
+          1644.0,
+          1173.0
+        ],
+        [
+          1636.0,
+          1173.0
+        ],
+        [
+          1628.0,
+          1173.0
+        ],
+        [
+          1620.0,
+          1173.0
+        ],
+        [
+          1612.0,
+          1173.0
+        ],
+        [
+          1604.0,
+          1173.0
+        ],
+        [
+          1596.0,
+          1173.0
+        ],
+        [
+          1588.0,
+          1173.0
+        ],
+        [
+          1580.0,
+          1173.0
+        ],
+        [
+          1572.0,
+          1173.0
+        ],
+        [
+          1564.0,
+          1173.0
+        ],
+        [
+          1556.0,
+          1173.0
+        ],
+        [
+          1548.0,
+          1173.0
+        ],
+        [
+          1540.0,
+          1173.0
+        ],
+        [
+          1532.0,
+          1173.0
+        ],
+        [
+          1524.0,
+          1173.0
+        ],
+        [
+          1516.0,
+          1173.0
+        ],
+        [
+          1508.0,
+          1174.0
+        ],
+        [
+          1500.0,
+          1174.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_9",
+      "v": "sym_70",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_9",
+      "v": "sym_73",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_10",
+      "v": "sym_71",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_11",
+      "v": "sym_59",
+      "branch_type": "connector",
+      "path": [
+        [
+          1428.0,
+          1596.0
+        ],
+        [
+          1428.0,
+          1600.0
+        ],
+        [
+          1428.0,
+          1604.0
+        ],
+        [
+          1428.0,
+          1608.0
+        ],
+        [
+          1428.0,
+          1612.0
+        ],
+        [
+          1428.0,
+          1616.0
+        ],
+        [
+          1425.0,
+          1617.0
+        ],
+        [
+          1421.0,
+          1617.0
+        ],
+        [
+          1417.0,
+          1617.0
+        ],
+        [
+          1413.0,
+          1617.0
+        ],
+        [
+          1409.0,
+          1617.0
+        ],
+        [
+          1405.0,
+          1617.0
+        ],
+        [
+          1401.0,
+          1617.0
+        ],
+        [
+          1397.0,
+          1617.0
+        ],
+        [
+          1393.0,
+          1617.0
+        ],
+        [
+          1389.0,
+          1617.0
+        ],
+        [
+          1385.0,
+          1617.0
+        ],
+        [
+          1381.0,
+          1617.0
+        ],
+        [
+          1377.0,
+          1617.0
+        ],
+        [
+          1373.0,
+          1617.0
+        ],
+        [
+          1369.0,
+          1617.0
+        ],
+        [
+          1365.0,
+          1617.0
+        ],
+        [
+          1361.0,
+          1617.0
+        ],
+        [
+          1357.0,
+          1617.0
+        ],
+        [
+          1353.0,
+          1617.0
+        ],
+        [
+          1349.0,
+          1617.0
+        ],
+        [
+          1345.0,
+          1617.0
+        ],
+        [
+          1341.0,
+          1617.0
+        ],
+        [
+          1337.0,
+          1617.0
+        ],
+        [
+          1333.0,
+          1617.0
+        ],
+        [
+          1329.0,
+          1617.0
+        ],
+        [
+          1325.0,
+          1617.0
+        ],
+        [
+          1321.0,
+          1617.0
+        ],
+        [
+          1317.0,
+          1617.0
+        ],
+        [
+          1313.0,
+          1617.0
+        ],
+        [
+          1309.0,
+          1617.0
+        ],
+        [
+          1305.0,
+          1617.0
+        ],
+        [
+          1301.0,
+          1617.0
+        ],
+        [
+          1297.0,
+          1617.0
+        ],
+        [
+          1293.0,
+          1617.0
+        ],
+        [
+          1289.0,
+          1617.0
+        ],
+        [
+          1285.0,
+          1617.0
+        ],
+        [
+          1281.0,
+          1617.0
+        ],
+        [
+          1279.0,
+          1618.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_11",
+      "v": "sym_61",
+      "branch_type": "connector",
+      "path": [
+        [
+          1428.0,
+          1596.0
+        ],
+        [
+          1428.0,
+          1614.0
+        ],
+        [
+          1443.0,
+          1617.0
+        ],
+        [
+          1461.0,
+          1617.0
+        ],
+        [
+          1479.0,
+          1617.0
+        ],
+        [
+          1501.0,
+          1617.0
+        ],
+        [
+          1519.0,
+          1617.0
+        ],
+        [
+          1537.0,
+          1617.0
+        ],
+        [
+          1555.0,
+          1617.0
+        ],
+        [
+          1573.0,
+          1617.0
+        ],
+        [
+          1591.0,
+          1617.0
+        ],
+        [
+          1609.0,
+          1617.0
+        ],
+        [
+          1627.0,
+          1617.0
+        ],
+        [
+          1645.0,
+          1617.0
+        ],
+        [
+          1663.0,
+          1617.0
+        ],
+        [
+          1681.0,
+          1617.0
+        ],
+        [
+          1699.0,
+          1617.0
+        ],
+        [
+          1717.0,
+          1617.0
+        ],
+        [
+          1735.0,
+          1617.0
+        ],
+        [
+          1753.0,
+          1617.0
+        ],
+        [
+          1771.0,
+          1617.0
+        ],
+        [
+          1789.0,
+          1617.0
+        ],
+        [
+          1807.0,
+          1617.0
+        ],
+        [
+          1825.0,
+          1617.0
+        ],
+        [
+          1843.0,
+          1617.0
+        ],
+        [
+          1861.0,
+          1617.0
+        ],
+        [
+          1879.0,
+          1617.0
+        ],
+        [
+          1897.0,
+          1617.0
+        ],
+        [
+          1915.0,
+          1617.0
+        ],
+        [
+          1933.0,
+          1617.0
+        ],
+        [
+          1951.0,
+          1617.0
+        ],
+        [
+          1969.0,
+          1617.0
+        ],
+        [
+          1987.0,
+          1617.0
+        ],
+        [
+          2005.0,
+          1617.0
+        ],
+        [
+          2023.0,
+          1617.0
+        ],
+        [
+          2041.0,
+          1617.0
+        ],
+        [
+          2059.0,
+          1617.0
+        ],
+        [
+          2077.0,
+          1617.0
+        ],
+        [
+          2095.0,
+          1617.0
+        ],
+        [
+          2113.0,
+          1617.0
+        ],
+        [
+          2131.0,
+          1617.0
+        ],
+        [
+          2149.0,
+          1617.0
+        ],
+        [
+          2164.0,
+          1617.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_13",
+      "v": "sym_82",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_13",
+      "v": "sym_86",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_13",
+      "v": "sym_92",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_14",
+      "v": "sym_74",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_15",
+      "v": "sym_54",
+      "branch_type": "connector",
+      "path": [
+        [
+          1781.0,
+          1218.0
+        ],
+        [
+          1773.0,
+          1218.0
+        ],
+        [
+          1765.0,
+          1218.0
+        ],
+        [
+          1761.0,
+          1212.0
+        ],
+        [
+          1761.0,
+          1204.0
+        ],
+        [
+          1761.0,
+          1196.0
+        ],
+        [
+          1761.0,
+          1188.0
+        ],
+        [
+          1761.0,
+          1180.0
+        ],
+        [
+          1759.0,
+          1173.0
+        ],
+        [
+          1751.0,
+          1173.0
+        ],
+        [
+          1743.0,
+          1173.0
+        ],
+        [
+          1735.0,
+          1173.0
+        ],
+        [
+          1727.0,
+          1173.0
+        ],
+        [
+          1715.0,
+          1173.0
+        ],
+        [
+          1707.0,
+          1173.0
+        ],
+        [
+          1699.0,
+          1173.0
+        ],
+        [
+          1691.0,
+          1173.0
+        ],
+        [
+          1683.0,
+          1173.0
+        ],
+        [
+          1675.0,
+          1173.0
+        ],
+        [
+          1667.0,
+          1173.0
+        ],
+        [
+          1659.0,
+          1173.0
+        ],
+        [
+          1651.0,
+          1173.0
+        ],
+        [
+          1643.0,
+          1173.0
+        ],
+        [
+          1635.0,
+          1173.0
+        ],
+        [
+          1627.0,
+          1173.0
+        ],
+        [
+          1619.0,
+          1173.0
+        ],
+        [
+          1611.0,
+          1173.0
+        ],
+        [
+          1603.0,
+          1173.0
+        ],
+        [
+          1595.0,
+          1173.0
+        ],
+        [
+          1587.0,
+          1173.0
+        ],
+        [
+          1579.0,
+          1173.0
+        ],
+        [
+          1571.0,
+          1173.0
+        ],
+        [
+          1563.0,
+          1173.0
+        ],
+        [
+          1555.0,
+          1173.0
+        ],
+        [
+          1547.0,
+          1173.0
+        ],
+        [
+          1539.0,
+          1173.0
+        ],
+        [
+          1531.0,
+          1173.0
+        ],
+        [
+          1523.0,
+          1173.0
+        ],
+        [
+          1515.0,
+          1173.0
+        ],
+        [
+          1507.0,
+          1174.0
+        ],
+        [
+          1500.0,
+          1174.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_15",
+      "v": "sym_66",
+      "branch_type": "connector",
+      "path": [
+        [
+          1781.0,
+          1218.0
+        ],
+        [
+          1773.0,
+          1218.0
+        ],
+        [
+          1765.0,
+          1218.0
+        ],
+        [
+          1761.0,
+          1212.0
+        ],
+        [
+          1761.0,
+          1204.0
+        ],
+        [
+          1761.0,
+          1196.0
+        ],
+        [
+          1761.0,
+          1188.0
+        ],
+        [
+          1761.0,
+          1180.0
+        ],
+        [
+          1763.0,
+          1173.0
+        ],
+        [
+          1771.0,
+          1173.0
+        ],
+        [
+          1779.0,
+          1173.0
+        ],
+        [
+          1787.0,
+          1173.0
+        ],
+        [
+          1795.0,
+          1173.0
+        ],
+        [
+          1803.0,
+          1173.0
+        ],
+        [
+          1820.0,
+          1173.0
+        ],
+        [
+          1828.0,
+          1173.0
+        ],
+        [
+          1836.0,
+          1173.0
+        ],
+        [
+          1844.0,
+          1173.0
+        ],
+        [
+          1852.0,
+          1173.0
+        ],
+        [
+          1860.0,
+          1173.0
+        ],
+        [
+          1868.0,
+          1173.0
+        ],
+        [
+          1876.0,
+          1173.0
+        ],
+        [
+          1884.0,
+          1173.0
+        ],
+        [
+          1892.0,
+          1173.0
+        ],
+        [
+          1900.0,
+          1173.0
+        ],
+        [
+          1908.0,
+          1173.0
+        ],
+        [
+          1916.0,
+          1173.0
+        ],
+        [
+          1924.0,
+          1173.0
+        ],
+        [
+          1932.0,
+          1173.0
+        ],
+        [
+          1940.0,
+          1173.0
+        ],
+        [
+          1948.0,
+          1173.0
+        ],
+        [
+          1956.0,
+          1173.0
+        ],
+        [
+          1964.0,
+          1173.0
+        ],
+        [
+          1972.0,
+          1173.0
+        ],
+        [
+          1980.0,
+          1173.0
+        ],
+        [
+          1988.0,
+          1173.0
+        ],
+        [
+          1996.0,
+          1173.0
+        ],
+        [
+          2004.0,
+          1173.0
+        ],
+        [
+          2012.0,
+          1173.0
+        ],
+        [
+          2020.0,
+          1173.0
+        ],
+        [
+          2028.0,
+          1173.0
+        ],
+        [
+          2031.0,
+          1173.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_17",
+      "v": "sym_90",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_18",
+      "v": "sym_79",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_19",
+      "v": "sym_26",
+      "branch_id": 798,
+      "length_px": 201.4142135623731,
+      "branch_type": "direct",
+      "path": [
+        [
+          1408.0,
+          1238.0
+        ],
+        [
+          1403.0,
+          1239.0
+        ],
+        [
+          1398.0,
+          1239.0
+        ],
+        [
+          1393.0,
+          1239.0
+        ],
+        [
+          1388.0,
+          1239.0
+        ],
+        [
+          1383.0,
+          1239.0
+        ],
+        [
+          1378.0,
+          1239.0
+        ],
+        [
+          1373.0,
+          1239.0
+        ],
+        [
+          1368.0,
+          1239.0
+        ],
+        [
+          1363.0,
+          1239.0
+        ],
+        [
+          1358.0,
+          1239.0
+        ],
+        [
+          1353.0,
+          1239.0
+        ],
+        [
+          1348.0,
+          1239.0
+        ],
+        [
+          1343.0,
+          1239.0
+        ],
+        [
+          1338.0,
+          1239.0
+        ],
+        [
+          1333.0,
+          1239.0
+        ],
+        [
+          1328.0,
+          1239.0
+        ],
+        [
+          1323.0,
+          1239.0
+        ],
+        [
+          1318.0,
+          1239.0
+        ],
+        [
+          1313.0,
+          1239.0
+        ],
+        [
+          1308.0,
+          1239.0
+        ],
+        [
+          1303.0,
+          1239.0
+        ],
+        [
+          1298.0,
+          1239.0
+        ],
+        [
+          1293.0,
+          1239.0
+        ],
+        [
+          1288.0,
+          1239.0
+        ],
+        [
+          1283.0,
+          1239.0
+        ],
+        [
+          1278.0,
+          1239.0
+        ],
+        [
+          1273.0,
+          1239.0
+        ],
+        [
+          1268.0,
+          1239.0
+        ],
+        [
+          1263.0,
+          1239.0
+        ],
+        [
+          1258.0,
+          1239.0
+        ],
+        [
+          1253.0,
+          1239.0
+        ],
+        [
+          1248.0,
+          1239.0
+        ],
+        [
+          1243.0,
+          1239.0
+        ],
+        [
+          1238.0,
+          1239.0
+        ],
+        [
+          1233.0,
+          1239.0
+        ],
+        [
+          1228.0,
+          1239.0
+        ],
+        [
+          1223.0,
+          1239.0
+        ],
+        [
+          1218.0,
+          1239.0
+        ],
+        [
+          1213.0,
+          1239.0
+        ],
+        [
+          1208.0,
+          1239.0
+        ],
+        [
+          1207.0,
+          1239.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_19",
+      "v": "sym_96",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_19",
+      "v": "sym_58",
+      "branch_type": "connector",
+      "path": [
+        [
+          1058.0,
+          1239.0
+        ],
+        [
+          1060.0,
+          1239.0
+        ],
+        [
+          1062.0,
+          1239.0
+        ],
+        [
+          1064.0,
+          1239.0
+        ],
+        [
+          1066.0,
+          1239.0
+        ],
+        [
+          1068.0,
+          1239.0
+        ],
+        [
+          1070.0,
+          1240.0
+        ],
+        [
+          1072.0,
+          1241.0
+        ],
+        [
+          1074.0,
+          1240.0
+        ],
+        [
+          1076.0,
+          1239.0
+        ],
+        [
+          1078.0,
+          1239.0
+        ],
+        [
+          1080.0,
+          1239.0
+        ],
+        [
+          1082.0,
+          1239.0
+        ],
+        [
+          1084.0,
+          1239.0
+        ],
+        [
+          1086.0,
+          1239.0
+        ],
+        [
+          1088.0,
+          1239.0
+        ],
+        [
+          1090.0,
+          1239.0
+        ],
+        [
+          1092.0,
+          1239.0
+        ],
+        [
+          1094.0,
+          1239.0
+        ],
+        [
+          1096.0,
+          1239.0
+        ],
+        [
+          1098.0,
+          1239.0
+        ],
+        [
+          1100.0,
+          1239.0
+        ],
+        [
+          1102.0,
+          1239.0
+        ],
+        [
+          1104.0,
+          1239.0
+        ],
+        [
+          1106.0,
+          1239.0
+        ],
+        [
+          1108.0,
+          1239.0
+        ],
+        [
+          1110.0,
+          1239.0
+        ],
+        [
+          1112.0,
+          1239.0
+        ],
+        [
+          1114.0,
+          1238.0
+        ],
+        [
+          1116.0,
+          1237.0
+        ],
+        [
+          1118.0,
+          1237.0
+        ],
+        [
+          1120.0,
+          1238.0
+        ],
+        [
+          1122.0,
+          1239.0
+        ],
+        [
+          1124.0,
+          1239.0
+        ],
+        [
+          1126.0,
+          1239.0
+        ],
+        [
+          1128.0,
+          1239.0
+        ],
+        [
+          1130.0,
+          1239.0
+        ],
+        [
+          1132.0,
+          1239.0
+        ],
+        [
+          1134.0,
+          1239.0
+        ],
+        [
+          1136.0,
+          1239.0
+        ],
+        [
+          1138.0,
+          1239.0
+        ],
+        [
+          1140.0,
+          1239.0
+        ],
+        [
+          1142.0,
+          1239.0
+        ],
+        [
+          1144.0,
+          1239.0
+        ],
+        [
+          1146.0,
+          1239.0
+        ],
+        [
+          1148.0,
+          1239.0
+        ],
+        [
+          1150.0,
+          1239.0
+        ],
+        [
+          1152.0,
+          1239.0
+        ],
+        [
+          1154.0,
+          1239.0
+        ],
+        [
+          1156.0,
+          1239.0
+        ],
+        [
+          1157.0,
+          1238.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_20",
+      "v": "sym_24",
+      "branch_id": 1622,
+      "length_px": 205.4142135623731,
+      "branch_type": "direct",
+      "path": [
+        [
+          1187.0,
+          1706.0
+        ],
+        [
+          1182.0,
+          1706.0
+        ],
+        [
+          1177.0,
+          1706.0
+        ],
+        [
+          1172.0,
+          1706.0
+        ],
+        [
+          1167.0,
+          1706.0
+        ],
+        [
+          1162.0,
+          1706.0
+        ],
+        [
+          1157.0,
+          1706.0
+        ],
+        [
+          1152.0,
+          1706.0
+        ],
+        [
+          1147.0,
+          1706.0
+        ],
+        [
+          1142.0,
+          1706.0
+        ],
+        [
+          1137.0,
+          1706.0
+        ],
+        [
+          1132.0,
+          1706.0
+        ],
+        [
+          1127.0,
+          1706.0
+        ],
+        [
+          1122.0,
+          1706.0
+        ],
+        [
+          1117.0,
+          1706.0
+        ],
+        [
+          1112.0,
+          1706.0
+        ],
+        [
+          1107.0,
+          1706.0
+        ],
+        [
+          1102.0,
+          1706.0
+        ],
+        [
+          1097.0,
+          1706.0
+        ],
+        [
+          1092.0,
+          1706.0
+        ],
+        [
+          1087.0,
+          1706.0
+        ],
+        [
+          1082.0,
+          1706.0
+        ],
+        [
+          1077.0,
+          1706.0
+        ],
+        [
+          1072.0,
+          1706.0
+        ],
+        [
+          1067.0,
+          1706.0
+        ],
+        [
+          1062.0,
+          1706.0
+        ],
+        [
+          1057.0,
+          1706.0
+        ],
+        [
+          1052.0,
+          1706.0
+        ],
+        [
+          1047.0,
+          1706.0
+        ],
+        [
+          1042.0,
+          1706.0
+        ],
+        [
+          1037.0,
+          1706.0
+        ],
+        [
+          1032.0,
+          1706.0
+        ],
+        [
+          1027.0,
+          1706.0
+        ],
+        [
+          1022.0,
+          1706.0
+        ],
+        [
+          1017.0,
+          1706.0
+        ],
+        [
+          1012.0,
+          1706.0
+        ],
+        [
+          1007.0,
+          1706.0
+        ],
+        [
+          1002.0,
+          1706.0
+        ],
+        [
+          997.0,
+          1706.0
+        ],
+        [
+          992.0,
+          1706.0
+        ],
+        [
+          987.0,
+          1706.0
+        ],
+        [
+          982.0,
+          1707.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_20",
+      "v": "sym_43",
+      "branch_type": "connector",
+      "path": [
+        [
+          934.0,
+          1706.0
+        ],
+        [
+          930.0,
+          1706.0
+        ],
+        [
+          926.0,
+          1706.0
+        ],
+        [
+          922.0,
+          1706.0
+        ],
+        [
+          918.0,
+          1706.0
+        ],
+        [
+          914.0,
+          1706.0
+        ],
+        [
+          910.0,
+          1706.0
+        ],
+        [
+          906.0,
+          1706.0
+        ],
+        [
+          902.0,
+          1706.0
+        ],
+        [
+          898.0,
+          1706.0
+        ],
+        [
+          894.0,
+          1706.0
+        ],
+        [
+          890.0,
+          1706.0
+        ],
+        [
+          886.0,
+          1706.0
+        ],
+        [
+          882.0,
+          1706.0
+        ],
+        [
+          878.0,
+          1706.0
+        ],
+        [
+          874.0,
+          1704.0
+        ],
+        [
+          870.0,
+          1706.0
+        ],
+        [
+          866.0,
+          1706.0
+        ],
+        [
+          862.0,
+          1706.0
+        ],
+        [
+          858.0,
+          1706.0
+        ],
+        [
+          854.0,
+          1706.0
+        ],
+        [
+          850.0,
+          1706.0
+        ],
+        [
+          846.0,
+          1706.0
+        ],
+        [
+          842.0,
+          1706.0
+        ],
+        [
+          838.0,
+          1706.0
+        ],
+        [
+          834.0,
+          1706.0
+        ],
+        [
+          830.0,
+          1706.0
+        ],
+        [
+          826.0,
+          1706.0
+        ],
+        [
+          822.0,
+          1706.0
+        ],
+        [
+          818.0,
+          1706.0
+        ],
+        [
+          814.0,
+          1706.0
+        ],
+        [
+          810.0,
+          1706.0
+        ],
+        [
+          806.0,
+          1706.0
+        ],
+        [
+          802.0,
+          1706.0
+        ],
+        [
+          798.0,
+          1706.0
+        ],
+        [
+          794.0,
+          1706.0
+        ],
+        [
+          790.0,
+          1706.0
+        ],
+        [
+          786.0,
+          1706.0
+        ],
+        [
+          782.0,
+          1706.0
+        ],
+        [
+          778.0,
+          1706.0
+        ],
+        [
+          774.0,
+          1706.0
+        ],
+        [
+          770.0,
+          1706.0
+        ],
+        [
+          766.0,
+          1706.0
+        ],
+        [
+          762.0,
+          1704.0
+        ],
+        [
+          758.0,
+          1706.0
+        ],
+        [
+          754.0,
+          1706.0
+        ],
+        [
+          750.0,
+          1706.0
+        ],
+        [
+          747.0,
+          1707.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_21",
+      "v": "sym_55",
+      "flow_direction": "sym_55 -> sym_21",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_22",
+      "v": "sym_101",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_22",
+      "v": "sym_103",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_23",
+      "v": "sym_65",
+      "flow_direction": "sym_23 -> sym_65",
+      "branch_id": 614,
+      "length_px": 164.82842712474618,
+      "branch_type": "direct",
+      "path": [
+        [
+          2360.0,
+          1098.0
+        ],
+        [
+          2360.0,
+          1102.0
+        ],
+        [
+          2360.0,
+          1106.0
+        ],
+        [
+          2360.0,
+          1110.0
+        ],
+        [
+          2360.0,
+          1114.0
+        ],
+        [
+          2359.0,
+          1118.0
+        ],
+        [
+          2355.0,
+          1119.0
+        ],
+        [
+          2351.0,
+          1119.0
+        ],
+        [
+          2347.0,
+          1119.0
+        ],
+        [
+          2343.0,
+          1119.0
+        ],
+        [
+          2339.0,
+          1119.0
+        ],
+        [
+          2335.0,
+          1119.0
+        ],
+        [
+          2331.0,
+          1119.0
+        ],
+        [
+          2327.0,
+          1119.0
+        ],
+        [
+          2323.0,
+          1119.0
+        ],
+        [
+          2319.0,
+          1119.0
+        ],
+        [
+          2315.0,
+          1119.0
+        ],
+        [
+          2311.0,
+          1119.0
+        ],
+        [
+          2307.0,
+          1119.0
+        ],
+        [
+          2303.0,
+          1119.0
+        ],
+        [
+          2299.0,
+          1119.0
+        ],
+        [
+          2295.0,
+          1119.0
+        ],
+        [
+          2291.0,
+          1119.0
+        ],
+        [
+          2287.0,
+          1119.0
+        ],
+        [
+          2283.0,
+          1119.0
+        ],
+        [
+          2279.0,
+          1119.0
+        ],
+        [
+          2275.0,
+          1119.0
+        ],
+        [
+          2271.0,
+          1119.0
+        ],
+        [
+          2267.0,
+          1119.0
+        ],
+        [
+          2263.0,
+          1119.0
+        ],
+        [
+          2259.0,
+          1119.0
+        ],
+        [
+          2255.0,
+          1119.0
+        ],
+        [
+          2251.0,
+          1119.0
+        ],
+        [
+          2247.0,
+          1119.0
+        ],
+        [
+          2243.0,
+          1119.0
+        ],
+        [
+          2239.0,
+          1119.0
+        ],
+        [
+          2235.0,
+          1119.0
+        ],
+        [
+          2231.0,
+          1119.0
+        ],
+        [
+          2227.0,
+          1119.0
+        ],
+        [
+          2223.0,
+          1119.0
+        ],
+        [
+          2219.0,
+          1119.0
+        ],
+        [
+          2215.0,
+          1119.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_27",
+      "v": "sym_46",
+      "branch_id": 315,
+      "length_px": 201.4142135623731,
+      "branch_type": "direct",
+      "path": [
+        [
+          886.0,
+          416.0
+        ],
+        [
+          886.0,
+          421.0
+        ],
+        [
+          886.0,
+          426.0
+        ],
+        [
+          886.0,
+          431.0
+        ],
+        [
+          886.0,
+          436.0
+        ],
+        [
+          886.0,
+          441.0
+        ],
+        [
+          886.0,
+          446.0
+        ],
+        [
+          886.0,
+          451.0
+        ],
+        [
+          886.0,
+          456.0
+        ],
+        [
+          886.0,
+          461.0
+        ],
+        [
+          886.0,
+          466.0
+        ],
+        [
+          886.0,
+          471.0
+        ],
+        [
+          886.0,
+          476.0
+        ],
+        [
+          886.0,
+          481.0
+        ],
+        [
+          886.0,
+          486.0
+        ],
+        [
+          886.0,
+          491.0
+        ],
+        [
+          886.0,
+          496.0
+        ],
+        [
+          886.0,
+          501.0
+        ],
+        [
+          886.0,
+          506.0
+        ],
+        [
+          886.0,
+          511.0
+        ],
+        [
+          886.0,
+          516.0
+        ],
+        [
+          886.0,
+          521.0
+        ],
+        [
+          886.0,
+          526.0
+        ],
+        [
+          886.0,
+          531.0
+        ],
+        [
+          886.0,
+          536.0
+        ],
+        [
+          886.0,
+          541.0
+        ],
+        [
+          886.0,
+          546.0
+        ],
+        [
+          886.0,
+          551.0
+        ],
+        [
+          886.0,
+          556.0
+        ],
+        [
+          886.0,
+          561.0
+        ],
+        [
+          886.0,
+          566.0
+        ],
+        [
+          886.0,
+          571.0
+        ],
+        [
+          886.0,
+          576.0
+        ],
+        [
+          886.0,
+          581.0
+        ],
+        [
+          886.0,
+          586.0
+        ],
+        [
+          886.0,
+          591.0
+        ],
+        [
+          886.0,
+          596.0
+        ],
+        [
+          886.0,
+          601.0
+        ],
+        [
+          886.0,
+          606.0
+        ],
+        [
+          886.0,
+          611.0
+        ],
+        [
+          886.0,
+          616.0
+        ],
+        [
+          887.0,
+          617.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_28",
+      "v": "sym_54",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_34",
+      "v": "sym_44",
+      "branch_type": "connector",
+      "path": [
+        [
+          1399.0,
+          441.0
+        ],
+        [
+          1413.0,
+          441.0
+        ],
+        [
+          1427.0,
+          441.0
+        ],
+        [
+          1441.0,
+          441.0
+        ],
+        [
+          1455.0,
+          441.0
+        ],
+        [
+          1469.0,
+          441.0
+        ],
+        [
+          1483.0,
+          441.0
+        ],
+        [
+          1497.0,
+          441.0
+        ],
+        [
+          1511.0,
+          441.0
+        ],
+        [
+          1525.0,
+          441.0
+        ],
+        [
+          1539.0,
+          441.0
+        ],
+        [
+          1553.0,
+          441.0
+        ],
+        [
+          1567.0,
+          441.0
+        ],
+        [
+          1581.0,
+          441.0
+        ],
+        [
+          1595.0,
+          441.0
+        ],
+        [
+          1609.0,
+          441.0
+        ],
+        [
+          1623.0,
+          441.0
+        ],
+        [
+          1637.0,
+          441.0
+        ],
+        [
+          1651.0,
+          441.0
+        ],
+        [
+          1665.0,
+          441.0
+        ],
+        [
+          1679.0,
+          441.0
+        ],
+        [
+          1693.0,
+          441.0
+        ],
+        [
+          1707.0,
+          441.0
+        ],
+        [
+          1721.0,
+          441.0
+        ],
+        [
+          1735.0,
+          441.0
+        ],
+        [
+          1749.0,
+          441.0
+        ],
+        [
+          1763.0,
+          441.0
+        ],
+        [
+          1777.0,
+          441.0
+        ],
+        [
+          1791.0,
+          441.0
+        ],
+        [
+          1805.0,
+          441.0
+        ],
+        [
+          1819.0,
+          441.0
+        ],
+        [
+          1833.0,
+          441.0
+        ],
+        [
+          1847.0,
+          441.0
+        ],
+        [
+          1861.0,
+          441.0
+        ],
+        [
+          1875.0,
+          441.0
+        ],
+        [
+          1889.0,
+          441.0
+        ],
+        [
+          1903.0,
+          441.0
+        ],
+        [
+          1916.0,
+          440.0
+        ],
+        [
+          1916.0,
+          426.0
+        ],
+        [
+          1916.0,
+          412.0
+        ],
+        [
+          1916.0,
+          398.0
+        ],
+        [
+          1916.0,
+          389.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_34",
+      "v": "sym_48",
+      "branch_type": "connector",
+      "path": [
+        [
+          1399.0,
+          441.0
+        ],
+        [
+          1427.0,
+          441.0
+        ],
+        [
+          1455.0,
+          441.0
+        ],
+        [
+          1483.0,
+          441.0
+        ],
+        [
+          1511.0,
+          441.0
+        ],
+        [
+          1539.0,
+          441.0
+        ],
+        [
+          1567.0,
+          441.0
+        ],
+        [
+          1595.0,
+          441.0
+        ],
+        [
+          1623.0,
+          441.0
+        ],
+        [
+          1651.0,
+          441.0
+        ],
+        [
+          1679.0,
+          441.0
+        ],
+        [
+          1707.0,
+          441.0
+        ],
+        [
+          1735.0,
+          441.0
+        ],
+        [
+          1763.0,
+          441.0
+        ],
+        [
+          1791.0,
+          441.0
+        ],
+        [
+          1819.0,
+          441.0
+        ],
+        [
+          1847.0,
+          441.0
+        ],
+        [
+          1875.0,
+          441.0
+        ],
+        [
+          1903.0,
+          441.0
+        ],
+        [
+          1916.0,
+          456.0
+        ],
+        [
+          1916.0,
+          484.0
+        ],
+        [
+          1916.0,
+          512.0
+        ],
+        [
+          1916.0,
+          540.0
+        ],
+        [
+          1916.0,
+          568.0
+        ],
+        [
+          1916.0,
+          596.0
+        ],
+        [
+          1916.0,
+          624.0
+        ],
+        [
+          1916.0,
+          652.0
+        ],
+        [
+          1916.0,
+          680.0
+        ],
+        [
+          1916.0,
+          708.0
+        ],
+        [
+          1916.0,
+          736.0
+        ],
+        [
+          1916.0,
+          764.0
+        ],
+        [
+          1916.0,
+          792.0
+        ],
+        [
+          1916.0,
+          820.0
+        ],
+        [
+          1916.0,
+          848.0
+        ],
+        [
+          1916.0,
+          876.0
+        ],
+        [
+          1916.0,
+          904.0
+        ],
+        [
+          1916.0,
+          932.0
+        ],
+        [
+          1916.0,
+          960.0
+        ],
+        [
+          1916.0,
+          988.0
+        ],
+        [
+          1916.0,
+          1016.0
+        ],
+        [
+          1916.0,
+          1044.0
+        ],
+        [
+          1916.0,
+          1048.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_35",
+      "v": "sym_41",
+      "flow_direction": "sym_35 -> sym_41",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_37",
+      "v": "sym_39",
+      "branch_id": 899,
+      "length_px": 31.414213562373096,
+      "branch_type": "direct",
+      "path": [
+        [
+          717.0,
+          1280.0
+        ],
+        [
+          717.0,
+          1281.0
+        ],
+        [
+          717.0,
+          1282.0
+        ],
+        [
+          717.0,
+          1283.0
+        ],
+        [
+          717.0,
+          1284.0
+        ],
+        [
+          717.0,
+          1285.0
+        ],
+        [
+          717.0,
+          1286.0
+        ],
+        [
+          717.0,
+          1287.0
+        ],
+        [
+          717.0,
+          1288.0
+        ],
+        [
+          717.0,
+          1289.0
+        ],
+        [
+          717.0,
+          1290.0
+        ],
+        [
+          717.0,
+          1291.0
+        ],
+        [
+          717.0,
+          1292.0
+        ],
+        [
+          717.0,
+          1293.0
+        ],
+        [
+          717.0,
+          1294.0
+        ],
+        [
+          717.0,
+          1295.0
+        ],
+        [
+          717.0,
+          1296.0
+        ],
+        [
+          717.0,
+          1297.0
+        ],
+        [
+          717.0,
+          1298.0
+        ],
+        [
+          717.0,
+          1299.0
+        ],
+        [
+          717.0,
+          1300.0
+        ],
+        [
+          717.0,
+          1301.0
+        ],
+        [
+          717.0,
+          1302.0
+        ],
+        [
+          717.0,
+          1303.0
+        ],
+        [
+          717.0,
+          1304.0
+        ],
+        [
+          717.0,
+          1305.0
+        ],
+        [
+          717.0,
+          1306.0
+        ],
+        [
+          717.0,
+          1307.0
+        ],
+        [
+          717.0,
+          1308.0
+        ],
+        [
+          717.0,
+          1309.0
+        ],
+        [
+          717.0,
+          1310.0
+        ],
+        [
+          718.0,
+          1311.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_37",
+      "v": "sym_52",
+      "branch_type": "connector",
+      "path": [
+        [
+          718.0,
+          1243.0
+        ],
+        [
+          717.0,
+          1234.0
+        ],
+        [
+          717.0,
+          1225.0
+        ],
+        [
+          717.0,
+          1216.0
+        ],
+        [
+          717.0,
+          1207.0
+        ],
+        [
+          717.0,
+          1198.0
+        ],
+        [
+          717.0,
+          1189.0
+        ],
+        [
+          717.0,
+          1180.0
+        ],
+        [
+          717.0,
+          1171.0
+        ],
+        [
+          717.0,
+          1162.0
+        ],
+        [
+          717.0,
+          1153.0
+        ],
+        [
+          726.0,
+          1152.0
+        ],
+        [
+          735.0,
+          1152.0
+        ],
+        [
+          744.0,
+          1152.0
+        ],
+        [
+          753.0,
+          1152.0
+        ],
+        [
+          762.0,
+          1152.0
+        ],
+        [
+          771.0,
+          1152.0
+        ],
+        [
+          780.0,
+          1152.0
+        ],
+        [
+          789.0,
+          1152.0
+        ],
+        [
+          798.0,
+          1152.0
+        ],
+        [
+          807.0,
+          1152.0
+        ],
+        [
+          816.0,
+          1152.0
+        ],
+        [
+          825.0,
+          1152.0
+        ],
+        [
+          834.0,
+          1152.0
+        ],
+        [
+          843.0,
+          1152.0
+        ],
+        [
+          852.0,
+          1152.0
+        ],
+        [
+          861.0,
+          1152.0
+        ],
+        [
+          870.0,
+          1152.0
+        ],
+        [
+          879.0,
+          1152.0
+        ],
+        [
+          888.0,
+          1152.0
+        ],
+        [
+          897.0,
+          1152.0
+        ],
+        [
+          906.0,
+          1152.0
+        ],
+        [
+          915.0,
+          1152.0
+        ],
+        [
+          924.0,
+          1152.0
+        ],
+        [
+          933.0,
+          1152.0
+        ],
+        [
+          942.0,
+          1152.0
+        ],
+        [
+          951.0,
+          1152.0
+        ],
+        [
+          960.0,
+          1152.0
+        ],
+        [
+          969.0,
+          1152.0
+        ],
+        [
+          978.0,
+          1152.0
+        ],
+        [
+          987.0,
+          1152.0
+        ],
+        [
+          996.0,
+          1152.0
+        ],
+        [
+          998.0,
+          1153.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_39",
+      "v": "sym_43",
+      "branch_type": "connector",
+      "path": [
+        [
+          717.0,
+          1348.0
+        ],
+        [
+          717.0,
+          1356.0
+        ],
+        [
+          717.0,
+          1364.0
+        ],
+        [
+          717.0,
+          1372.0
+        ],
+        [
+          717.0,
+          1380.0
+        ],
+        [
+          717.0,
+          1388.0
+        ],
+        [
+          717.0,
+          1396.0
+        ],
+        [
+          717.0,
+          1404.0
+        ],
+        [
+          717.0,
+          1412.0
+        ],
+        [
+          717.0,
+          1420.0
+        ],
+        [
+          717.0,
+          1428.0
+        ],
+        [
+          717.0,
+          1436.0
+        ],
+        [
+          717.0,
+          1444.0
+        ],
+        [
+          717.0,
+          1452.0
+        ],
+        [
+          717.0,
+          1460.0
+        ],
+        [
+          717.0,
+          1468.0
+        ],
+        [
+          717.0,
+          1476.0
+        ],
+        [
+          717.0,
+          1484.0
+        ],
+        [
+          717.0,
+          1492.0
+        ],
+        [
+          717.0,
+          1500.0
+        ],
+        [
+          717.0,
+          1508.0
+        ],
+        [
+          717.0,
+          1516.0
+        ],
+        [
+          717.0,
+          1524.0
+        ],
+        [
+          717.0,
+          1532.0
+        ],
+        [
+          717.0,
+          1540.0
+        ],
+        [
+          717.0,
+          1548.0
+        ],
+        [
+          717.0,
+          1556.0
+        ],
+        [
+          717.0,
+          1564.0
+        ],
+        [
+          717.0,
+          1572.0
+        ],
+        [
+          717.0,
+          1580.0
+        ],
+        [
+          717.0,
+          1588.0
+        ],
+        [
+          717.0,
+          1596.0
+        ],
+        [
+          717.0,
+          1604.0
+        ],
+        [
+          717.0,
+          1612.0
+        ],
+        [
+          717.0,
+          1620.0
+        ],
+        [
+          717.0,
+          1628.0
+        ],
+        [
+          717.0,
+          1636.0
+        ],
+        [
+          717.0,
+          1644.0
+        ],
+        [
+          717.0,
+          1652.0
+        ],
+        [
+          717.0,
+          1660.0
+        ],
+        [
+          717.0,
+          1668.0
+        ],
+        [
+          717.0,
+          1676.0
+        ],
+        [
+          717.0,
+          1684.0
+        ],
+        [
+          718.0,
+          1688.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_42",
+      "v": "sym_52",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_42",
+      "v": "sym_75",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_44",
+      "v": "sym_83",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_44",
+      "v": "sym_47",
+      "branch_type": "connector",
+      "path": [
+        [
+          904.0,
+          370.0
+        ],
+        [
+          928.0,
+          370.0
+        ],
+        [
+          952.0,
+          370.0
+        ],
+        [
+          976.0,
+          370.0
+        ],
+        [
+          1000.0,
+          370.0
+        ],
+        [
+          1024.0,
+          370.0
+        ],
+        [
+          1048.0,
+          370.0
+        ],
+        [
+          1072.0,
+          370.0
+        ],
+        [
+          1096.0,
+          370.0
+        ],
+        [
+          1120.0,
+          370.0
+        ],
+        [
+          1144.0,
+          370.0
+        ],
+        [
+          1168.0,
+          370.0
+        ],
+        [
+          1192.0,
+          369.0
+        ],
+        [
+          1216.0,
+          369.0
+        ],
+        [
+          1240.0,
+          369.0
+        ],
+        [
+          1264.0,
+          369.0
+        ],
+        [
+          1288.0,
+          369.0
+        ],
+        [
+          1312.0,
+          369.0
+        ],
+        [
+          1336.0,
+          369.0
+        ],
+        [
+          1360.0,
+          369.0
+        ],
+        [
+          1384.0,
+          369.0
+        ],
+        [
+          1408.0,
+          369.0
+        ],
+        [
+          1432.0,
+          369.0
+        ],
+        [
+          1456.0,
+          369.0
+        ],
+        [
+          1480.0,
+          369.0
+        ],
+        [
+          1504.0,
+          369.0
+        ],
+        [
+          1528.0,
+          369.0
+        ],
+        [
+          1552.0,
+          369.0
+        ],
+        [
+          1576.0,
+          369.0
+        ],
+        [
+          1600.0,
+          369.0
+        ],
+        [
+          1624.0,
+          369.0
+        ],
+        [
+          1648.0,
+          369.0
+        ],
+        [
+          1672.0,
+          369.0
+        ],
+        [
+          1696.0,
+          369.0
+        ],
+        [
+          1720.0,
+          369.0
+        ],
+        [
+          1744.0,
+          369.0
+        ],
+        [
+          1768.0,
+          369.0
+        ],
+        [
+          1792.0,
+          369.0
+        ],
+        [
+          1816.0,
+          369.0
+        ],
+        [
+          1840.0,
+          369.0
+        ],
+        [
+          1864.0,
+          369.0
+        ],
+        [
+          1886.0,
+          370.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_44",
+      "v": "sym_48",
+      "branch_type": "connector",
+      "path": [
+        [
+          1916.0,
+          389.0
+        ],
+        [
+          1916.0,
+          405.0
+        ],
+        [
+          1916.0,
+          421.0
+        ],
+        [
+          1916.0,
+          437.0
+        ],
+        [
+          1916.0,
+          453.0
+        ],
+        [
+          1916.0,
+          469.0
+        ],
+        [
+          1916.0,
+          485.0
+        ],
+        [
+          1916.0,
+          501.0
+        ],
+        [
+          1916.0,
+          517.0
+        ],
+        [
+          1916.0,
+          533.0
+        ],
+        [
+          1916.0,
+          549.0
+        ],
+        [
+          1916.0,
+          565.0
+        ],
+        [
+          1916.0,
+          581.0
+        ],
+        [
+          1916.0,
+          597.0
+        ],
+        [
+          1916.0,
+          613.0
+        ],
+        [
+          1916.0,
+          629.0
+        ],
+        [
+          1916.0,
+          645.0
+        ],
+        [
+          1916.0,
+          661.0
+        ],
+        [
+          1916.0,
+          677.0
+        ],
+        [
+          1916.0,
+          693.0
+        ],
+        [
+          1916.0,
+          709.0
+        ],
+        [
+          1916.0,
+          725.0
+        ],
+        [
+          1916.0,
+          741.0
+        ],
+        [
+          1916.0,
+          757.0
+        ],
+        [
+          1916.0,
+          773.0
+        ],
+        [
+          1916.0,
+          789.0
+        ],
+        [
+          1916.0,
+          805.0
+        ],
+        [
+          1916.0,
+          821.0
+        ],
+        [
+          1916.0,
+          837.0
+        ],
+        [
+          1916.0,
+          853.0
+        ],
+        [
+          1916.0,
+          869.0
+        ],
+        [
+          1916.0,
+          885.0
+        ],
+        [
+          1916.0,
+          901.0
+        ],
+        [
+          1916.0,
+          917.0
+        ],
+        [
+          1916.0,
+          933.0
+        ],
+        [
+          1916.0,
+          949.0
+        ],
+        [
+          1916.0,
+          965.0
+        ],
+        [
+          1916.0,
+          981.0
+        ],
+        [
+          1916.0,
+          997.0
+        ],
+        [
+          1916.0,
+          1013.0
+        ],
+        [
+          1916.0,
+          1029.0
+        ],
+        [
+          1916.0,
+          1045.0
+        ],
+        [
+          1916.0,
+          1048.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_48",
+      "v": "sym_57",
+      "branch_id": 568,
+      "length_px": 216.0,
+      "branch_type": "direct",
+      "path": [
+        [
+          1934.0,
+          1080.0
+        ],
+        [
+          1939.0,
+          1080.0
+        ],
+        [
+          1944.0,
+          1080.0
+        ],
+        [
+          1949.0,
+          1080.0
+        ],
+        [
+          1954.0,
+          1080.0
+        ],
+        [
+          1959.0,
+          1080.0
+        ],
+        [
+          1964.0,
+          1080.0
+        ],
+        [
+          1969.0,
+          1080.0
+        ],
+        [
+          1974.0,
+          1080.0
+        ],
+        [
+          1979.0,
+          1080.0
+        ],
+        [
+          1984.0,
+          1080.0
+        ],
+        [
+          1989.0,
+          1080.0
+        ],
+        [
+          1994.0,
+          1080.0
+        ],
+        [
+          1999.0,
+          1080.0
+        ],
+        [
+          2004.0,
+          1080.0
+        ],
+        [
+          2009.0,
+          1080.0
+        ],
+        [
+          2014.0,
+          1080.0
+        ],
+        [
+          2019.0,
+          1080.0
+        ],
+        [
+          2024.0,
+          1080.0
+        ],
+        [
+          2029.0,
+          1080.0
+        ],
+        [
+          2034.0,
+          1080.0
+        ],
+        [
+          2039.0,
+          1080.0
+        ],
+        [
+          2044.0,
+          1080.0
+        ],
+        [
+          2049.0,
+          1080.0
+        ],
+        [
+          2054.0,
+          1080.0
+        ],
+        [
+          2059.0,
+          1080.0
+        ],
+        [
+          2064.0,
+          1080.0
+        ],
+        [
+          2069.0,
+          1080.0
+        ],
+        [
+          2074.0,
+          1080.0
+        ],
+        [
+          2079.0,
+          1080.0
+        ],
+        [
+          2084.0,
+          1080.0
+        ],
+        [
+          2089.0,
+          1080.0
+        ],
+        [
+          2094.0,
+          1080.0
+        ],
+        [
+          2099.0,
+          1080.0
+        ],
+        [
+          2104.0,
+          1080.0
+        ],
+        [
+          2109.0,
+          1080.0
+        ],
+        [
+          2114.0,
+          1080.0
+        ],
+        [
+          2119.0,
+          1080.0
+        ],
+        [
+          2124.0,
+          1080.0
+        ],
+        [
+          2129.0,
+          1080.0
+        ],
+        [
+          2134.0,
+          1080.0
+        ],
+        [
+          2139.0,
+          1080.0
+        ],
+        [
+          2144.0,
+          1080.0
+        ],
+        [
+          2149.0,
+          1080.0
+        ],
+        [
+          2150.0,
+          1080.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_49",
+      "v": "sym_63",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_49",
+      "v": "sym_65",
+      "branch_type": "connector",
+      "path": [
+        [
+          2263.0,
+          1185.0
+        ],
+        [
+          2260.0,
+          1184.0
+        ],
+        [
+          2257.0,
+          1184.0
+        ],
+        [
+          2254.0,
+          1184.0
+        ],
+        [
+          2251.0,
+          1184.0
+        ],
+        [
+          2248.0,
+          1184.0
+        ],
+        [
+          2245.0,
+          1184.0
+        ],
+        [
+          2242.0,
+          1184.0
+        ],
+        [
+          2239.0,
+          1184.0
+        ],
+        [
+          2236.0,
+          1184.0
+        ],
+        [
+          2233.0,
+          1184.0
+        ],
+        [
+          2230.0,
+          1184.0
+        ],
+        [
+          2227.0,
+          1184.0
+        ],
+        [
+          2224.0,
+          1184.0
+        ],
+        [
+          2221.0,
+          1185.0
+        ],
+        [
+          2218.0,
+          1185.0
+        ],
+        [
+          2215.0,
+          1185.0
+        ],
+        [
+          2212.0,
+          1185.0
+        ],
+        [
+          2209.0,
+          1185.0
+        ],
+        [
+          2206.0,
+          1185.0
+        ],
+        [
+          2203.0,
+          1185.0
+        ],
+        [
+          2200.0,
+          1185.0
+        ],
+        [
+          2197.0,
+          1185.0
+        ],
+        [
+          2194.0,
+          1185.0
+        ],
+        [
+          2191.0,
+          1185.0
+        ],
+        [
+          2188.0,
+          1185.0
+        ],
+        [
+          2185.0,
+          1184.0
+        ],
+        [
+          2185.0,
+          1181.0
+        ],
+        [
+          2185.0,
+          1178.0
+        ],
+        [
+          2185.0,
+          1175.0
+        ],
+        [
+          2185.0,
+          1172.0
+        ],
+        [
+          2185.0,
+          1169.0
+        ],
+        [
+          2185.0,
+          1166.0
+        ],
+        [
+          2185.0,
+          1163.0
+        ],
+        [
+          2185.0,
+          1160.0
+        ],
+        [
+          2185.0,
+          1157.0
+        ],
+        [
+          2185.0,
+          1154.0
+        ],
+        [
+          2185.0,
+          1151.0
+        ],
+        [
+          2185.0,
+          1148.0
+        ],
+        [
+          2185.0,
+          1145.0
+        ],
+        [
+          2185.0,
+          1142.0
+        ],
+        [
+          2185.0,
+          1139.0
+        ],
+        [
+          2185.0,
+          1137.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_49",
+      "v": "sym_50",
+      "branch_type": "connector",
+      "path": [
+        [
+          2078.0,
+          1262.0
+        ],
+        [
+          2084.0,
+          1262.0
+        ],
+        [
+          2090.0,
+          1262.0
+        ],
+        [
+          2096.0,
+          1262.0
+        ],
+        [
+          2102.0,
+          1262.0
+        ],
+        [
+          2108.0,
+          1262.0
+        ],
+        [
+          2114.0,
+          1262.0
+        ],
+        [
+          2120.0,
+          1262.0
+        ],
+        [
+          2126.0,
+          1262.0
+        ],
+        [
+          2132.0,
+          1262.0
+        ],
+        [
+          2138.0,
+          1262.0
+        ],
+        [
+          2144.0,
+          1262.0
+        ],
+        [
+          2150.0,
+          1262.0
+        ],
+        [
+          2156.0,
+          1262.0
+        ],
+        [
+          2162.0,
+          1262.0
+        ],
+        [
+          2168.0,
+          1262.0
+        ],
+        [
+          2174.0,
+          1262.0
+        ],
+        [
+          2180.0,
+          1262.0
+        ],
+        [
+          2185.0,
+          1260.0
+        ],
+        [
+          2185.0,
+          1254.0
+        ],
+        [
+          2185.0,
+          1248.0
+        ],
+        [
+          2185.0,
+          1242.0
+        ],
+        [
+          2185.0,
+          1236.0
+        ],
+        [
+          2185.0,
+          1230.0
+        ],
+        [
+          2185.0,
+          1224.0
+        ],
+        [
+          2185.0,
+          1218.0
+        ],
+        [
+          2185.0,
+          1212.0
+        ],
+        [
+          2185.0,
+          1206.0
+        ],
+        [
+          2185.0,
+          1200.0
+        ],
+        [
+          2185.0,
+          1194.0
+        ],
+        [
+          2185.0,
+          1188.0
+        ],
+        [
+          2189.0,
+          1185.0
+        ],
+        [
+          2195.0,
+          1185.0
+        ],
+        [
+          2201.0,
+          1185.0
+        ],
+        [
+          2207.0,
+          1185.0
+        ],
+        [
+          2213.0,
+          1185.0
+        ],
+        [
+          2219.0,
+          1185.0
+        ],
+        [
+          2225.0,
+          1184.0
+        ],
+        [
+          2231.0,
+          1184.0
+        ],
+        [
+          2237.0,
+          1184.0
+        ],
+        [
+          2243.0,
+          1184.0
+        ],
+        [
+          2249.0,
+          1184.0
+        ],
+        [
+          2255.0,
+          1184.0
+        ],
+        [
+          2261.0,
+          1184.0
+        ],
+        [
+          2263.0,
+          1185.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_49",
+      "v": "sym_61",
+      "branch_type": "connector",
+      "path": [
+        [
+          2185.0,
+          1583.0
+        ],
+        [
+          2185.0,
+          1572.0
+        ],
+        [
+          2185.0,
+          1561.0
+        ],
+        [
+          2185.0,
+          1550.0
+        ],
+        [
+          2185.0,
+          1539.0
+        ],
+        [
+          2185.0,
+          1528.0
+        ],
+        [
+          2185.0,
+          1517.0
+        ],
+        [
+          2185.0,
+          1506.0
+        ],
+        [
+          2185.0,
+          1495.0
+        ],
+        [
+          2185.0,
+          1484.0
+        ],
+        [
+          2185.0,
+          1473.0
+        ],
+        [
+          2185.0,
+          1462.0
+        ],
+        [
+          2185.0,
+          1451.0
+        ],
+        [
+          2185.0,
+          1440.0
+        ],
+        [
+          2185.0,
+          1429.0
+        ],
+        [
+          2185.0,
+          1418.0
+        ],
+        [
+          2185.0,
+          1407.0
+        ],
+        [
+          2185.0,
+          1396.0
+        ],
+        [
+          2185.0,
+          1385.0
+        ],
+        [
+          2185.0,
+          1374.0
+        ],
+        [
+          2185.0,
+          1363.0
+        ],
+        [
+          2185.0,
+          1352.0
+        ],
+        [
+          2185.0,
+          1341.0
+        ],
+        [
+          2185.0,
+          1330.0
+        ],
+        [
+          2185.0,
+          1319.0
+        ],
+        [
+          2185.0,
+          1308.0
+        ],
+        [
+          2185.0,
+          1297.0
+        ],
+        [
+          2185.0,
+          1286.0
+        ],
+        [
+          2185.0,
+          1275.0
+        ],
+        [
+          2185.0,
+          1264.0
+        ],
+        [
+          2185.0,
+          1253.0
+        ],
+        [
+          2185.0,
+          1242.0
+        ],
+        [
+          2185.0,
+          1231.0
+        ],
+        [
+          2185.0,
+          1220.0
+        ],
+        [
+          2185.0,
+          1209.0
+        ],
+        [
+          2185.0,
+          1198.0
+        ],
+        [
+          2185.0,
+          1187.0
+        ],
+        [
+          2195.0,
+          1185.0
+        ],
+        [
+          2206.0,
+          1185.0
+        ],
+        [
+          2217.0,
+          1185.0
+        ],
+        [
+          2228.0,
+          1184.0
+        ],
+        [
+          2239.0,
+          1184.0
+        ],
+        [
+          2250.0,
+          1184.0
+        ],
+        [
+          2261.0,
+          1184.0
+        ],
+        [
+          2263.0,
+          1185.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_50",
+      "v": "sym_66",
+      "branch_id": 788,
+      "length_px": 40.41421356237309,
+      "branch_type": "direct",
+      "path": [
+        [
+          2049.0,
+          1204.0
+        ],
+        [
+          2049.0,
+          1205.0
+        ],
+        [
+          2049.0,
+          1206.0
+        ],
+        [
+          2049.0,
+          1207.0
+        ],
+        [
+          2049.0,
+          1208.0
+        ],
+        [
+          2049.0,
+          1209.0
+        ],
+        [
+          2049.0,
+          1210.0
+        ],
+        [
+          2049.0,
+          1211.0
+        ],
+        [
+          2049.0,
+          1212.0
+        ],
+        [
+          2049.0,
+          1213.0
+        ],
+        [
+          2049.0,
+          1214.0
+        ],
+        [
+          2049.0,
+          1215.0
+        ],
+        [
+          2049.0,
+          1216.0
+        ],
+        [
+          2049.0,
+          1217.0
+        ],
+        [
+          2049.0,
+          1218.0
+        ],
+        [
+          2049.0,
+          1219.0
+        ],
+        [
+          2049.0,
+          1220.0
+        ],
+        [
+          2049.0,
+          1221.0
+        ],
+        [
+          2049.0,
+          1222.0
+        ],
+        [
+          2049.0,
+          1223.0
+        ],
+        [
+          2049.0,
+          1224.0
+        ],
+        [
+          2049.0,
+          1225.0
+        ],
+        [
+          2049.0,
+          1226.0
+        ],
+        [
+          2049.0,
+          1227.0
+        ],
+        [
+          2049.0,
+          1228.0
+        ],
+        [
+          2049.0,
+          1229.0
+        ],
+        [
+          2049.0,
+          1230.0
+        ],
+        [
+          2049.0,
+          1231.0
+        ],
+        [
+          2049.0,
+          1232.0
+        ],
+        [
+          2049.0,
+          1233.0
+        ],
+        [
+          2049.0,
+          1234.0
+        ],
+        [
+          2049.0,
+          1235.0
+        ],
+        [
+          2049.0,
+          1236.0
+        ],
+        [
+          2049.0,
+          1237.0
+        ],
+        [
+          2049.0,
+          1238.0
+        ],
+        [
+          2049.0,
+          1239.0
+        ],
+        [
+          2049.0,
+          1240.0
+        ],
+        [
+          2049.0,
+          1241.0
+        ],
+        [
+          2049.0,
+          1242.0
+        ],
+        [
+          2049.0,
+          1243.0
+        ],
+        [
+          2050.0,
+          1244.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_50",
+      "v": "sym_65",
+      "branch_type": "connector",
+      "path": [
+        [
+          2078.0,
+          1262.0
+        ],
+        [
+          2083.0,
+          1262.0
+        ],
+        [
+          2088.0,
+          1262.0
+        ],
+        [
+          2093.0,
+          1262.0
+        ],
+        [
+          2098.0,
+          1262.0
+        ],
+        [
+          2103.0,
+          1262.0
+        ],
+        [
+          2108.0,
+          1262.0
+        ],
+        [
+          2113.0,
+          1262.0
+        ],
+        [
+          2118.0,
+          1262.0
+        ],
+        [
+          2123.0,
+          1262.0
+        ],
+        [
+          2128.0,
+          1262.0
+        ],
+        [
+          2133.0,
+          1262.0
+        ],
+        [
+          2138.0,
+          1262.0
+        ],
+        [
+          2143.0,
+          1262.0
+        ],
+        [
+          2148.0,
+          1262.0
+        ],
+        [
+          2153.0,
+          1262.0
+        ],
+        [
+          2158.0,
+          1262.0
+        ],
+        [
+          2163.0,
+          1262.0
+        ],
+        [
+          2168.0,
+          1262.0
+        ],
+        [
+          2173.0,
+          1262.0
+        ],
+        [
+          2178.0,
+          1262.0
+        ],
+        [
+          2183.0,
+          1262.0
+        ],
+        [
+          2185.0,
+          1258.0
+        ],
+        [
+          2185.0,
+          1253.0
+        ],
+        [
+          2185.0,
+          1248.0
+        ],
+        [
+          2185.0,
+          1243.0
+        ],
+        [
+          2185.0,
+          1238.0
+        ],
+        [
+          2185.0,
+          1233.0
+        ],
+        [
+          2185.0,
+          1228.0
+        ],
+        [
+          2185.0,
+          1223.0
+        ],
+        [
+          2185.0,
+          1218.0
+        ],
+        [
+          2185.0,
+          1213.0
+        ],
+        [
+          2185.0,
+          1208.0
+        ],
+        [
+          2185.0,
+          1203.0
+        ],
+        [
+          2185.0,
+          1198.0
+        ],
+        [
+          2185.0,
+          1193.0
+        ],
+        [
+          2185.0,
+          1188.0
+        ],
+        [
+          2185.0,
+          1183.0
+        ],
+        [
+          2185.0,
+          1178.0
+        ],
+        [
+          2185.0,
+          1173.0
+        ],
+        [
+          2185.0,
+          1168.0
+        ],
+        [
+          2185.0,
+          1163.0
+        ],
+        [
+          2185.0,
+          1158.0
+        ],
+        [
+          2185.0,
+          1153.0
+        ],
+        [
+          2185.0,
+          1148.0
+        ],
+        [
+          2185.0,
+          1143.0
+        ],
+        [
+          2185.0,
+          1138.0
+        ],
+        [
+          2185.0,
+          1137.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_50",
+      "v": "sym_61",
+      "branch_type": "connector",
+      "path": [
+        [
+          2185.0,
+          1583.0
+        ],
+        [
+          2185.0,
+          1573.0
+        ],
+        [
+          2185.0,
+          1563.0
+        ],
+        [
+          2185.0,
+          1553.0
+        ],
+        [
+          2185.0,
+          1543.0
+        ],
+        [
+          2185.0,
+          1533.0
+        ],
+        [
+          2185.0,
+          1523.0
+        ],
+        [
+          2185.0,
+          1513.0
+        ],
+        [
+          2185.0,
+          1503.0
+        ],
+        [
+          2185.0,
+          1493.0
+        ],
+        [
+          2185.0,
+          1483.0
+        ],
+        [
+          2185.0,
+          1473.0
+        ],
+        [
+          2185.0,
+          1463.0
+        ],
+        [
+          2185.0,
+          1453.0
+        ],
+        [
+          2185.0,
+          1443.0
+        ],
+        [
+          2185.0,
+          1433.0
+        ],
+        [
+          2185.0,
+          1423.0
+        ],
+        [
+          2185.0,
+          1413.0
+        ],
+        [
+          2185.0,
+          1403.0
+        ],
+        [
+          2185.0,
+          1393.0
+        ],
+        [
+          2185.0,
+          1383.0
+        ],
+        [
+          2185.0,
+          1373.0
+        ],
+        [
+          2185.0,
+          1363.0
+        ],
+        [
+          2185.0,
+          1353.0
+        ],
+        [
+          2185.0,
+          1343.0
+        ],
+        [
+          2185.0,
+          1333.0
+        ],
+        [
+          2185.0,
+          1323.0
+        ],
+        [
+          2185.0,
+          1313.0
+        ],
+        [
+          2185.0,
+          1303.0
+        ],
+        [
+          2185.0,
+          1293.0
+        ],
+        [
+          2185.0,
+          1283.0
+        ],
+        [
+          2185.0,
+          1273.0
+        ],
+        [
+          2184.0,
+          1263.0
+        ],
+        [
+          2175.0,
+          1262.0
+        ],
+        [
+          2165.0,
+          1262.0
+        ],
+        [
+          2155.0,
+          1262.0
+        ],
+        [
+          2145.0,
+          1262.0
+        ],
+        [
+          2135.0,
+          1262.0
+        ],
+        [
+          2125.0,
+          1262.0
+        ],
+        [
+          2115.0,
+          1262.0
+        ],
+        [
+          2105.0,
+          1262.0
+        ],
+        [
+          2095.0,
+          1262.0
+        ],
+        [
+          2085.0,
+          1262.0
+        ],
+        [
+          2078.0,
+          1262.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_52",
+      "v": "sym_58",
+      "branch_id": 739,
+      "length_px": 49.41421356237309,
+      "branch_type": "direct",
+      "path": [
+        [
+          1028.0,
+          1171.0
+        ],
+        [
+          1028.0,
+          1172.0
+        ],
+        [
+          1028.0,
+          1173.0
+        ],
+        [
+          1028.0,
+          1174.0
+        ],
+        [
+          1028.0,
+          1175.0
+        ],
+        [
+          1028.0,
+          1176.0
+        ],
+        [
+          1028.0,
+          1177.0
+        ],
+        [
+          1028.0,
+          1178.0
+        ],
+        [
+          1028.0,
+          1179.0
+        ],
+        [
+          1028.0,
+          1180.0
+        ],
+        [
+          1028.0,
+          1181.0
+        ],
+        [
+          1028.0,
+          1182.0
+        ],
+        [
+          1028.0,
+          1183.0
+        ],
+        [
+          1028.0,
+          1184.0
+        ],
+        [
+          1028.0,
+          1185.0
+        ],
+        [
+          1028.0,
+          1186.0
+        ],
+        [
+          1028.0,
+          1187.0
+        ],
+        [
+          1028.0,
+          1188.0
+        ],
+        [
+          1028.0,
+          1189.0
+        ],
+        [
+          1028.0,
+          1190.0
+        ],
+        [
+          1028.0,
+          1191.0
+        ],
+        [
+          1028.0,
+          1192.0
+        ],
+        [
+          1028.0,
+          1193.0
+        ],
+        [
+          1028.0,
+          1194.0
+        ],
+        [
+          1028.0,
+          1195.0
+        ],
+        [
+          1028.0,
+          1196.0
+        ],
+        [
+          1028.0,
+          1197.0
+        ],
+        [
+          1028.0,
+          1198.0
+        ],
+        [
+          1028.0,
+          1199.0
+        ],
+        [
+          1028.0,
+          1200.0
+        ],
+        [
+          1028.0,
+          1201.0
+        ],
+        [
+          1028.0,
+          1202.0
+        ],
+        [
+          1028.0,
+          1203.0
+        ],
+        [
+          1028.0,
+          1204.0
+        ],
+        [
+          1028.0,
+          1205.0
+        ],
+        [
+          1028.0,
+          1206.0
+        ],
+        [
+          1028.0,
+          1207.0
+        ],
+        [
+          1028.0,
+          1208.0
+        ],
+        [
+          1028.0,
+          1209.0
+        ],
+        [
+          1028.0,
+          1210.0
+        ],
+        [
+          1028.0,
+          1211.0
+        ],
+        [
+          1028.0,
+          1212.0
+        ],
+        [
+          1028.0,
+          1213.0
+        ],
+        [
+          1028.0,
+          1214.0
+        ],
+        [
+          1028.0,
+          1215.0
+        ],
+        [
+          1028.0,
+          1216.0
+        ],
+        [
+          1028.0,
+          1217.0
+        ],
+        [
+          1028.0,
+          1218.0
+        ],
+        [
+          1028.0,
+          1219.0
+        ],
+        [
+          1029.0,
+          1220.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_54",
+      "v": "sym_66",
+      "branch_type": "connector",
+      "path": [
+        [
+          1500.0,
+          1174.0
+        ],
+        [
+          1512.0,
+          1173.0
+        ],
+        [
+          1524.0,
+          1173.0
+        ],
+        [
+          1536.0,
+          1173.0
+        ],
+        [
+          1548.0,
+          1173.0
+        ],
+        [
+          1560.0,
+          1173.0
+        ],
+        [
+          1572.0,
+          1173.0
+        ],
+        [
+          1584.0,
+          1173.0
+        ],
+        [
+          1596.0,
+          1173.0
+        ],
+        [
+          1608.0,
+          1173.0
+        ],
+        [
+          1620.0,
+          1173.0
+        ],
+        [
+          1632.0,
+          1173.0
+        ],
+        [
+          1644.0,
+          1173.0
+        ],
+        [
+          1656.0,
+          1173.0
+        ],
+        [
+          1668.0,
+          1173.0
+        ],
+        [
+          1680.0,
+          1173.0
+        ],
+        [
+          1692.0,
+          1173.0
+        ],
+        [
+          1704.0,
+          1173.0
+        ],
+        [
+          1716.0,
+          1173.0
+        ],
+        [
+          1732.0,
+          1173.0
+        ],
+        [
+          1744.0,
+          1173.0
+        ],
+        [
+          1756.0,
+          1173.0
+        ],
+        [
+          1768.0,
+          1173.0
+        ],
+        [
+          1780.0,
+          1173.0
+        ],
+        [
+          1792.0,
+          1173.0
+        ],
+        [
+          1804.0,
+          1173.0
+        ],
+        [
+          1825.0,
+          1173.0
+        ],
+        [
+          1837.0,
+          1173.0
+        ],
+        [
+          1849.0,
+          1173.0
+        ],
+        [
+          1861.0,
+          1173.0
+        ],
+        [
+          1873.0,
+          1173.0
+        ],
+        [
+          1885.0,
+          1173.0
+        ],
+        [
+          1897.0,
+          1173.0
+        ],
+        [
+          1909.0,
+          1173.0
+        ],
+        [
+          1921.0,
+          1173.0
+        ],
+        [
+          1933.0,
+          1173.0
+        ],
+        [
+          1945.0,
+          1173.0
+        ],
+        [
+          1957.0,
+          1173.0
+        ],
+        [
+          1969.0,
+          1173.0
+        ],
+        [
+          1981.0,
+          1173.0
+        ],
+        [
+          1993.0,
+          1173.0
+        ],
+        [
+          2005.0,
+          1173.0
+        ],
+        [
+          2017.0,
+          1173.0
+        ],
+        [
+          2029.0,
+          1173.0
+        ],
+        [
+          2031.0,
+          1173.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_56",
+      "v": "sym_98",
+      "flow_direction": "sym_98 -> sym_56",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_59",
+      "v": "sym_61",
+      "branch_type": "connector",
+      "path": [
+        [
+          1279.0,
+          1618.0
+        ],
+        [
+          1301.0,
+          1617.0
+        ],
+        [
+          1323.0,
+          1617.0
+        ],
+        [
+          1345.0,
+          1617.0
+        ],
+        [
+          1367.0,
+          1617.0
+        ],
+        [
+          1389.0,
+          1617.0
+        ],
+        [
+          1411.0,
+          1617.0
+        ],
+        [
+          1433.0,
+          1617.0
+        ],
+        [
+          1455.0,
+          1617.0
+        ],
+        [
+          1477.0,
+          1617.0
+        ],
+        [
+          1503.0,
+          1617.0
+        ],
+        [
+          1525.0,
+          1617.0
+        ],
+        [
+          1547.0,
+          1617.0
+        ],
+        [
+          1569.0,
+          1616.0
+        ],
+        [
+          1591.0,
+          1617.0
+        ],
+        [
+          1613.0,
+          1617.0
+        ],
+        [
+          1635.0,
+          1617.0
+        ],
+        [
+          1657.0,
+          1617.0
+        ],
+        [
+          1679.0,
+          1617.0
+        ],
+        [
+          1701.0,
+          1617.0
+        ],
+        [
+          1723.0,
+          1617.0
+        ],
+        [
+          1745.0,
+          1617.0
+        ],
+        [
+          1767.0,
+          1617.0
+        ],
+        [
+          1789.0,
+          1617.0
+        ],
+        [
+          1811.0,
+          1617.0
+        ],
+        [
+          1833.0,
+          1617.0
+        ],
+        [
+          1855.0,
+          1617.0
+        ],
+        [
+          1877.0,
+          1617.0
+        ],
+        [
+          1899.0,
+          1617.0
+        ],
+        [
+          1921.0,
+          1617.0
+        ],
+        [
+          1943.0,
+          1617.0
+        ],
+        [
+          1965.0,
+          1617.0
+        ],
+        [
+          1987.0,
+          1617.0
+        ],
+        [
+          2009.0,
+          1617.0
+        ],
+        [
+          2031.0,
+          1617.0
+        ],
+        [
+          2053.0,
+          1617.0
+        ],
+        [
+          2075.0,
+          1617.0
+        ],
+        [
+          2097.0,
+          1617.0
+        ],
+        [
+          2119.0,
+          1617.0
+        ],
+        [
+          2141.0,
+          1617.0
+        ],
+        [
+          2163.0,
+          1617.0
+        ],
+        [
+          2164.0,
+          1617.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_61",
+      "v": "sym_65",
+      "branch_type": "connector",
+      "path": [
+        [
+          2185.0,
+          1583.0
+        ],
+        [
+          2185.0,
+          1572.0
+        ],
+        [
+          2185.0,
+          1561.0
+        ],
+        [
+          2185.0,
+          1550.0
+        ],
+        [
+          2185.0,
+          1539.0
+        ],
+        [
+          2185.0,
+          1528.0
+        ],
+        [
+          2185.0,
+          1517.0
+        ],
+        [
+          2185.0,
+          1506.0
+        ],
+        [
+          2185.0,
+          1495.0
+        ],
+        [
+          2185.0,
+          1484.0
+        ],
+        [
+          2185.0,
+          1473.0
+        ],
+        [
+          2185.0,
+          1462.0
+        ],
+        [
+          2185.0,
+          1451.0
+        ],
+        [
+          2185.0,
+          1440.0
+        ],
+        [
+          2185.0,
+          1429.0
+        ],
+        [
+          2185.0,
+          1418.0
+        ],
+        [
+          2185.0,
+          1407.0
+        ],
+        [
+          2185.0,
+          1396.0
+        ],
+        [
+          2185.0,
+          1385.0
+        ],
+        [
+          2185.0,
+          1374.0
+        ],
+        [
+          2185.0,
+          1363.0
+        ],
+        [
+          2185.0,
+          1352.0
+        ],
+        [
+          2185.0,
+          1341.0
+        ],
+        [
+          2185.0,
+          1330.0
+        ],
+        [
+          2185.0,
+          1319.0
+        ],
+        [
+          2185.0,
+          1308.0
+        ],
+        [
+          2185.0,
+          1297.0
+        ],
+        [
+          2185.0,
+          1286.0
+        ],
+        [
+          2185.0,
+          1275.0
+        ],
+        [
+          2185.0,
+          1264.0
+        ],
+        [
+          2185.0,
+          1253.0
+        ],
+        [
+          2185.0,
+          1242.0
+        ],
+        [
+          2185.0,
+          1231.0
+        ],
+        [
+          2185.0,
+          1220.0
+        ],
+        [
+          2185.0,
+          1209.0
+        ],
+        [
+          2185.0,
+          1198.0
+        ],
+        [
+          2185.0,
+          1187.0
+        ],
+        [
+          2185.0,
+          1176.0
+        ],
+        [
+          2185.0,
+          1165.0
+        ],
+        [
+          2185.0,
+          1154.0
+        ],
+        [
+          2185.0,
+          1143.0
+        ],
+        [
+          2185.0,
+          1137.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_62",
+      "v": "sym_97",
+      "flow_direction": "sym_97 -> sym_62",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_62",
+      "v": "sym_99",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_67",
+      "v": "sym_97",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_70",
+      "v": "sym_73",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_71",
+      "v": "sym_78",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_72",
+      "v": "sym_89",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_74",
+      "v": "sym_77",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_75",
+      "v": "sym_81",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_77",
+      "v": "sym_81",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_79",
+      "v": "sym_84",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_80",
+      "v": "sym_89",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_82",
+      "v": "sym_89",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_83",
+      "v": "sym_88",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_85",
+      "v": "sym_87",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_85",
+      "v": "sym_95",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_86",
+      "v": "sym_92",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_90",
+      "v": "sym_95",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_91",
+      "v": "sym_93",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_94",
+      "v": "sym_96",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_97",
+      "v": "sym_104",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_98",
+      "v": "sym_100",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_101",
+      "v": "sym_103",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_102",
+      "v": "sym_106",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_103",
+      "v": "sym_106",
+      "branch_type": "short_gap"
+    },
+    {
+      "u": "sym_117",
+      "v": "sym_118",
+      "branch_id": 9,
+      "length_px": 18.313708498984763,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          2168.0,
+          14.0
+        ],
+        [
+          2169.0,
+          13.0
+        ],
+        [
+          2170.0,
+          12.0
+        ],
+        [
+          2171.0,
+          11.0
+        ],
+        [
+          2172.0,
+          11.0
+        ],
+        [
+          2173.0,
+          11.0
+        ],
+        [
+          2174.0,
+          11.0
+        ],
+        [
+          2175.0,
+          11.0
+        ],
+        [
+          2176.0,
+          12.0
+        ],
+        [
+          2177.0,
+          13.0
+        ],
+        [
+          2178.0,
+          14.0
+        ],
+        [
+          2178.0,
+          15.0
+        ],
+        [
+          2178.0,
+          16.0
+        ],
+        [
+          2177.0,
+          17.0
+        ],
+        [
+          2177.0,
+          18.0
+        ],
+        [
+          2176.0,
+          19.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_125",
+      "v": "sym_126",
+      "branch_id": 25,
+      "length_px": 18.48528137423857,
+      "branch_type": "junction_to_junction",
+      "path": [
+        [
+          1948.0,
+          17.0
+        ],
+        [
+          1947.0,
+          17.0
+        ],
+        [
+          1946.0,
+          17.0
+        ],
+        [
+          1945.0,
+          18.0
+        ],
+        [
+          1944.0,
+          19.0
+        ],
+        [
+          1943.0,
+          20.0
+        ],
+        [
+          1943.0,
+          21.0
+        ],
+        [
+          1942.0,
+          22.0
+        ],
+        [
+          1942.0,
+          23.0
+        ],
+        [
+          1943.0,
+          24.0
+        ],
+        [
+          1944.0,
+          25.0
+        ],
+        [
+          1945.0,
+          25.0
+        ],
+        [
+          1946.0,
+          25.0
+        ],
+        [
+          1947.0,
+          25.0
+        ],
+        [
+          1948.0,
+          25.0
+        ],
+        [
+          1949.0,
+          25.0
+        ],
+        [
+          1950.0,
+          25.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_127",
+      "v": "sym_128",
+      "branch_id": 27,
+      "length_px": 23.313708498984763,
+      "branch_type": "junction_to_junction",
+      "path": [
+        [
+          1048.0,
+          19.0
+        ],
+        [
+          1048.0,
+          18.0
+        ],
+        [
+          1048.0,
+          17.0
+        ],
+        [
+          1047.0,
+          16.0
+        ],
+        [
+          1047.0,
+          15.0
+        ],
+        [
+          1047.0,
+          14.0
+        ],
+        [
+          1048.0,
+          13.0
+        ],
+        [
+          1048.0,
+          12.0
+        ],
+        [
+          1049.0,
+          11.0
+        ],
+        [
+          1050.0,
+          11.0
+        ],
+        [
+          1051.0,
+          11.0
+        ],
+        [
+          1052.0,
+          11.0
+        ],
+        [
+          1053.0,
+          11.0
+        ],
+        [
+          1054.0,
+          12.0
+        ],
+        [
+          1055.0,
+          13.0
+        ],
+        [
+          1056.0,
+          14.0
+        ],
+        [
+          1056.0,
+          15.0
+        ],
+        [
+          1056.0,
+          16.0
+        ],
+        [
+          1055.0,
+          17.0
+        ],
+        [
+          1055.0,
+          18.0
+        ],
+        [
+          1054.0,
+          19.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_129",
+      "v": "sym_130",
+      "branch_id": 33,
+      "length_px": 33.38477631085024,
+      "branch_type": "junction_to_junction",
+      "path": [
+        [
+          827.0,
+          23.0
+        ],
+        [
+          826.0,
+          22.0
+        ],
+        [
+          825.0,
+          21.0
+        ],
+        [
+          824.0,
+          20.0
+        ],
+        [
+          824.0,
+          19.0
+        ],
+        [
+          824.0,
+          18.0
+        ],
+        [
+          823.0,
+          17.0
+        ],
+        [
+          824.0,
+          16.0
+        ],
+        [
+          824.0,
+          15.0
+        ],
+        [
+          824.0,
+          14.0
+        ],
+        [
+          825.0,
+          13.0
+        ],
+        [
+          826.0,
+          12.0
+        ],
+        [
+          827.0,
+          11.0
+        ],
+        [
+          828.0,
+          11.0
+        ],
+        [
+          829.0,
+          11.0
+        ],
+        [
+          830.0,
+          11.0
+        ],
+        [
+          831.0,
+          11.0
+        ],
+        [
+          832.0,
+          12.0
+        ],
+        [
+          833.0,
+          13.0
+        ],
+        [
+          834.0,
+          14.0
+        ],
+        [
+          835.0,
+          15.0
+        ],
+        [
+          835.0,
+          16.0
+        ],
+        [
+          835.0,
+          17.0
+        ],
+        [
+          835.0,
+          18.0
+        ],
+        [
+          835.0,
+          19.0
+        ],
+        [
+          835.0,
+          20.0
+        ],
+        [
+          835.0,
+          21.0
+        ],
+        [
+          834.0,
+          22.0
+        ],
+        [
+          834.0,
+          23.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_135",
+      "v": "sym_136",
+      "branch_id": 533,
+      "length_px": 15.485281374238571,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          24.0,
+          1064.0
+        ],
+        [
+          24.0,
+          1065.0
+        ],
+        [
+          23.0,
+          1066.0
+        ],
+        [
+          23.0,
+          1067.0
+        ],
+        [
+          22.0,
+          1068.0
+        ],
+        [
+          22.0,
+          1069.0
+        ],
+        [
+          21.0,
+          1070.0
+        ],
+        [
+          21.0,
+          1071.0
+        ],
+        [
+          21.0,
+          1072.0
+        ],
+        [
+          20.0,
+          1073.0
+        ],
+        [
+          20.0,
+          1074.0
+        ],
+        [
+          19.0,
+          1075.0
+        ],
+        [
+          19.0,
+          1076.0
+        ],
+        [
+          18.0,
+          1077.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_141",
+      "v": "sym_142",
+      "branch_id": 2112,
+      "length_px": 30.79898987322334,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          160.0,
+          2101.0
+        ],
+        [
+          161.0,
+          2100.0
+        ],
+        [
+          162.0,
+          2099.0
+        ],
+        [
+          163.0,
+          2098.0
+        ],
+        [
+          164.0,
+          2098.0
+        ],
+        [
+          165.0,
+          2098.0
+        ],
+        [
+          166.0,
+          2098.0
+        ],
+        [
+          167.0,
+          2098.0
+        ],
+        [
+          168.0,
+          2098.0
+        ],
+        [
+          169.0,
+          2099.0
+        ],
+        [
+          170.0,
+          2100.0
+        ],
+        [
+          171.0,
+          2101.0
+        ],
+        [
+          171.0,
+          2102.0
+        ],
+        [
+          171.0,
+          2103.0
+        ],
+        [
+          171.0,
+          2104.0
+        ],
+        [
+          170.0,
+          2105.0
+        ],
+        [
+          170.0,
+          2106.0
+        ],
+        [
+          169.0,
+          2107.0
+        ],
+        [
+          168.0,
+          2108.0
+        ],
+        [
+          167.0,
+          2109.0
+        ],
+        [
+          166.0,
+          2110.0
+        ],
+        [
+          165.0,
+          2111.0
+        ],
+        [
+          165.0,
+          2112.0
+        ],
+        [
+          164.0,
+          2113.0
+        ],
+        [
+          164.0,
+          2114.0
+        ],
+        [
+          163.0,
+          2115.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_143",
+      "v": "sym_144",
+      "branch_id": 2113,
+      "length_px": 18.313708498984763,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          2168.0,
+          2101.0
+        ],
+        [
+          2169.0,
+          2100.0
+        ],
+        [
+          2170.0,
+          2099.0
+        ],
+        [
+          2171.0,
+          2098.0
+        ],
+        [
+          2172.0,
+          2098.0
+        ],
+        [
+          2173.0,
+          2098.0
+        ],
+        [
+          2174.0,
+          2098.0
+        ],
+        [
+          2175.0,
+          2098.0
+        ],
+        [
+          2176.0,
+          2099.0
+        ],
+        [
+          2177.0,
+          2100.0
+        ],
+        [
+          2178.0,
+          2101.0
+        ],
+        [
+          2178.0,
+          2102.0
+        ],
+        [
+          2178.0,
+          2103.0
+        ],
+        [
+          2177.0,
+          2104.0
+        ],
+        [
+          2177.0,
+          2105.0
+        ],
+        [
+          2176.0,
+          2106.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_144",
+      "v": "sym_160",
+      "branch_id": 2135,
+      "length_px": 21.72792206135786,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          2176.0,
+          2106.0
+        ],
+        [
+          2177.0,
+          2107.0
+        ],
+        [
+          2177.0,
+          2108.0
+        ],
+        [
+          2178.0,
+          2109.0
+        ],
+        [
+          2179.0,
+          2110.0
+        ],
+        [
+          2179.0,
+          2111.0
+        ],
+        [
+          2179.0,
+          2112.0
+        ],
+        [
+          2179.0,
+          2113.0
+        ],
+        [
+          2179.0,
+          2114.0
+        ],
+        [
+          2178.0,
+          2115.0
+        ],
+        [
+          2177.0,
+          2116.0
+        ],
+        [
+          2176.0,
+          2117.0
+        ],
+        [
+          2175.0,
+          2117.0
+        ],
+        [
+          2174.0,
+          2118.0
+        ],
+        [
+          2173.0,
+          2118.0
+        ],
+        [
+          2172.0,
+          2118.0
+        ],
+        [
+          2171.0,
+          2117.0
+        ],
+        [
+          2170.0,
+          2116.0
+        ],
+        [
+          2169.0,
+          2116.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_145",
+      "v": "sym_146",
+      "branch_id": 2114,
+      "length_px": 31.384776310850246,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          2392.0,
+          2101.0
+        ],
+        [
+          2393.0,
+          2100.0
+        ],
+        [
+          2394.0,
+          2099.0
+        ],
+        [
+          2395.0,
+          2098.0
+        ],
+        [
+          2396.0,
+          2098.0
+        ],
+        [
+          2397.0,
+          2098.0
+        ],
+        [
+          2398.0,
+          2098.0
+        ],
+        [
+          2399.0,
+          2098.0
+        ],
+        [
+          2400.0,
+          2098.0
+        ],
+        [
+          2401.0,
+          2099.0
+        ],
+        [
+          2402.0,
+          2100.0
+        ],
+        [
+          2403.0,
+          2101.0
+        ],
+        [
+          2403.0,
+          2102.0
+        ],
+        [
+          2403.0,
+          2103.0
+        ],
+        [
+          2403.0,
+          2104.0
+        ],
+        [
+          2403.0,
+          2105.0
+        ],
+        [
+          2402.0,
+          2106.0
+        ],
+        [
+          2401.0,
+          2107.0
+        ],
+        [
+          2400.0,
+          2108.0
+        ],
+        [
+          2399.0,
+          2109.0
+        ],
+        [
+          2398.0,
+          2110.0
+        ],
+        [
+          2397.0,
+          2111.0
+        ],
+        [
+          2397.0,
+          2112.0
+        ],
+        [
+          2396.0,
+          2113.0
+        ],
+        [
+          2396.0,
+          2114.0
+        ],
+        [
+          2396.0,
+          2115.0
+        ],
+        [
+          2396.0,
+          2116.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_147",
+      "v": "sym_148",
+      "branch_id": 2118,
+      "length_px": 15.414213562373096,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          371.0,
+          2102.0
+        ],
+        [
+          371.0,
+          2103.0
+        ],
+        [
+          372.0,
+          2104.0
+        ],
+        [
+          372.0,
+          2105.0
+        ],
+        [
+          372.0,
+          2106.0
+        ],
+        [
+          372.0,
+          2107.0
+        ],
+        [
+          372.0,
+          2108.0
+        ],
+        [
+          372.0,
+          2109.0
+        ],
+        [
+          372.0,
+          2110.0
+        ],
+        [
+          372.0,
+          2111.0
+        ],
+        [
+          372.0,
+          2112.0
+        ],
+        [
+          372.0,
+          2113.0
+        ],
+        [
+          372.0,
+          2114.0
+        ],
+        [
+          372.0,
+          2115.0
+        ],
+        [
+          372.0,
+          2116.0
+        ],
+        [
+          372.0,
+          2117.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_149",
+      "v": "sym_150",
+      "branch_id": 2122,
+      "length_px": 15.414213562373096,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          595.0,
+          2102.0
+        ],
+        [
+          595.0,
+          2103.0
+        ],
+        [
+          596.0,
+          2104.0
+        ],
+        [
+          596.0,
+          2105.0
+        ],
+        [
+          596.0,
+          2106.0
+        ],
+        [
+          596.0,
+          2107.0
+        ],
+        [
+          596.0,
+          2108.0
+        ],
+        [
+          596.0,
+          2109.0
+        ],
+        [
+          596.0,
+          2110.0
+        ],
+        [
+          596.0,
+          2111.0
+        ],
+        [
+          596.0,
+          2112.0
+        ],
+        [
+          596.0,
+          2113.0
+        ],
+        [
+          596.0,
+          2114.0
+        ],
+        [
+          596.0,
+          2115.0
+        ],
+        [
+          596.0,
+          2116.0
+        ],
+        [
+          596.0,
+          2117.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_151",
+      "v": "sym_152",
+      "branch_id": 2124,
+      "length_px": 15.414213562373096,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          2630.0,
+          2102.0
+        ],
+        [
+          2630.0,
+          2103.0
+        ],
+        [
+          2631.0,
+          2104.0
+        ],
+        [
+          2631.0,
+          2105.0
+        ],
+        [
+          2631.0,
+          2106.0
+        ],
+        [
+          2631.0,
+          2107.0
+        ],
+        [
+          2631.0,
+          2108.0
+        ],
+        [
+          2631.0,
+          2109.0
+        ],
+        [
+          2631.0,
+          2110.0
+        ],
+        [
+          2631.0,
+          2111.0
+        ],
+        [
+          2631.0,
+          2112.0
+        ],
+        [
+          2631.0,
+          2113.0
+        ],
+        [
+          2631.0,
+          2114.0
+        ],
+        [
+          2631.0,
+          2115.0
+        ],
+        [
+          2631.0,
+          2116.0
+        ],
+        [
+          2631.0,
+          2117.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_153",
+      "v": "sym_161",
+      "branch_id": 2136,
+      "length_px": 21.242640687119287,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          1276.0,
+          2109.0
+        ],
+        [
+          1276.0,
+          2110.0
+        ],
+        [
+          1276.0,
+          2111.0
+        ],
+        [
+          1276.0,
+          2112.0
+        ],
+        [
+          1276.0,
+          2113.0
+        ],
+        [
+          1276.0,
+          2114.0
+        ],
+        [
+          1276.0,
+          2115.0
+        ],
+        [
+          1276.0,
+          2116.0
+        ],
+        [
+          1276.0,
+          2117.0
+        ],
+        [
+          1276.0,
+          2118.0
+        ],
+        [
+          1276.0,
+          2119.0
+        ],
+        [
+          1276.0,
+          2120.0
+        ],
+        [
+          1276.0,
+          2121.0
+        ],
+        [
+          1276.0,
+          2122.0
+        ],
+        [
+          1276.0,
+          2123.0
+        ],
+        [
+          1276.0,
+          2124.0
+        ],
+        [
+          1277.0,
+          2125.0
+        ],
+        [
+          1277.0,
+          2126.0
+        ],
+        [
+          1277.0,
+          2127.0
+        ],
+        [
+          1278.0,
+          2128.0
+        ],
+        [
+          1279.0,
+          2129.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_154",
+      "v": "sym_155",
+      "branch_id": 2127,
+      "length_px": 30.798989873223338,
+      "branch_type": "tip_to_junction",
+      "path": [
+        [
+          1721.0,
+          2103.0
+        ],
+        [
+          1722.0,
+          2104.0
+        ],
+        [
+          1723.0,
+          2105.0
+        ],
+        [
+          1724.0,
+          2105.0
+        ],
+        [
+          1725.0,
+          2105.0
+        ],
+        [
+          1726.0,
+          2106.0
+        ],
+        [
+          1727.0,
+          2107.0
+        ],
+        [
+          1728.0,
+          2108.0
+        ],
+        [
+          1728.0,
+          2109.0
+        ],
+        [
+          1729.0,
+          2110.0
+        ],
+        [
+          1729.0,
+          2111.0
+        ],
+        [
+          1729.0,
+          2112.0
+        ],
+        [
+          1729.0,
+          2113.0
+        ],
+        [
+          1728.0,
+          2114.0
+        ],
+        [
+          1728.0,
+          2115.0
+        ],
+        [
+          1727.0,
+          2116.0
+        ],
+        [
+          1726.0,
+          2117.0
+        ],
+        [
+          1725.0,
+          2117.0
+        ],
+        [
+          1724.0,
+          2118.0
+        ],
+        [
+          1723.0,
+          2118.0
+        ],
+        [
+          1722.0,
+          2118.0
+        ],
+        [
+          1721.0,
+          2117.0
+        ],
+        [
+          1720.0,
+          2117.0
+        ],
+        [
+          1719.0,
+          2116.0
+        ],
+        [
+          1718.0,
+          2115.0
+        ],
+        [
+          1717.0,
+          2114.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_156",
+      "v": "sym_157",
+      "branch_id": 2129,
+      "length_px": 18.48528137423857,
+      "branch_type": "junction_to_junction",
+      "path": [
+        [
+          1948.0,
+          2104.0
+        ],
+        [
+          1947.0,
+          2104.0
+        ],
+        [
+          1946.0,
+          2104.0
+        ],
+        [
+          1945.0,
+          2105.0
+        ],
+        [
+          1944.0,
+          2106.0
+        ],
+        [
+          1943.0,
+          2107.0
+        ],
+        [
+          1943.0,
+          2108.0
+        ],
+        [
+          1942.0,
+          2109.0
+        ],
+        [
+          1942.0,
+          2110.0
+        ],
+        [
+          1943.0,
+          2111.0
+        ],
+        [
+          1944.0,
+          2112.0
+        ],
+        [
+          1945.0,
+          2112.0
+        ],
+        [
+          1946.0,
+          2112.0
+        ],
+        [
+          1947.0,
+          2112.0
+        ],
+        [
+          1948.0,
+          2112.0
+        ],
+        [
+          1949.0,
+          2112.0
+        ],
+        [
+          1950.0,
+          2112.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_158",
+      "v": "sym_159",
+      "branch_id": 2131,
+      "length_px": 23.313708498984763,
+      "branch_type": "junction_to_junction",
+      "path": [
+        [
+          1048.0,
+          2106.0
+        ],
+        [
+          1048.0,
+          2105.0
+        ],
+        [
+          1048.0,
+          2104.0
+        ],
+        [
+          1047.0,
+          2103.0
+        ],
+        [
+          1047.0,
+          2102.0
+        ],
+        [
+          1047.0,
+          2101.0
+        ],
+        [
+          1048.0,
+          2100.0
+        ],
+        [
+          1048.0,
+          2099.0
+        ],
+        [
+          1049.0,
+          2098.0
+        ],
+        [
+          1050.0,
+          2098.0
+        ],
+        [
+          1051.0,
+          2098.0
+        ],
+        [
+          1052.0,
+          2098.0
+        ],
+        [
+          1053.0,
+          2098.0
+        ],
+        [
+          1054.0,
+          2099.0
+        ],
+        [
+          1055.0,
+          2100.0
+        ],
+        [
+          1056.0,
+          2101.0
+        ],
+        [
+          1056.0,
+          2102.0
+        ],
+        [
+          1056.0,
+          2103.0
+        ],
+        [
+          1055.0,
+          2104.0
+        ],
+        [
+          1055.0,
+          2105.0
+        ],
+        [
+          1054.0,
+          2106.0
+        ]
+      ]
+    },
+    {
+      "u": "sym_162",
+      "v": "sym_163",
+      "branch_id": 2137,
+      "length_px": 33.38477631085024,
+      "branch_type": "junction_to_junction",
+      "path": [
+        [
+          827.0,
+          2110.0
+        ],
+        [
+          826.0,
+          2109.0
+        ],
+        [
+          825.0,
+          2108.0
+        ],
+        [
+          824.0,
+          2107.0
+        ],
+        [
+          824.0,
+          2106.0
+        ],
+        [
+          824.0,
+          2105.0
+        ],
+        [
+          823.0,
+          2104.0
+        ],
+        [
+          824.0,
+          2103.0
+        ],
+        [
+          824.0,
+          2102.0
+        ],
+        [
+          824.0,
+          2101.0
+        ],
+        [
+          825.0,
+          2100.0
+        ],
+        [
+          826.0,
+          2099.0
+        ],
+        [
+          827.0,
+          2098.0
+        ],
+        [
+          828.0,
+          2098.0
+        ],
+        [
+          829.0,
+          2098.0
+        ],
+        [
+          830.0,
+          2098.0
+        ],
+        [
+          831.0,
+          2098.0
+        ],
+        [
+          832.0,
+          2099.0
+        ],
+        [
+          833.0,
+          2100.0
+        ],
+        [
+          834.0,
+          2101.0
+        ],
+        [
+          835.0,
+          2102.0
+        ],
+        [
+          835.0,
+          2103.0
+        ],
+        [
+          835.0,
+          2104.0
+        ],
+        [
+          835.0,
+          2105.0
+        ],
+        [
+          835.0,
+          2106.0
+        ],
+        [
+          835.0,
+          2107.0
+        ],
+        [
+          835.0,
+          2108.0
+        ],
+        [
+          834.0,
+          2109.0
+        ],
+        [
+          834.0,
+          2110.0
+        ]
+      ]
+    }
+  ]
+}

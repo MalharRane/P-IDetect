@@ -1,7 +1,8 @@
 """Phase 4 step 3: binarize → skeleton → branch extraction → endpoint binding.
 
 Pipeline:
-    1. binarize()               grayscale → Gaussian blur → Otsu → morphological cleanup
+    1. binarize()               grayscale → Gaussian blur → Otsu → drawing-frame removal
+                                 (mask_drawing_frame) → morphological cleanup
     2. skeletonize()            Zhang-Suen thinning (skimage.morphology.skeletonize)
     3. extract_branches()       skan branch polylines; discard stubs < min_branch_len_px
     4. bind_endpoints()         assign each branch endpoint to the nearest symbol whose
@@ -89,17 +90,87 @@ class Step3Result:
 # Step 3a — Binarize
 # ---------------------------------------------------------------------------
 
+def mask_drawing_frame(
+    binary_bool: np.ndarray,
+    search_px: int = 80,
+    min_line_frac: float = 0.75,
+    clear_margin_px: int = 6,
+) -> np.ndarray:
+    """Erase the drawing-frame border (+ its ruler ticks) from a binary ink image.
+
+    P&ID sheets are printed inside a rectangular frame drawn close to the image edge,
+    with ruler tick marks / row-column labels just outside it. Left untouched, that
+    frame skeletonizes into one long, near-continuous branch running most of the
+    sheet's width or height -- which can bridge unrelated symbols near opposite edges
+    into a spurious "connecting pipe" (verified on OPEN100 sheet 0: a traced edge ran
+    the full top border from the corner to an unrelated off-page marker). Real pipes
+    never span that close to the border for that long, so this is detectable purely
+    from geometry: for each edge, scan the `search_px`-wide band next to it and find
+    rows (top/bottom) or columns (left/right) whose ink coverage across the FULL
+    opposite dimension exceeds `min_line_frac` -- only a straight border-hugging line
+    reaches that; sparse content (text, symbols, short ticks) does not. Measured on
+    OPEN100 sheets 0/3/10: real frame lines sit at 0.84-1.0 coverage, everything else
+    in the search band is <0.1 -- comfortably separated from `min_line_frac`.
+
+    Clears a `clear_margin_px` band around each detected line (absorbs anti-aliasing
+    and the short perpendicular ruler ticks touching it) across the full opposite
+    dimension. Does not touch interior content: legitimate pipes and off-page-connector
+    stubs run perpendicular to the border and are only trimmed by a few px right at the
+    edge, which does not affect off_page_border_px binding (distance-to-edge based, not
+    distance-to-frame-line based).
+
+    Returns a new array (does not modify `binary_bool` in place). A no-op (returns a
+    copy) if no edge's band contains a qualifying line -- e.g. a border broken up by
+    off-page connector arrows/text, as measured on sheet 0's right edge.
+    """
+    h, w = binary_bool.shape[:2]
+    sp = max(1, min(search_px, h // 3, w // 3))
+    out = binary_bool.copy()
+
+    top_frac = binary_bool[:sp, :].mean(axis=1)
+    bot_frac = binary_bool[h - sp:, :].mean(axis=1)
+    left_frac = binary_bool[:, :sp].mean(axis=0)
+    right_frac = binary_bool[:, w - sp:].mean(axis=0)
+
+    for i, frac in enumerate(top_frac):
+        if frac >= min_line_frac:
+            lo, hi = max(0, i - clear_margin_px), min(sp, i + clear_margin_px + 1)
+            out[lo:hi, :] = False
+    for j, frac in enumerate(bot_frac):
+        if frac >= min_line_frac:
+            row = h - sp + j
+            lo, hi = max(h - sp, row - clear_margin_px), min(h, row + clear_margin_px + 1)
+            out[lo:hi, :] = False
+    for i, frac in enumerate(left_frac):
+        if frac >= min_line_frac:
+            lo, hi = max(0, i - clear_margin_px), min(sp, i + clear_margin_px + 1)
+            out[:, lo:hi] = False
+    for j, frac in enumerate(right_frac):
+        if frac >= min_line_frac:
+            col = w - sp + j
+            lo, hi = max(w - sp, col - clear_margin_px), min(w, col + clear_margin_px + 1)
+            out[:, lo:hi] = False
+
+    return out
+
+
 def binarize(
     img: np.ndarray,
     blur_sigma: float = 0.8,
     close_disk_r: int = 2,
     open_disk_r: int = 1,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Grayscale → Gaussian blur → Otsu threshold → morphological cleanup.
+    """Grayscale → Gaussian blur → Otsu threshold → frame removal → morphological cleanup.
 
     Returns (binary_final, binary_raw) where:
       binary_final — post-close/open boolean array used for skeletonization
-      binary_raw   — post-Otsu boolean array BEFORE closing (preserves bridge gaps)
+      binary_raw   — post-Otsu, post-frame-removal boolean array BEFORE closing
+                     (preserves bridge gaps)
+
+    Frame removal (mask_drawing_frame) runs on every call -- both the erased-image pass
+    (skeletonization) and the pre-erasure pass (short-gap corridor ink checks, junction
+    crossing-gap probing via Step3Result.binary_raw) share this one choke point, so the
+    drawing-frame border can never leak into ANY downstream connectivity mechanism.
     """
     from skimage.morphology import closing, opening, disk
 
@@ -114,7 +185,7 @@ def binarize(
     _, binary = cv2.threshold(
         blurred, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
     )
-    binary_raw = binary.astype(bool)   # before morphological ops
+    binary_raw = mask_drawing_frame(binary.astype(bool))   # before morphological ops
     binary_bool = binary_raw.copy()
 
     if close_disk_r > 0:
