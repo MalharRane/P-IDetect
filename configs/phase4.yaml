@@ -6,7 +6,16 @@ roi_border_margin_frac: 0.04  # fallback border margin when GraphML has no backg
 nms_centroid_frac: 0.5        # suppress lower-conf pred if centroid within frac*sqrt(w*h) of kept pred
 
 # --- Step 2: Erasure ---
-erase_dilation_px: 8          # expand each symbol bbox by M px on all 4 sides before fill
+# Fix 2 (docs/phase4_final.md): erase_dilation_px swept 8/6/4/3/2 on sheets 0/3/10
+# (scripts/sweep_erasure_dilation.py) to let shared-header short-gap taps survive
+# erasure so the ALREADY-WIRED stub-direction discriminator (short_gap_stub_angle_tol_deg
+# below) has evidence to act on -- at 8px, 0 of the 32 shared-header FPs had a surviving
+# stub. 3px is the sweep optimum: best mean F1 (0.556->0.578), most net shared-header FPs
+# killed, zero TP loss (TP set is a strict superset of the 8px baseline, +1 net gain on
+# sheet 10). 2px regresses on every axis (new FP on sheet 3, shared-header kills drop,
+# F1 drops below the 3px value) -- the over-erosion failure mode the sweep was designed
+# to catch. See docs/phase4_final.md "Fix 2" section for the full table.
+erase_dilation_px: 3          # expand each symbol bbox by M px on all 4 sides before fill
 
 # --- Step 3: Line extraction ---
 blur_sigma: 0.8               # Gaussian blur sigma before Otsu binarization
