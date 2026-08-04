@@ -71,6 +71,20 @@ short_gap_stub_angle_tol_deg: 55     # shared-header discriminator: reject a sho
                                      # trunk). Nodes with no surviving stub at all are not
                                      # penalised -- see _stub_direction_ok in lines.py.
 
+# --- Step 6: Direction-aware connector contraction (P3c fix) ---
+# _contract_connectors used to connect ALL neighbour pairs at every connector node
+# (all-pairs clique), which over-bridges through duplicate-split junction nodes on a
+# shared header (docs/phase4_final.md P3c). Fix: group a connector's incident pipe
+# stubs (junction->neighbour direction, read from coords_rc same as the short-gap
+# stub-direction discriminator) into collinear through-runs before contracting; a
+# through-run pair is connected, a branch stub is connected to the run it meets, but
+# two branch stubs that are neither collinear with each other nor part of an
+# identified run are NOT connected to each other. Falls back to the old all-pairs
+# behaviour (recall-safe) whenever <2 neighbours have a usable direction or no
+# collinear pair can be found at all (e.g. a genuine wye).
+contraction_collinear_tol_deg: 28   # two stubs within this many degrees of 180 deg
+                                     # apart are treated as one straight through-run
+
 # --- Step 7: Direction tagging ---
 arrow_max_dist_px: 200        # max distance (px) from arrow centre to sym-to-sym segment for assignment
 

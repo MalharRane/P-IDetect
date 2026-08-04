@@ -295,15 +295,167 @@ def _constituent_branch_ids(edata: dict) -> list:
 
 
 # ---------------------------------------------------------------------------
-# Step 6a: connector contraction (standard — connect all neighbour pairs)
+# Step 6a: connector contraction (direction-aware — connect same-run pairs only)
 # ---------------------------------------------------------------------------
 
-def _contract_connectors(G: nx.Graph) -> int:
+def _junction_stub_dir(
+    gid: str, nbr: str, edata: dict, k: int = 5
+) -> Optional[tuple[float, float]]:
+    """Unit vector pointing FROM junction gid TOWARD neighbour nbr.
+
+    Read k pixels into the traced route from the junction end — the same
+    "look a few pixels inward" technique as lines.py's short-gap stub-direction
+    discriminator (_stub_direction_xy), applied here to a junction's incident
+    graph edges instead of a bound branch endpoint. Returns None when the edge
+    carries no reconstructable route (e.g. a leg that already lost its polyline
+    through a prior fallback contraction) — that neighbour is then treated as
+    direction-unavailable by the caller.
+    """
+    coords = _oriented_coords(gid, nbr, edata)
+    if coords is None or len(coords) < 2:
+        return None
+    far = min(k, len(coords) - 1)
+    dr = float(coords[far][0]) - float(coords[0][0])
+    dc = float(coords[far][1]) - float(coords[0][1])
+    mag = math.hypot(dc, dr)
+    if mag < 0.5:
+        return None
+    return (dc / mag, dr / mag)
+
+
+def _group_junction_neighbors(
+    gid: str,
+    neighbors: list[str],
+    G: nx.Graph,
+    collinear_tol_deg: float,
+    k: int = 5,
+) -> list[tuple[str, str, Optional[bool]]]:
+    """Group a junction's incident stubs into (u, v, is_backbone) triples to connect.
+
+    is_backbone on the *returned* triple is the flag to stamp on the new (u, v)
+    edge, so a "this is a branch tap, not the header" classification survives
+    being read back at the NEXT junction the resulting edge touches — without
+    this propagation, a branch that got merged onto the header at one junction
+    arrives at the next junction looking geometrically collinear with the
+    header (its last traced leg IS the header direction) and gets relaunched
+    as a "through-run" member, silently reproducing the exact all-pairs
+    over-bridging bug through a chain of genuine T-junctions even though each
+    junction is individually classified correctly (docs/phase4_final.md P3c —
+    confirmed by measurement: real P3c FPs route through CHAINS of degree-3
+    tees, where a purely local per-junction decision is mathematically
+    identical to all-pairs for any single degree-3 node).
+
+    Degree <= 2 (a plain bend/passthrough) is always connected — no run
+    structure is needed to make that call, but the flag still propagates: the
+    new edge is backbone only if NEITHER incoming leg was already a forced
+    branch (so a branch tap that jogs through an elbow, not just a tee, is
+    still recognised as a branch two hops later).
+
+    For degree >= 3: any neighbour whose incoming edge is already flagged
+    is_backbone=False is a forced branch, excluded from run-pairing outright
+    regardless of its local geometry. Among the remaining neighbours with a
+    usable direction, stubs are grouped into through-runs (two stubs whose
+    junction->neighbour directions are collinear, ~180 deg apart within
+    collinear_tol_deg). A through-run pair is connected (is_backbone=True).
+    Every branch (forced, or simply unpaired with a known direction) connects
+    to every member of every identified run (is_backbone=False) but NOT to
+    other branches directly — that clique among unrelated taps is the bug.
+
+    Neighbours with NO usable direction at all (fully consumed by erasure) are
+    kept in a separate "unknown" bucket and connected to everything — run
+    members, branches, and each other — exactly like the pre-fix behaviour,
+    so missing geometry never costs recall (is_backbone left unset: the next
+    hop re-evaluates them fresh rather than inheriting a guess).
+
+    Falls back to full all-pairs (is_backbone unset on every edge) whenever
+    fewer than 2 neighbours have a usable direction, or no collinear pair can
+    be found at all among those that do (e.g. a genuine 3-way wye with no two
+    legs collinear) — there isn't enough evidence to safely restrict
+    connectivity, so recall takes priority.
+    """
+    def _all_pairs_result() -> list[tuple[str, str, Optional[bool]]]:
+        return [(neighbors[i], neighbors[j], None)
+                for i in range(len(neighbors)) for j in range(i + 1, len(neighbors))]
+
+    if len(neighbors) <= 2:
+        triples = []
+        for i in range(len(neighbors)):
+            for j in range(i + 1, len(neighbors)):
+                u, v = neighbors[i], neighbors[j]
+                bb_u = G.get_edge_data(gid, u).get("is_backbone")
+                bb_v = G.get_edge_data(gid, v).get("is_backbone")
+                is_backbone = not (bb_u is False or bb_v is False)
+                triples.append((u, v, is_backbone))
+        return triples
+
+    forced_branch: list[str] = []
+    dirs: dict[str, tuple[float, float]] = {}
+    unknown: list[str] = []
+    for nbr in neighbors:
+        edata = G.get_edge_data(gid, nbr)
+        if edata.get("is_backbone") is False:
+            forced_branch.append(nbr)
+            continue
+        d = _junction_stub_dir(gid, nbr, edata, k)
+        if d is not None:
+            dirs[nbr] = d
+        else:
+            unknown.append(nbr)
+
+    eligible = list(dirs.keys())  # candidates for run-pairing: not forced, has direction
+    if len(eligible) < 2:
+        return _all_pairs_result()
+
+    cos_collinear = math.cos(math.radians(180.0 - collinear_tol_deg))  # negative
+
+    candidates = []
+    for i in range(len(eligible)):
+        for j in range(i + 1, len(eligible)):
+            u, v = eligible[i], eligible[j]
+            du, dv = dirs[u], dirs[v]
+            dot = du[0] * dv[0] + du[1] * dv[1]
+            if dot <= cos_collinear:
+                candidates.append((dot, u, v))
+    candidates.sort(key=lambda t: t[0])  # most-negative (most collinear) first
+
+    used: set[str] = set()
+    runs: list[tuple[str, str]] = []
+    for dot, u, v in candidates:
+        if u in used or v in used:
+            continue
+        runs.append((u, v))
+        used.add(u)
+        used.add(v)
+
+    if not runs:
+        return _all_pairs_result()  # no run structure identified (e.g. wye) -- stay safe
+
+    result: list[tuple[str, str, Optional[bool]]] = [(u, v, True) for (u, v) in runs]
+
+    branch = [n for n in eligible if n not in used] + forced_branch
+    for b in branch:
+        for (ru, rv) in runs:
+            result.append((b, ru, False))
+            result.append((b, rv, False))
+
+    for i in range(len(unknown)):
+        for v in neighbors:
+            if v == unknown[i]:
+                continue
+            result.append((unknown[i], v, None))
+
+    return result
+
+
+def _contract_connectors(G: nx.Graph, collinear_tol_deg: float = 28.0) -> int:
     """Contract all connector nodes in G in-place.
 
-    For each connector C: add edges between every pair of C's neighbours,
-    then remove C.  This is the standard topology-node contraction for
-    pipe bends and T-junctions. When both legs (neighbour->C) carry a traced
+    For each connector C: group C's neighbours into same-run pairs
+    (_group_junction_neighbors) and add an edge for every pair in that group,
+    then remove C. This replaces naive all-pairs contraction (which bridges
+    unrelated taps on a shared header through a junction, docs/phase4_final.md
+    P3c) with direction-aware grouping while keeping the standard bend/T
+    behaviour unchanged. When both legs (neighbour->C) carry a traced
     polyline, the two are concatenated onto the new edge so the contracted
     edge still renders the real pipe route instead of a straight chord.
 
@@ -317,26 +469,27 @@ def _contract_connectors(G: nx.Graph) -> int:
         if gid not in G:
             continue
         neighbors = list(G.neighbors(gid))  # materialise before removal
-        for i in range(len(neighbors)):
-            for j in range(i + 1, len(neighbors)):
-                u, v = neighbors[i], neighbors[j]
-                if u == v or G.has_edge(u, v):
-                    continue
-                edata_u = G.get_edge_data(u, gid)
-                edata_v = G.get_edge_data(gid, v)
-                coords_u = _oriented_coords(u, gid, edata_u)
-                coords_v = _oriented_coords(gid, v, edata_v)
-                edge_attrs = dict(contracted=True, via_type="connector")
-                if coords_u is not None and coords_v is not None:
-                    edge_attrs.update(
-                        coords_rc=_concat_routes(coords_u, coords_v),
-                        route_u=u,
-                        route_v=v,
-                        constituent_branch_ids=(
-                            _constituent_branch_ids(edata_u) + _constituent_branch_ids(edata_v)
-                        ),
-                    )
-                G.add_edge(u, v, **edge_attrs)
+        triples = _group_junction_neighbors(gid, neighbors, G, collinear_tol_deg)
+        for u, v, is_backbone in triples:
+            if u == v or G.has_edge(u, v):
+                continue
+            edata_u = G.get_edge_data(u, gid)
+            edata_v = G.get_edge_data(gid, v)
+            coords_u = _oriented_coords(u, gid, edata_u)
+            coords_v = _oriented_coords(gid, v, edata_v)
+            edge_attrs = dict(contracted=True, via_type="connector")
+            if is_backbone is not None:
+                edge_attrs["is_backbone"] = is_backbone
+            if coords_u is not None and coords_v is not None:
+                edge_attrs.update(
+                    coords_rc=_concat_routes(coords_u, coords_v),
+                    route_u=u,
+                    route_v=v,
+                    constituent_branch_ids=(
+                        _constituent_branch_ids(edata_u) + _constituent_branch_ids(edata_v)
+                    ),
+                )
+            G.add_edge(u, v, **edge_attrs)
         G.remove_node(gid)
         n_contracted += 1
     return n_contracted
@@ -387,6 +540,15 @@ def _contract_crossings(G: nx.Graph) -> int:
             coords_A = _oriented_coords(nbr_A, gid, edata_A)
             coords_B = _oriented_coords(gid, nbr_B, edata_B)
             edge_attrs = dict(contracted=True, via_type="crossing")
+            # A pass-through is a plain continuation (same semantics as a
+            # degree-2 connector) -- propagate the backbone/branch flag so a
+            # branch tap that happens to route through a crossing is still
+            # recognised as a branch at the next junction (see
+            # _group_junction_neighbors for why this propagation matters).
+            bb_A = edata_A.get("is_backbone")
+            bb_B = edata_B.get("is_backbone")
+            if bb_A is False or bb_B is False:
+                edge_attrs["is_backbone"] = False
             if coords_A is not None and coords_B is not None:
                 edge_attrs.update(
                     coords_rc=_concat_routes(coords_A, coords_B),
@@ -435,10 +597,10 @@ class Step6Result:
         }
 
 
-def run_step6(s5: Step5Result) -> Step6Result:
+def run_step6(s5: Step5Result, collinear_tol_deg: float = 28.0) -> Step6Result:
     """Contract connector and crossing nodes to produce the symbol-to-symbol graph."""
     G = s5.graph.copy()
-    n_conn  = _contract_connectors(G)
+    n_conn  = _contract_connectors(G, collinear_tol_deg)
     n_cross = _contract_crossings(G)
     return Step6Result(
         graph=G,
@@ -456,6 +618,7 @@ def build_sr_sc(
     off_page_nodes: list[SymbolNode],
     s3: Step3Result,
     s4: Step4Result,
+    collinear_tol_deg: float = 28.0,
 ) -> tuple[nx.Graph, nx.Graph]:
     """Build the two auxiliary graphs used by the crossing-separation veto.
 
@@ -467,7 +630,7 @@ def build_sr_sc(
     s3_no_sg = dataclasses.replace(s3, short_gap_pairs=[])
     SR, _n_dangling = build_graph(all_symbol_nodes, off_page_nodes, s3_no_sg, s4)
     Sc = SR.copy()
-    _contract_connectors(Sc)
+    _contract_connectors(Sc, collinear_tol_deg)
     _contract_crossings(Sc)
     return SR, Sc
 

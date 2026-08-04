@@ -147,12 +147,13 @@ def run_pipeline(
         exclude_rects=[],  # no GT background/legend regions for an upload
     )
 
-    SR, Sc = build_sr_sc(nodes, s3.off_page_nodes, s3, s4)
+    collinear_tol_deg = phase4_cfg["contraction_collinear_tol_deg"]
+    SR, Sc = build_sr_sc(nodes, s3.off_page_nodes, s3, s4, collinear_tol_deg)
     kept_pairs, _suppressed = veto_short_gap_by_crossing_separation(s3.short_gap_pairs, SR, Sc)
     s3 = dataclasses.replace(s3, short_gap_pairs=kept_pairs)
 
     s5 = run_step5(nodes, s3.off_page_nodes, s3, s4)
-    s6 = run_step6(s5)
+    s6 = run_step6(s5, collinear_tol_deg)
 
     flow_arrows = [n for n in nodes if n.node_type == "flow_arrow" and len(n.ports) == 0]
     img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
