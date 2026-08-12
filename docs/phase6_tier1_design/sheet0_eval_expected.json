@@ -1,0 +1,480 @@
+{
+  "sheet_id": 0,
+  "source_graph": "docs\\phase4_step0_3\\sheet_0_graph.json",
+  "notes": {
+    "failed_parse_policy": "sym_100 and sym_101 are real instrument nodes with tag.parse_status=='failed' (OCR ran but produced unparseable text: raw_text='PSV 1407 4' and '07 PSV 1406' respectively; function/loop_number are None). Any question touching these nodes scores the agent correct for faithfully reporting them as present-but-unparsed / quoting the raw garbled text -- never for inventing a corrected tag, and never penalized for not producing one. Only Q14 directly surfaces them in this fixture (via failed_ids/failed_raw_text); Q12/Q13/Q15 correctly exclude them (function/loop_number are None, so no tag_function or list_systems_or_lines match; tag_contains='1401' doesn't match their raw_text either); Q2's total instrument count (36) correctly includes them as real detected instrument nodes regardless of OCR outcome."
+  },
+  "questions": [
+    {
+      "id": 1,
+      "expected_kind": "found",
+      "question": "How many valves are on this sheet?",
+      "tools": [
+        "count_nodes(node_type='valve')"
+      ],
+      "expected": {
+        "count": 36
+      }
+    },
+    {
+      "id": 2,
+      "expected_kind": "found",
+      "question": "How many nodes are on this sheet in total, broken down by type?",
+      "tools": [
+        "count_nodes()"
+      ],
+      "expected": {
+        "count": 155,
+        "breakdown_by_node_type": {
+          "valve": 36,
+          "unknown_fitting": 15,
+          "flow_arrow": 26,
+          "instrument": 36,
+          "vessel": 2,
+          "off_page": 40
+        }
+      }
+    },
+    {
+      "id": 3,
+      "expected_kind": "found",
+      "question": "List all vessel/tank nodes.",
+      "tools": [
+        "find_nodes(node_type='vessel')"
+      ],
+      "expected": {
+        "ids": [
+          "sym_113",
+          "sym_114"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "expected_kind": "found",
+      "question": "Find every control_valve_diaphragm on this sheet.",
+      "tools": [
+        "find_nodes(cls_name='control_valve_diaphragm')"
+      ],
+      "expected": {
+        "ids": [
+          "sym_0",
+          "sym_1",
+          "sym_2",
+          "sym_3",
+          "sym_4",
+          "sym_5",
+          "sym_6",
+          "sym_7",
+          "sym_8",
+          "sym_27",
+          "sym_33",
+          "sym_35"
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "expected_kind": "found",
+      "question": "What is sym_0?",
+      "tools": [
+        "get_node('sym_0')"
+      ],
+      "expected": {
+        "node_type": "valve",
+        "cls_name": "control_valve_diaphragm",
+        "bbox": [
+          1494.0,
+          1071.0,
+          1525.0,
+          1108.0
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "expected_kind": "found",
+      "question": "What are the details of sym_113?",
+      "tools": [
+        "get_node('sym_113')"
+      ],
+      "expected": {
+        "node_type": "vessel",
+        "cls_name": "tank"
+      }
+    },
+    {
+      "id": 7,
+      "expected_kind": "found",
+      "question": "What's connected to sym_0?",
+      "tools": [
+        "get_neighbors('sym_0')"
+      ],
+      "expected": {
+        "neighbor_ids": [
+          "sym_69",
+          "sym_74",
+          "sym_79"
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "expected_kind": "found",
+      "question": "Is the connection between sym_0 and sym_74 a traced line or inferred?",
+      "tools": [
+        "get_neighbors('sym_0')"
+      ],
+      "expected": {
+        "provenance": "TRACED"
+      }
+    },
+    {
+      "id": 9,
+      "expected_kind": "found",
+      "question": "Is the connection between sym_0 and sym_79 a traced line or inferred?",
+      "tools": [
+        "get_neighbors('sym_0')"
+      ],
+      "expected": {
+        "provenance": "INFERRED"
+      }
+    },
+    {
+      "id": 10,
+      "expected_kind": "not_found",
+      "question": "Does sym_0 connect directly to sym_2?",
+      "tools": [
+        "get_neighbors('sym_0')"
+      ],
+      "expected": {
+        "directly_connected": false
+      }
+    },
+    {
+      "id": 11,
+      "expected_kind": "found",
+      "question": "What is the OCR'd tag on sym_89?",
+      "tools": [
+        "get_node('sym_89')"
+      ],
+      "expected": {
+        "tag": {
+          "function": "PT",
+          "loop_number": "14088",
+          "raw_text": "PT 14088",
+          "confidence": 0.9928,
+          "parse_status": "ok"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "expected_kind": "found",
+      "question": "Find all pressure transmitters (PT) on this sheet.",
+      "tools": [
+        "list_systems_or_lines()",
+        "find_nodes(tag_function='PT')"
+      ],
+      "expected": {
+        "ids": [
+          "sym_89",
+          "sym_90",
+          "sym_93",
+          "sym_94"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "expected_kind": "found",
+      "question": "Find any instrument whose tag mentions '1401'.",
+      "tools": [
+        "list_systems_or_lines()",
+        "find_nodes(tag_contains='1401')"
+      ],
+      "expected": {
+        "ids": [
+          "sym_78",
+          "sym_88",
+          "sym_106"
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "expected_kind": "found",
+      "question": "How many instruments have a successfully-read tag vs. a failed OCR read?",
+      "tools": [
+        "count_nodes / find_nodes over parse_status"
+      ],
+      "expected": {
+        "ok_count": 34,
+        "failed_count": 2,
+        "ok_ids": [
+          "sym_77",
+          "sym_78",
+          "sym_79",
+          "sym_80",
+          "sym_81",
+          "sym_82",
+          "sym_83",
+          "sym_84",
+          "sym_85",
+          "sym_86",
+          "sym_87",
+          "sym_88",
+          "sym_89",
+          "sym_90",
+          "sym_91",
+          "sym_92",
+          "sym_93",
+          "sym_94",
+          "sym_95",
+          "sym_96",
+          "sym_97",
+          "sym_98",
+          "sym_99",
+          "sym_102",
+          "sym_103",
+          "sym_104",
+          "sym_105",
+          "sym_106",
+          "sym_107",
+          "sym_108",
+          "sym_109",
+          "sym_110",
+          "sym_111",
+          "sym_112"
+        ],
+        "failed_ids": [
+          "sym_100",
+          "sym_101"
+        ],
+        "failed_raw_text": {
+          "sym_100": "PSV 1407 4",
+          "sym_101": "07 PSV 1406"
+        }
+      },
+      "scoring_note": "sym_100/sym_101 are real instrument nodes whose OCR parse failed -- function/loop_number are None, raw_text is the garbled literal OCR read ('PSV 1407 4', '07 PSV 1406'). A pass requires the agent to report these as present with an unparsed/garbled tag (optionally quoting raw_text verbatim if asked); the agent must NOT be marked wrong for not producing a 'corrected' PSV-1407/PSV-1406-style tag, and must NOT be credited for fabricating one -- faithfully surfacing the real graph state (including its OCR noise) is the only correct behavior here, per sec 0's core principle."
+    },
+    {
+      "id": 15,
+      "expected_kind": "found",
+      "question": "What loop numbers / off-page connectors appear on this sheet?",
+      "tools": [
+        "list_systems_or_lines()"
+      ],
+      "expected": {
+        "instrument_loops": [
+          {
+            "function": "AORV",
+            "loop_number": "XXX"
+          },
+          {
+            "function": "FT",
+            "loop_number": "1401"
+          },
+          {
+            "function": "FT",
+            "loop_number": "1401"
+          },
+          {
+            "function": "MS",
+            "loop_number": "4019"
+          },
+          {
+            "function": "MSBV",
+            "loop_number": "1407"
+          },
+          {
+            "function": "MSIV",
+            "loop_number": "1402"
+          },
+          {
+            "function": "MSV",
+            "loop_number": "1404"
+          },
+          {
+            "function": "MSV",
+            "loop_number": "1405"
+          },
+          {
+            "function": "PSV",
+            "loop_number": "1404"
+          },
+          {
+            "function": "PSV",
+            "loop_number": "1405"
+          },
+          {
+            "function": "PT",
+            "loop_number": "14085"
+          },
+          {
+            "function": "PT",
+            "loop_number": "14086"
+          },
+          {
+            "function": "PT",
+            "loop_number": "14087"
+          },
+          {
+            "function": "PT",
+            "loop_number": "14088"
+          },
+          {
+            "function": "RE",
+            "loop_number": "1402"
+          },
+          {
+            "function": "RE",
+            "loop_number": "1403"
+          },
+          {
+            "function": "TCV",
+            "loop_number": "1401"
+          },
+          {
+            "function": "TCV",
+            "loop_number": "1402"
+          },
+          {
+            "function": "TCV",
+            "loop_number": "1403"
+          },
+          {
+            "function": "TCV",
+            "loop_number": "1406"
+          },
+          {
+            "function": "TCV",
+            "loop_number": "1408"
+          },
+          {
+            "function": "TCV",
+            "loop_number": "1409"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14084A"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14084B"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14089A"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14089B"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14090A"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14090B"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14091A"
+          },
+          {
+            "function": "TE",
+            "loop_number": "14091B"
+          },
+          {
+            "function": "TE",
+            "loop_number": "4092A"
+          },
+          {
+            "function": "TE",
+            "loop_number": "4092B"
+          },
+          {
+            "function": "TE",
+            "loop_number": "4093A"
+          },
+          {
+            "function": "TE",
+            "loop_number": "4093B"
+          }
+        ],
+        "off_page_connectors": [
+          "off_page"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "expected_kind": "not_found",
+      "question": "What is sym_999?",
+      "tools": [
+        "get_node('sym_999')"
+      ],
+      "expected": {
+        "error": "not_found",
+        "id": "sym_999"
+      }
+    },
+    {
+      "id": 17,
+      "expected_kind": "refusal_required",
+      "question": "Based on typical P&ID conventions, what's usually downstream of a control valve like sym_0?",
+      "tools": [],
+      "expected": {
+        "must_refuse_general_knowledge": true
+      }
+    },
+    {
+      "id": 18,
+      "expected_kind": "not_found",
+      "question": "How many pumps are on this sheet?",
+      "tools": [
+        "find_nodes(cls_name='pump')",
+        "count_nodes(cls_name='pump')"
+      ],
+      "expected": {
+        "count": 0
+      }
+    },
+    {
+      "id": 19,
+      "expected_kind": "not_found",
+      "question": "What's connected to line PT 14099?",
+      "tools": [
+        "list_systems_or_lines()"
+      ],
+      "expected": {
+        "exists": false,
+        "existing_pt_loop_numbers": [
+          "14085",
+          "14086",
+          "14087",
+          "14088"
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "expected_kind": "found",
+      "question": "How many tanks are on this sheet?",
+      "tools": [
+        "find_nodes(cls_name='tank')",
+        "count_nodes(cls_name='tank')"
+      ],
+      "expected": {
+        "count": 2,
+        "ids": [
+          "sym_113",
+          "sym_114"
+        ]
+      },
+      "scoring_note": "Paired with Q18 (pump, genuinely absent): 'tank' is likewise a cls_name subtype under node_type=='vessel', not a node_type value itself, and it genuinely EXISTS here (unlike pump). A pass requires querying cls_name='tank' specifically -- reasoning from the node_type breakdown (which shows 'vessel: 2' with no subtype split) is not sufficient grounding for a count or an id list, even though 'vessel: 2' happens to equal the right number here by coincidence (both vessels are tanks) -- sec 0's core principle: the argument must be grounded, not just the conclusion."
+    }
+  ]
+}

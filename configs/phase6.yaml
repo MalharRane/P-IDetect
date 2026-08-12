@@ -1,0 +1,19 @@
+# Phase 6 -- Tier 1 grounded query agent config. See docs/phase6_tier1_design.md.
+
+provider: gemini          # "gemini" | "ollama" -- swap without touching agent code
+
+# --- Gemini (free tier) ---
+# "gemini-flash-latest" (-> gemini-3.6-flash) hit its free-tier daily quota (20 req/day/
+# project/model, RESOURCE_EXHAUSTED, confirmed live 2026-08) during this implementation's
+# own testing. gemini-3.1-flash-lite has its own separate quota bucket (each model is
+# metered independently) and was confirmed live with a real tool-calling round-trip.
+# gemini-1.5-flash and gemini-2.5-flash/-lite are all retired/404 as of this date -- if this
+# goes stale again, GET /v1beta/models (with ?key=...) lists what's currently live.
+gemini_model: gemini-3.1-flash-lite
+gemini_api_key_env: GEMINI_API_KEY   # never hardcode the key; export it in the shell instead
+
+# --- Ollama (local) ---
+ollama_model: qwen2.5:7b   # must be a tool-calling-capable model -- not every Ollama model supports `tools`
+ollama_base_url: http://localhost:11434
+
+max_rounds: 6              # sec 1.4 tool-call budget per question
