@@ -35,6 +35,11 @@ ready to inspect in the browser or hand off as JSON.
   frontend polls for progress, renders a pan/zoom overlay on the original sheet, and lets you
   click any detected symbol to inspect its class, confidence, bounding box, and parsed tag.
   Results export as JSON or an annotated PNG.
+- **Answers questions about the graph through a grounded LLM agent** — ask "how many valves have
+  an MOV tag?" or "is sym_0 reliably connected to sym_33?" in a chat panel next to the overlay and
+  get back an answer with the real tool calls behind it, not a plausible-sounding guess. The LLM
+  never answers from its own P&ID knowledge; every claim is mechanically checked against the
+  actual graph before it's returned.
 
 ## Results — measured, not claimed
 
@@ -64,6 +69,29 @@ reach it written down as future work.
 *Full methodology, per-sheet breakdowns, and every other measured limitation:
 [README_DEV.md](README_DEV.md).*
 
+### Grounded query agent — same honesty standard, including what's still open
+
+A retrieval-only LLM agent sits on top of the graph (chat panel in the app), answering questions
+through six narrow tools instead of general P&ID knowledge. It was adversarially stress-tested
+with a 73-question fixture across three structurally different real sheets (dense/medium/sparse
+density), specifically built to break it — and it did, five separate ways. Four are fixed
+structurally (a mechanical check that rejects the answer, not a prompt asking nicely) and
+confirmed live across **two different LLM providers**:
+
+| Check | Result |
+|---|---|
+| Refuses questions needing general P&ID knowledge or a subjective verdict | **100%** — 3/3 sheets |
+| Declines multi-hop "trace the pipe" questions rather than fabricating a route | **100%** — 3/3 sheets |
+| Correctly reports absence for a real-but-missing subtype filter | **100%** — 3/3 sheets |
+| Reports genuine "not found" for a compound multi-filter query | **75–100%** — 1 of 3 sheets still has a gap |
+
+That last row is deliberately not rounded up: on two sheets, a specific compound-filter question
+still hits its tool-call budget without answering, rather than declining cleanly — a known, named
+gap, not a hidden one. One more open item: the guard that stops the agent from wastefully
+re-verifying an answer it already has can, on certain multi-step questions, block a genuinely
+necessary follow-up call. Full account of every gap found, what got fixed and how, and what's
+still open: [docs/phase6_tier1_design.md](docs/phase6_tier1_design.md).
+
 ## Engineering highlights
 
 - **Gate-driven development.** Every phase (detection → OCR → connectivity → deploy) shipped
@@ -81,6 +109,16 @@ reach it written down as future work.
 - **A demo that's honest about its own cost.** Measured end-to-end latency (~2 minutes/sheet on
   CPU, OCR-dominated) drove a real architecture decision — async job + polling instead of a
   blocking request — documented with the actual numbers behind it, not an estimate.
+- **An agent that can't hallucinate past its own guardrails.** Every final answer is checked
+  mechanically against the real tool-call transcript — not a second LLM call grading its own
+  homework. Cited ids must trace to a real result, tag filters must trace to a real enumeration,
+  and (after stress-testing caught the model rendering an unsupported verdict — "this sheet is
+  well-instrumented" — on top of real numbers) a dedicated check now rejects evaluative
+  conclusions the graph itself never licensed, even when every underlying fact was true. A failed
+  check doesn't get flagged after the fact — it's rejected and the agent must retry or decline.
+- **Provider-swappable by design.** The agent runs against Gemini, Groq, or a local Ollama model
+  behind one interface, switched by a single config key — proved out for real when Gemini's
+  free-tier daily quota exhausted mid-eval and the same test suite ran unmodified against Groq.
 
 ## Architecture
 
@@ -107,12 +145,15 @@ P&ID sheet (image)
         │
         ▼
   FastAPI async job  ──►  React overlay (pan/zoom, click-to-inspect, PNG/JSON download)
+                     ──►  Chat panel ──► grounded LLM agent (6 tools) ──► mechanical grounding check
 ```
 
 ## Tech stack
 
 **CV / ML:** PyTorch, YOLOv11 (Ultralytics), SAHI, PaddleOCR, OpenCV, scikit-image, skan
 **Graph:** NetworkX
+**Agent:** Gemini / Groq / Ollama behind a swappable provider interface, mechanical
+(non-LLM) grounding checks
 **Backend:** FastAPI, Uvicorn
 **Frontend:** React, Vite
 **Data:** HuggingFace `hamzas/digitize-pid-yolo`, PID2Graph OPEN100, a custom synthetic P&ID
@@ -151,6 +192,14 @@ npm run dev
 Open the printed local URL, upload a P&ID sheet (e.g. one of
 `data/realworld_eval/open100/_raw/*.png` after fetching OPEN100), and wait — it's slow (~2
 min/sheet on CPU, see [README_DEV.md](README_DEV.md)) but real, end-to-end inference.
+
+**To try the query agent's chat panel too**, export an API key before starting the backend
+(`GEMINI_API_KEY` or `GROQ_API_KEY`, matching `configs/phase6.yaml`'s `provider` setting) — or
+point it at a local Ollama model instead. Without a key, the chat panel shows a clear setup error
+rather than crashing. No detection weights or upload needed to try it: the app pre-registers
+"View Sheet 0 / 10 / 8 (Tier 1 agent demo)" buttons that jump straight to a completed OPEN100
+result — the exact sheets the stress-test numbers above were measured on. Full setup:
+[README_DEV.md](README_DEV.md).
 
 ## Data sources
 

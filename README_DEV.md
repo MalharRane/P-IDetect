@@ -8,7 +8,9 @@
 Upload a P&ID (Piping & Instrumentation Diagram) sheet → get back detected instrument/valve
 symbols, their instrument tags (read via OCR), and a best-effort process **connectivity graph** —
 viewable in the browser as an overlay on the original sheet, and downloadable as JSON or as an
-annotated PNG. PyTorch · YOLOv11 · SAHI · PaddleOCR · NetworkX.
+annotated PNG. A grounded LLM agent (chat panel, Phase 6) answers questions about that graph
+through mechanically-checked tool calls rather than general knowledge. PyTorch · YOLOv11 · SAHI ·
+PaddleOCR · NetworkX · Gemini/Groq/Ollama.
 
 ![PIDetect overlay on a real OPEN100 sheet, with legend and honest-metrics footer](docs/phase5_screenshots/hero_overlay_export.png)
 
@@ -75,6 +77,96 @@ parts of this pipeline; connectivity is the acknowledged differentiator-in-progr
 - Fine-grained valve/fitting sub-classification (Phase 2 scope) not yet started.
 - Single in-memory job store, one worker — concurrent uploads serialize. Fine for a demo, not for
   production (`docs/phase5_design.md`).
+
+## Phase 6 — Grounded Query Agent
+
+A retrieval-only LLM agent answers questions about a completed job's graph through six narrow
+tools (`find_nodes`, `get_node`, `get_neighbors`, `count_nodes`, `list_systems_or_lines`,
+`resolve_term`) — never from its own P&ID/ISA knowledge. Full design, including every gap found
+and fixed: `docs/phase6_tier1_design.md`.
+
+### Grounding architecture
+
+The core discipline: the LLM only orchestrates tool calls; every factual claim in a final answer
+is checked mechanically against the tool-call transcript before it's returned — not judged by a
+second LLM call grading its own homework. Four independent, deterministic checks
+(`src/pidetect/agent/grounding.py`):
+
+1. **Citation check** — every cited node id must have appeared in a tool result this turn.
+2. **Query-argument check** — `tag_function`/`tag_contains` values passed to `find_nodes`/
+   `count_nodes` must trace to a prior `list_systems_or_lines()` result. Closes "grounded facts,
+   hallucinated query": a wrong tag guess that happens to return an empty (and therefore
+   "technically true") result would otherwise pass a check that only inspects output tokens.
+3. **Filter-completeness check** — a question naming both a `cls_name` and a `tag_function` must
+   be answered from a single call that combined both, not a narrower query that silently dropped
+   one constraint.
+4. **Judgment-scope check** — a question asking for a subjective/evaluative conclusion ("is this
+   well-instrumented?", "which is the most critical instrument?") can never be answered with a
+   verdict word, even when every surrounding number is real. A deterministic classifier
+   intercepts these before the LLM ever sees the question — the primary defense; this check is
+   the second, independent layer in case a future prompt/classifier change ever lets one through.
+
+A failed check doesn't get logged and shipped anyway: the agent loop rejects the answer and either
+retries with a corrective message (bounded to 2 attempts) or returns an explicit non-answer —
+never the model's last unfinished guess presented as if it were a verified fact.
+
+### Cross-sheet stress-test results
+
+Adversarially built, not a happy-path eval: 73 questions across three real OPEN100 sheets chosen
+for different structural profiles — sheet 0 (medium density, mostly-inferred edges), sheet 10
+(dense, 236 nodes), sheet 8 (sparse, 102 nodes, mostly-traced edges) — run live against two
+different LLM providers (Gemini `gemini-3.1-flash-lite`, Groq `openai/gpt-oss-20b`).
+Ground truth computed programmatically from each sheet's real exported graph, never by an LLM
+(`docs/phase6_tier1_design/sheet{0,10,8}_stress_questions.json`, `stress_results.md`).
+
+| Sheet | Questions | Aggregate | `not_found` gate | `refuse` gate |
+|---|---|---|---|---|
+| 0 (medium) | 28 | 25/28 (89%, 1 infra timeout) | 6/6 (**100%**) | 9/9 (**100%**) |
+| 10 (dense) | 25 | 24/25 (96%) | 7/8 (87.5%) | 8/8 (**100%**) |
+| 8 (sparse) | 20 | 19/20 (95%) | 3/4 (75%) | 8/8 (**100%**) |
+
+`refuse` — declining general-knowledge questions, subjective-judgment questions, and multi-hop
+traversal bait — is **100% on all three sheets**, because every one of those triggers a
+deterministic, zero-LLM-call classifier that runs before `provider.step()` is ever called, so it
+holds identically across providers by construction. `not_found` — correctly reporting absence for
+a query that legitimately matches nothing — is **not yet 100% on two of the three sheets**, tracked
+below rather than rounded up.
+
+### Known limitations (agent)
+
+- **Compound `not_found` questions can still hit the round cap without answering** (sheet 10 &
+  sheet 8's `C3`: "find valves of class X with tag Y" where the combination is empty). The model
+  sometimes explores relationally (`get_neighbors` on individual matches) instead of running the
+  direct combined-filter query, and never attempts a final answer at all — so the
+  retry-on-rejection mechanism never gets a chance to help, since it only intercepts an
+  *attempted* answer, not silence. Root-caused, not hidden: `docs/phase6_tier1_design.md`'s
+  "Cross-sheet stress hardening" section.
+- **The termination guard can over-block a legitimately necessary follow-up call.** A guard was
+  added specifically because a model was burning its entire tool budget re-verifying ids it had
+  already retrieved (`get_node` calls on results already in hand) instead of concluding. It
+  currently can't distinguish "redundant re-verification of a fact already known" from "a
+  different kind of information the same question also needs" — confirmed live on a sheet-0
+  question needing both a class filter *and* a separate connectivity check. Not fixed yet.
+- **Validated within OPEN100 only.** Three sheets, one dataset, one drawing convention, one symbol
+  vocabulary, and the fixes above were built to close exactly the failure modes those three sheets
+  exposed. No other labeled connectivity-graph dataset exists in this project yet (PID2Graph's own
+  eval is blocked on Phase 4's connectivity F1 gate not being met), so generalization to a
+  differently-styled P&ID corpus is genuinely untested, not just unclaimed.
+- **Tier 2** (multi-hop path-finding, "what's downstream of X", flow simulation) is explicitly out
+  of scope for this tier — the agent declines these deterministically rather than chaining
+  single-hop lookups and presenting the result as one verified route.
+
+### Running the agent
+
+```bash
+# export GEMINI_API_KEY or GROQ_API_KEY first (matches configs/phase6.yaml's `provider` key),
+# or set provider: ollama there to use a local model instead.
+PYTHONPATH=src python scripts/ask_phase6.py --sheet sheet0 "How many valves are on this sheet?"
+PYTHONPATH=src python scripts/ask_phase6.py --sheet sheet10          # interactive REPL, --sheet sheet8 also available
+```
+Or use the chat panel in the running app (`ChatPanel.jsx`) — the pre-registered `sheet0-demo` /
+`sheet10-demo` / `sheet8-demo` jobs (`src/pidetect/api/main.py`) serve the exact locked graphs the
+numbers above were measured against, no upload or detection weights needed.
 
 ## Architecture
 
