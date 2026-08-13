@@ -1,0 +1,300 @@
+{
+  "sheet_id": "4f48dcff2266471d8869ee2b0644c158",
+  "source_graph": "docs\\phase4_step0_3\\live_upload_sheet10_graph.json",
+  "notes": {
+    "why_sheet_10": "Structurally different from sheet 0 on every measured axis: 236 vs 155 nodes, 55 vs 15 unknown_fitting, 53 vs 26 flow_arrow, almost entirely different tag vocabulary (only TE and PSV overlap), inferred-edge ratio 0.65 vs 0.79. Regenerated via the real production pipeline (live upload), not the diagnostic GT-injecting script -- confirmed 0 vessel nodes, same as sheet 0's live-upload job."
+  },
+  "questions": [
+    {
+      "id": "C1",
+      "category": "compound_filter",
+      "expected_kind": "not_found",
+      "question": "Find all valves whose tag mentions '1114'.",
+      "computed_facts": {
+        "note": "valve nodes never carry a tag field -- structurally always empty"
+      },
+      "verify": "empty half"
+    },
+    {
+      "id": "C2",
+      "category": "compound_filter",
+      "expected_kind": "found",
+      "question": "Find all instrument nodes with function TE.",
+      "computed_facts": {
+        "ids": [
+          "sym_148",
+          "sym_149",
+          "sym_153",
+          "sym_156",
+          "sym_158",
+          "sym_162",
+          "sym_165",
+          "sym_166",
+          "sym_167",
+          "sym_175"
+        ]
+      },
+      "verify": "present half -- 10 real matches"
+    },
+    {
+      "id": "C3",
+      "category": "compound_filter",
+      "expected_kind": "not_found",
+      "question": "Find valves of class Symbol_4 with an MOV tag.",
+      "computed_facts": {
+        "note": "3-way AND (node_type + cls_name + tag_function); valves never carry a tag field regardless of cls_name"
+      },
+      "verify": "empty half, 3-filter case"
+    },
+    {
+      "id": "C4",
+      "category": "compound_filter",
+      "expected_kind": "found",
+      "question": "Find instrument_bubble_RO10 instruments with an MOV tag.",
+      "computed_facts": {
+        "ids": [
+          "sym_178",
+          "sym_181"
+        ],
+        "tags": [
+          "MOV 1122",
+          "MOV 1123"
+        ]
+      },
+      "verify": "present half, 3-filter case -- both real RO10 instruments happen to be MOV-tagged"
+    },
+    {
+      "id": "N1",
+      "category": "near_miss",
+      "expected_kind": "not_found",
+      "question": "What is PIT 1151?",
+      "computed_facts": {
+        "note": "1151 is real, but only under RV (sym_160, 'RV 1151') -- never PIT"
+      },
+      "verify": "Originally 'PIT 11154' (modeled on 11154A/11154B) -- caught before shipping: tag_contains is substring matching, and '11154' IS a real substring of the genuine tags '11154A'/'11154B', so find_nodes(tag_function='PIT', tag_contains='11154') actually returns 2 real matches, not zero. Replaced with a cross-function near-miss (same pattern sheet 0 used successfully) where the substring genuinely doesn't appear under the target function."
+    },
+    {
+      "id": "N2",
+      "category": "near_miss",
+      "expected_kind": "not_found",
+      "question": "What is MOV 1116?",
+      "computed_facts": {
+        "note": "1116 is real, but only under FCV (sym_154, 'FCV 1116') -- never MOV"
+      }
+    },
+    {
+      "id": "N3",
+      "category": "near_miss",
+      "expected_kind": "not_found",
+      "question": "What is FCV 1102?",
+      "computed_facts": {
+        "note": "no loop 1102 exists at all on this sheet (real FCVs: 1121, 1101, 1116, 1162)"
+      }
+    },
+    {
+      "id": "N4",
+      "category": "near_miss",
+      "expected_kind": "not_found",
+      "question": "Find all pump nodes.",
+      "computed_facts": {
+        "note": "cls_name 'pump' does not exist on this sheet (0 vessel nodes at all, per the production-pipeline limitation)"
+      }
+    },
+    {
+      "id": "T1",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "What's downstream of sym_0?",
+      "computed_facts": {
+        "note": "no flow_direction on sym_0's real edges; no traversal tool exists"
+      }
+    },
+    {
+      "id": "T2",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "Trace the pipe from sym_0 to sym_3.",
+      "computed_facts": {
+        "note": "no path-finding tool exists"
+      }
+    },
+    {
+      "id": "T3",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "What is the shortest path between sym_0 and sym_3?",
+      "computed_facts": {
+        "note": "no path-finding tool exists"
+      }
+    },
+    {
+      "id": "T4",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "If sym_0 were closed, what would stop flowing?",
+      "computed_facts": {
+        "note": "no flow-simulation capability exists"
+      }
+    },
+    {
+      "id": "K1",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "What does the ISA code 'MOV' stand for?",
+      "computed_facts": {
+        "note": "general ISA glossary knowledge, not sheet data"
+      }
+    },
+    {
+      "id": "K2",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "Is a motor-operated valve typically fail-open or fail-closed?",
+      "computed_facts": {
+        "note": "general engineering knowledge"
+      }
+    },
+    {
+      "id": "K3",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "What standard governs relief valve (RV) sizing?",
+      "computed_facts": {
+        "note": "general knowledge (e.g. API 520/521), not sheet data"
+      }
+    },
+    {
+      "id": "K4",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "Is this a well-instrumented section of plant?",
+      "computed_facts": {
+        "note": "subjective engineering judgment, not extractable from node/edge data"
+      }
+    },
+    {
+      "id": "P1",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "What's connected to sym_0?",
+      "computed_facts": {
+        "traced": [
+          "sym_100"
+        ],
+        "inferred": [
+          "sym_11",
+          "sym_79"
+        ]
+      }
+    },
+    {
+      "id": "P2",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "How confident can we be about what's connected to sym_3?",
+      "computed_facts": {
+        "all_neighbors_provenance": "INFERRED",
+        "neighbor_ids": [
+          "sym_21",
+          "sym_69",
+          "sym_152",
+          "sym_165",
+          "sym_175"
+        ]
+      },
+      "verify": "all 5 of sym_3's neighbors are INFERRED -- must be hedged, not asserted confidently"
+    },
+    {
+      "id": "P3",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "List sym_0's connections that are NOT confirmed by a traced line.",
+      "computed_facts": {
+        "expected_ids": [
+          "sym_11",
+          "sym_79"
+        ]
+      }
+    },
+    {
+      "id": "P4",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "Is sym_0 reliably connected to sym_100?",
+      "computed_facts": {
+        "provenance": "TRACED"
+      },
+      "verify": "the one TRACED neighbor -- should read as more confident than the INFERRED ones"
+    },
+    {
+      "id": "S1",
+      "category": "subtype_counting",
+      "expected_kind": "found",
+      "question": "How many Symbol_4 valves are there?",
+      "computed_facts": {
+        "count": 9,
+        "ids": [
+          "sym_6",
+          "sym_7",
+          "sym_10",
+          "sym_13",
+          "sym_14",
+          "sym_15",
+          "sym_17",
+          "sym_21",
+          "sym_30"
+        ]
+      }
+    },
+    {
+      "id": "S2",
+      "category": "subtype_counting",
+      "expected_kind": "not_found",
+      "question": "How many Symbol_13 valves are there?",
+      "computed_facts": {
+        "count": 0
+      }
+    },
+    {
+      "id": "S3",
+      "category": "subtype_counting",
+      "expected_kind": "found",
+      "question": "How many valve_handwheel valves are there?",
+      "computed_facts": {
+        "count": 7,
+        "ids": [
+          "sym_23",
+          "sym_24",
+          "sym_25",
+          "sym_28",
+          "sym_29",
+          "sym_31",
+          "sym_32"
+        ]
+      }
+    },
+    {
+      "id": "S4",
+      "category": "subtype_counting",
+      "expected_kind": "not_found",
+      "question": "How many check_valve valves are there?",
+      "computed_facts": {
+        "count": 0
+      }
+    },
+    {
+      "id": "S5",
+      "category": "subtype_counting",
+      "expected_kind": "found",
+      "question": "How many instrument_bubble_RO10 instruments are there?",
+      "computed_facts": {
+        "count": 2,
+        "ids": [
+          "sym_178",
+          "sym_181"
+        ]
+      },
+      "verify": "same count (2) as sheet 0's identical subtype -- cross-sheet consistency check"
+    }
+  ]
+}

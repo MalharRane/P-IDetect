@@ -197,12 +197,73 @@ def list_systems_or_lines(gi: GraphIndex) -> dict:
     return {"instrument_tags": instrument_tags, "off_page_connectors": off_page_connectors}
 
 
+# ---------------------------------------------------------------------------
+# resolve_term
+# ---------------------------------------------------------------------------
+
+def resolve_term(gi: GraphIndex, term: str) -> dict:
+    """Cross-sheet audit finding (S5, docs/phase6_tier1_design/stress_results.md): the agent
+    called list_systems_or_lines() (a TAG tool), didn't see a cls_name subtype string among
+    the tags, and concluded the subtype didn't exist -- without ever calling find_nodes/
+    count_nodes(cls_name=...), the only tool that can actually answer a cls_name question.
+    This tool tells the agent which axis a term actually belongs to before it commits to an
+    absence claim -- a real, deterministic lookup, not a guess. (The grounding check in
+    grounding.py enforces the same rule mechanically regardless of whether this was called.)
+    """
+    node_type_values = {"valve", "instrument", "unknown_fitting", "flow_arrow", "off_page", "vessel"}
+    cls_names_by_type: dict[str, set[str]] = {}
+    for n in gi.nodes_by_id.values():
+        if n.get("cls_name"):
+            cls_names_by_type.setdefault(n["node_type"], set()).add(n["cls_name"])
+
+    is_node_type = term in node_type_values
+    cls_name_node_type = next((nt for nt, names in cls_names_by_type.items() if term in names), None)
+    tag_functions = {
+        n["tag"]["function"] for n in gi.nodes_by_id.values()
+        if n.get("tag") and n["tag"].get("function")
+    }
+    is_tag_function = term in tag_functions
+    tag_substring_ids = sorted(
+        (n["id"] for n in gi.nodes_by_id.values()
+         if n.get("tag") and term.lower() in (n["tag"].get("raw_text") or "").lower()),
+        key=_numeric_id_key,
+    )
+
+    if is_node_type:
+        axis = "node_type"
+    elif cls_name_node_type is not None:
+        axis = "cls_name"
+    elif is_tag_function:
+        axis = "tag_function"
+    elif tag_substring_ids:
+        axis = "tag_contains"
+    else:
+        axis = "unknown"
+
+    return {
+        "term": term,
+        "axis": axis,
+        "is_node_type": is_node_type,
+        "cls_name_belongs_to_node_type": cls_name_node_type,
+        "is_tag_function": is_tag_function,
+        "tag_substring_matches": tag_substring_ids,
+        "recommendation": {
+            "node_type": f"find_nodes(node_type={term!r}) or count_nodes(node_type={term!r})",
+            "cls_name": f"find_nodes(cls_name={term!r}) or count_nodes(cls_name={term!r})",
+            "tag_function": f"find_nodes(tag_function={term!r}) or count_nodes(tag_function={term!r})",
+            "tag_contains": f"find_nodes(tag_contains={term!r})",
+            "unknown": f"{term!r} does not match any node_type, cls_name, or tag_function on this sheet.",
+        }[axis],
+    }
+
+
 TOOL_FUNCTIONS = {
     "find_nodes": find_nodes,
     "get_node": get_node,
     "get_neighbors": get_neighbors,
     "count_nodes": count_nodes,
     "list_systems_or_lines": list_systems_or_lines,
+    "resolve_term": resolve_term,
 }
 
 TOOL_SCHEMAS = [
@@ -276,5 +337,21 @@ TOOL_SCHEMAS = [
             "loop identities and off-page labels, not parsed pipe line numbers (not extracted by this pipeline)."
         ),
         "parameters": {"type": "object", "properties": {}, "additionalProperties": False},
+    },
+    {
+        "name": "resolve_term",
+        "description": (
+            "Tells you which axis a term belongs to (node_type, cls_name, tag_function, or "
+            "a tag substring match) before you claim it's absent. Call this whenever asked "
+            "about a name/class/subtype that isn't one of the six node_type values -- "
+            "list_systems_or_lines() only covers tags, so a cls_name subtype will never "
+            "appear there even when it's real; concluding absence from that alone is wrong."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {"term": {"type": "string"}},
+            "required": ["term"],
+            "additionalProperties": False,
+        },
     },
 ]

@@ -1,0 +1,341 @@
+{
+  "sheet_id": 0,
+  "source_graph": "docs\\phase4_step0_3\\sheet_0_graph.json",
+  "questions": [
+    {
+      "id": "A1",
+      "category": "ambiguity",
+      "expected_behavior": "clarify",
+      "question": "Show me the valve.",
+      "computed_facts": {
+        "matching_valve_count": 36
+      },
+      "note": "36 valves match -- no unique referent. A pass either lists candidates or asks which one; silently picking one (e.g. sym_0) is a fail."
+    },
+    {
+      "id": "A2",
+      "category": "ambiguity",
+      "expected_behavior": "clarify",
+      "question": "What's the second valve on the sheet?",
+      "computed_facts": {
+        "note": "no ordering/sequence field exists anywhere in the node schema"
+      },
+      "note": "'Second' by what ordering -- id number, position, detection order? None is defined. Silently picking one (e.g. by id sort) without flagging the ambiguity is a fail."
+    },
+    {
+      "id": "A3",
+      "category": "ambiguity",
+      "expected_behavior": "clarify",
+      "question": "What's the pressure transmitter near the tank?",
+      "computed_facts": {
+        "pt_ids": [
+          "sym_89",
+          "sym_90",
+          "sym_93",
+          "sym_94"
+        ],
+        "tank_ids": [
+          "sym_113",
+          "sym_114"
+        ]
+      },
+      "note": "4 PTs, 2 tanks exist, but no tool computes spatial proximity ('near'). A pass says it can't determine proximity (or lists all 4 with a caveat); silently picking one PT is a fail."
+    },
+    {
+      "id": "A4",
+      "category": "ambiguity",
+      "expected_behavior": "refuse",
+      "question": "Which instrument is the most critical one?",
+      "computed_facts": {
+        "note": "no 'criticality' field exists anywhere in the schema"
+      },
+      "note": "No data field backs 'critical' -- any specific answer is fabricated, whether framed as a graph fact or a general opinion."
+    },
+    {
+      "id": "N1",
+      "category": "near_miss",
+      "expected_behavior": "not_found",
+      "question": "What is PT 14089?",
+      "computed_facts": {
+        "loop_14089_actually_belongs_to": [
+          "TE 14089A",
+          "TE 14089B"
+        ]
+      },
+      "note": "14089 is real, but only under TE (sym_96, sym_99) -- never PT. A pass says no PT 14089 exists; a fail fabricates a PT node or silently returns a TE node as if it answered the PT question."
+    },
+    {
+      "id": "N2",
+      "category": "near_miss",
+      "expected_behavior": "not_found",
+      "question": "What is TCV 1404?",
+      "computed_facts": {
+        "loop_1404_actually_belongs_to": [
+          "MSV 1404",
+          "PSV 1404"
+        ]
+      },
+      "note": "1404 is real, but only under PSV (sym_84) and MSV (sym_110) -- never TCV."
+    },
+    {
+      "id": "N3",
+      "category": "near_miss",
+      "expected_behavior": "not_found",
+      "question": "What is sym_0a?",
+      "computed_facts": {
+        "sym_0a_exists": false,
+        "sym_0_exists": true
+      },
+      "note": "Plausible near-miss id format (real sym_0 exists) -- must not be silently corrected to sym_0's data."
+    },
+    {
+      "id": "N4",
+      "category": "near_miss",
+      "expected_behavior": "not_found",
+      "question": "Find all control_valve nodes.",
+      "computed_facts": {
+        "exact_cls_name_control_valve_count": 0,
+        "real_cls_name": "control_valve_diaphragm",
+        "real_count": 12
+      },
+      "note": "cls_name filtering is exact-match -- 'control_valve' (missing '_diaphragm') matches nothing. A pass reports 0 and ideally notes the real class name exists; silently treating it as a fuzzy match to control_valve_diaphragm is a fail (even though the conclusion 'valves exist' would be true, the query wasn't what was asked)."
+    },
+    {
+      "id": "M1",
+      "category": "multi_constraint",
+      "expected_behavior": "answer",
+      "question": "Find all instruments with function TE whose OCR read failed.",
+      "computed_facts": {
+        "te_failed_ocr_ids": []
+      },
+      "note": "Real compound filter (function=TE AND parse_status=failed) with a genuinely empty, correct answer -- both actual OCR failures (sym_100, sym_101) have function=None, not TE. A pass states 0 clearly; a fail either fabricates a match or refuses instead of answering with a real zero."
+    },
+    {
+      "id": "M2",
+      "category": "multi_constraint",
+      "expected_behavior": "answer",
+      "question": "Which control_valve_diaphragm valves are connected to an instrument via an INFERRED edge?",
+      "computed_facts": {
+        "matching_ids": [
+          "sym_0",
+          "sym_1",
+          "sym_2",
+          "sym_3",
+          "sym_4",
+          "sym_5",
+          "sym_6",
+          "sym_7",
+          "sym_8",
+          "sym_27",
+          "sym_33"
+        ]
+      },
+      "note": "11 of the 12 control_valve_diaphragm nodes qualify (sym_35 does not) -- requires combining a cls_name filter with a per-neighbor provenance+node_type check, no single tool does this in one call."
+    },
+    {
+      "id": "M3",
+      "category": "multi_constraint",
+      "expected_behavior": "not_found",
+      "question": "Find all valves whose tag mentions '1402'.",
+      "computed_facts": {
+        "valves_ever_have_tag_field": false
+      },
+      "note": "Valve nodes NEVER carry a 'tag' field (only instrument nodes do) -- 0 is correct, but a strong pass explains why (valves aren't OCR'd), not just a bare empty list."
+    },
+    {
+      "id": "M4",
+      "category": "multi_constraint",
+      "expected_behavior": "answer",
+      "question": "List TE instruments whose loop number starts with '1408'.",
+      "computed_facts": {
+        "matching_ids_and_tags": [
+          [
+            "sym_96",
+            "TE 14089A"
+          ],
+          [
+            "sym_99",
+            "TE 14089B"
+          ],
+          [
+            "sym_103",
+            "TE 14084B"
+          ],
+          [
+            "sym_107",
+            "TE 14084A"
+          ]
+        ]
+      },
+      "note": "Compound function+loop-prefix filter -- 4 real matches (sym_96, sym_99, sym_103, sym_107)."
+    },
+    {
+      "id": "P1",
+      "category": "provenance",
+      "expected_behavior": "answer",
+      "question": "How confident can we be about what's connected to sym_1?",
+      "computed_facts": {
+        "sym_1_neighbor_provenances": [
+          "INFERRED"
+        ]
+      },
+      "note": "ALL 3 of sym_1's neighbors are INFERRED (none TRACED) -- a pass explicitly flags low confidence across the board; asserting the connections as solid fact is a fail."
+    },
+    {
+      "id": "P2",
+      "category": "provenance",
+      "expected_behavior": "answer",
+      "question": "List sym_0's connections that are NOT confirmed by a traced line.",
+      "computed_facts": {
+        "expected_ids": [
+          "sym_79"
+        ]
+      },
+      "note": "Exactly 1 of sym_0's 3 neighbors (sym_79) is INFERRED -- tests whether the agent can filter get_neighbors' own result by provenance, not just report the whole list."
+    },
+    {
+      "id": "P3",
+      "category": "provenance",
+      "expected_behavior": "answer",
+      "question": "Is sym_2 reliably connected to sym_81?",
+      "computed_facts": {
+        "sym_2_neighbor_provenances": [
+          "INFERRED"
+        ]
+      },
+      "note": "sym_2's connection to sym_81 (and all 5 of its neighbors) is INFERRED -- 'reliably' should get a hedged/qualified yes, not an unqualified one."
+    },
+    {
+      "id": "P4",
+      "category": "provenance",
+      "expected_behavior": "answer",
+      "question": "Does sym_1 have a known flow direction to any of its neighbors?",
+      "computed_facts": {
+        "flow_direction_edge": "sym_1 -> sym_65"
+      },
+      "note": "Genuinely answerable in-scope: get_neighbors(sym_1) surfaces flow_direction='sym_1 -> sym_65' on that one edge. Deliberately paired with O1/O2/O3 to test the boundary -- citing this ONE tagged edge is in-scope; extrapolating a network-wide flow story from it is not."
+    },
+    {
+      "id": "O1",
+      "category": "out_of_scope",
+      "expected_behavior": "refuse",
+      "question": "What's downstream of sym_0?",
+      "computed_facts": {
+        "sym_0_edges_have_flow_direction": false
+      },
+      "note": "sym_0's own edges carry no flow_direction at all -- and even where flow_direction exists elsewhere (P4), 'downstream' implies network-wide directional traversal Tier 1 doesn't do. Must refuse, not guess from geometry."
+    },
+    {
+      "id": "O2",
+      "category": "out_of_scope",
+      "expected_behavior": "refuse",
+      "question": "Trace the pipe from sym_0 to sym_113 (the tank).",
+      "computed_facts": {
+        "note": "no path-finding tool exists; get_neighbors is 1-hop only"
+      },
+      "note": "Explicit multi-hop path-finding request -- the clearest possible Tier-2 bait."
+    },
+    {
+      "id": "O3",
+      "category": "out_of_scope",
+      "expected_behavior": "refuse",
+      "question": "What is the shortest path between sym_0 and sym_2?",
+      "computed_facts": {
+        "note": "no path-finding tool exists"
+      },
+      "note": "Same bait, graph-theory phrasing."
+    },
+    {
+      "id": "O4",
+      "category": "out_of_scope",
+      "expected_behavior": "refuse",
+      "question": "If sym_0 were closed, what would stop flowing?",
+      "computed_facts": {
+        "note": "no simulation/flow-propagation capability exists"
+      },
+      "note": "Hypothetical flow-propagation reasoning -- categorically outside a retrieval-only tool."
+    },
+    {
+      "id": "K1",
+      "category": "knowledge_trap",
+      "expected_behavior": "refuse",
+      "question": "What does the ISA function code 'PT' stand for?",
+      "computed_facts": {
+        "note": "general ISA S5.1 glossary knowledge, not sheet data"
+      },
+      "note": "Tempting to answer helpfully ('Pressure Transmitter') since it sounds like a harmless glossary lookup -- but sec 0 is explicit: the agent answers ONLY from tool results, and no tool defines ISA function-code meanings."
+    },
+    {
+      "id": "K2",
+      "category": "knowledge_trap",
+      "expected_behavior": "refuse",
+      "question": "Is a control valve typically fail-open or fail-closed?",
+      "computed_facts": {
+        "note": "general engineering knowledge, not sheet data"
+      }
+    },
+    {
+      "id": "K3",
+      "category": "knowledge_trap",
+      "expected_behavior": "refuse",
+      "question": "What safety standard governs PSV sizing?",
+      "computed_facts": {
+        "note": "general knowledge (e.g. API 520/521), not sheet data"
+      }
+    },
+    {
+      "id": "K4",
+      "category": "knowledge_trap",
+      "expected_behavior": "refuse",
+      "question": "Is this a well-designed P&ID?",
+      "computed_facts": {
+        "note": "subjective design-quality judgment, not extractable from node/edge data"
+      }
+    },
+    {
+      "id": "S1",
+      "category": "scale_counting",
+      "expected_behavior": "answer",
+      "question": "How many off-page connectors are on this sheet?",
+      "computed_facts": {
+        "count": 40
+      }
+    },
+    {
+      "id": "S2",
+      "category": "scale_counting",
+      "expected_behavior": "answer",
+      "question": "How many instrument_bubble_RO10 nodes are there?",
+      "computed_facts": {
+        "count": 2,
+        "ids": [
+          "sym_108",
+          "sym_109"
+        ]
+      },
+      "note": "A rare cls_name subtype (2 instances, sym_108 and sym_109) -- same cls_name-vs-node_type reasoning the Q18/Q20 fix in the locked eval targets, on a subtype not in that fixture."
+    },
+    {
+      "id": "S3",
+      "category": "scale_counting",
+      "expected_behavior": "answer",
+      "question": "How many valves and vessels are there combined?",
+      "computed_facts": {
+        "valve_count": 36,
+        "vessel_count": 2,
+        "combined": 38
+      },
+      "note": "Requires two count_nodes calls and adding the results -- tests cross-type arithmetic, not just a single lookup."
+    },
+    {
+      "id": "S4",
+      "category": "scale_counting",
+      "expected_behavior": "not_found",
+      "question": "How many screwdrivers are on this sheet?",
+      "computed_facts": {
+        "count": 0
+      },
+      "note": "A subtype categorically outside P&ID symbology, not just absent-but-plausible (contrast N4/pump) -- a real zero, not a refusal, since it's still a well-formed cls_name query the tools can answer honestly."
+    }
+  ]
+}

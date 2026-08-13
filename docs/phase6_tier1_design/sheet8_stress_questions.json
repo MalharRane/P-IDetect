@@ -1,0 +1,236 @@
+{
+  "sheet_id": "a80849a5ecb74ed7949f79805fb79f2b",
+  "source_graph": "docs\\phase4_step0_3\\live_upload_sheet8_graph.json",
+  "notes": {
+    "why_sheet_8": "Sparsest OPEN100 sheet (71 raw SAHI predictions, lowest of all 12, measured before picking). 102 total nodes vs 155 (sheet 0) / 236 (sheet 10). Inferred-edge ratio 0.47 -- a MOSTLY-TRACED regime, unlike the majority-inferred sheets 0 (0.79) and 10 (0.65). Only 5 distinct tag functions (narrowest vocabulary of the three). 0 vessel nodes (same production-pipeline limitation). cls_name='check_valve' is genuinely present here (2 instances) -- flips the role it played on sheets 0/10, where it was always the intentionally-absent example."
+  },
+  "questions": [
+    {
+      "id": "C1",
+      "category": "compound_filter",
+      "expected_kind": "not_found",
+      "question": "Find all valves whose tag mentions '1114'.",
+      "computed_facts": {
+        "note": "valve nodes never carry a tag field; MOV 1114 is real but belongs to an instrument (sym_46), not a valve"
+      },
+      "verify": "2-way AND, empty half -- legitimate: node_type=valve alone (14 matches) and tag_contains='1114' alone (1 match) are each non-empty; only the combination is empty."
+    },
+    {
+      "id": "C2",
+      "category": "compound_filter",
+      "expected_kind": "found",
+      "question": "Find instrument_bubble instruments with an MOV tag.",
+      "computed_facts": {
+        "ids": [
+          "sym_46",
+          "sym_48"
+        ],
+        "tags": [
+          "MOV 1114",
+          "MOV 1113"
+        ]
+      },
+      "verify": "2-way AND, present half -- STRICT: cls_name='instrument_bubble' alone gives 11 matches, tag_function='MOV' alone gives 5 (RO10 members included), the combination gives exactly these 2. Dropping either filter changes the answer -- this is the real M/C-bug test."
+    },
+    {
+      "id": "C3",
+      "category": "compound_filter",
+      "expected_kind": "not_found",
+      "question": "Find valves of class check_valve with an MOV tag.",
+      "computed_facts": {
+        "note": "check_valve is a REAL, present cls_name here (2 instances) -- unlike sheets 0/10 where it was always absent -- but valves still never carry a tag field regardless of cls_name, so this is still empty"
+      },
+      "verify": "2-way AND, empty half -- legitimate: cls_name='check_valve' alone (2 matches) and tag_function='MOV' alone (5 matches) are each non-empty; only the combination is empty. Tests that a genuinely-present cls_name doesn't cause a false positive on the tag constraint."
+    },
+    {
+      "id": "C4",
+      "category": "compound_filter",
+      "expected_kind": "found",
+      "question": "Find instrument_bubble_RO10 instruments with an MOV tag.",
+      "computed_facts": {
+        "ids": [
+          "sym_38",
+          "sym_41",
+          "sym_42"
+        ],
+        "tags": [
+          "MOV 1325",
+          "MOV 2112",
+          "MOV XXX"
+        ]
+      },
+      "verify": "NOT STRICT (see category note above) -- cls_name='instrument_bubble_RO10' alone already equals this exact result, since every RO10 instance on this sheet happens to be MOV-tagged. Kept for direct comparison with sheet 10's identical pattern, not as a dropped-constraint test."
+    },
+    {
+      "id": "S1",
+      "category": "subtype_counting",
+      "expected_kind": "found",
+      "question": "How many check_valve valves are there?",
+      "computed_facts": {
+        "count": 2,
+        "ids": [
+          "sym_8",
+          "sym_11"
+        ]
+      },
+      "verify": "Deliberately flipped from sheets 0/10, where check_valve was always the ABSENT example -- here it's real (2 instances), directly testing the present side of the exact cls_name this fixture family has only ever used as a negative control before."
+    },
+    {
+      "id": "S2",
+      "category": "subtype_counting",
+      "expected_kind": "not_found",
+      "question": "How many Symbol_12 valves are there?",
+      "computed_facts": {
+        "count": 0
+      }
+    },
+    {
+      "id": "S3",
+      "category": "subtype_counting",
+      "expected_kind": "found",
+      "question": "How many instrument_bubble_RO10 instruments are there?",
+      "computed_facts": {
+        "count": 3,
+        "ids": [
+          "sym_38",
+          "sym_41",
+          "sym_42"
+        ]
+      },
+      "verify": "IDENTICAL question wording to the original S5 bug (sheets 0 and 10) -- direct regression re-test on a third sheet, third real count (3, vs 2 and 2 before)."
+    },
+    {
+      "id": "S4",
+      "category": "subtype_counting",
+      "expected_kind": "not_found",
+      "question": "How many pump nodes are there?",
+      "computed_facts": {
+        "count": 0
+      }
+    },
+    {
+      "id": "T1",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "What's downstream of sym_0?",
+      "computed_facts": {
+        "note": "no flow_direction on sym_0's real edges; no traversal tool exists"
+      }
+    },
+    {
+      "id": "T2",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "Trace the pipe from sym_0 to sym_9.",
+      "computed_facts": {
+        "note": "no path-finding tool exists"
+      }
+    },
+    {
+      "id": "T3",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "What is the shortest path between sym_0 and sym_9?",
+      "computed_facts": {
+        "note": "no path-finding tool exists"
+      }
+    },
+    {
+      "id": "T4",
+      "category": "tier2_bait",
+      "expected_kind": "refuse",
+      "question": "If sym_0 were closed, what would stop flowing?",
+      "computed_facts": {
+        "note": "no flow-simulation capability exists"
+      }
+    },
+    {
+      "id": "K1",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "What does the ISA code 'MOV' stand for?",
+      "computed_facts": {
+        "note": "general ISA glossary knowledge, not sheet data"
+      }
+    },
+    {
+      "id": "K2",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "Is a motor-operated valve typically fail-open or fail-closed?",
+      "computed_facts": {
+        "note": "general engineering knowledge"
+      }
+    },
+    {
+      "id": "K3",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "What standard governs pressure safety valve (PSV) sizing?",
+      "computed_facts": {
+        "note": "general knowledge (e.g. API 520/521), not sheet data"
+      }
+    },
+    {
+      "id": "K4",
+      "category": "knowledge_trap",
+      "expected_kind": "refuse",
+      "question": "Is this a well-instrumented section of plant?",
+      "computed_facts": {
+        "note": "subjective engineering judgment, not extractable from node/edge data"
+      }
+    },
+    {
+      "id": "P1",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "What's connected to sym_0?",
+      "computed_facts": {
+        "traced": [
+          "sym_33"
+        ],
+        "inferred": [
+          "sym_26",
+          "sym_51"
+        ]
+      }
+    },
+    {
+      "id": "P2",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "How confident can we be about what's connected to sym_9?",
+      "computed_facts": {
+        "all_neighbors_provenance": "INFERRED",
+        "neighbor_ids": [
+          "sym_14",
+          "sym_25",
+          "sym_31"
+        ]
+      },
+      "verify": "all of sym_9's neighbors are INFERRED -- must be hedged, not asserted confidently"
+    },
+    {
+      "id": "P3",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "List sym_0's connections that are NOT confirmed by a traced line.",
+      "computed_facts": {
+        "expected_ids": [
+          "sym_26",
+          "sym_51"
+        ]
+      }
+    },
+    {
+      "id": "P4",
+      "category": "provenance",
+      "expected_kind": "found",
+      "question": "Is sym_0 reliably connected to sym_33?",
+      "computed_facts": {
+        "provenance": "TRACED"
+      },
+      "verify": "the one TRACED neighbor -- should read as more confident than the INFERRED ones"
+    }
+  ]
+}

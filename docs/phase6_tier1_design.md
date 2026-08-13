@@ -1,11 +1,16 @@
 # Phase 6 Tier 1 Design — Grounded P&ID Query Agent (Retrieval Only)
 
-**Status: COMPLETE — 20/20 (100%) on the locked eval fixture, pass bar met.** Implemented per
-this design (`src/pidetect/agent/`), evaluated live against Gemini, gate cleared: 100% on every
-`not_found`/`refusal_required` question (§4.5's hard, aggregate-independent requirement) and
-100% aggregate overall. Read alongside `docs/phase4_final.md` (connectivity frozen at mean
-F1=0.591, gate not met) and `src/pidetect/graph/export.py` (the JSON graph shape this whole phase
-reads).
+**Status: hardened and cross-sheet/cross-provider validated for the judgment-question failure
+class (K4) — 100% across sheets 0/10/8 (medium/dense/sparse OPEN100 density profiles) and two
+LLM providers (Gemini, Groq). NOT a blanket "all issues closed" — two things remain open, recorded
+honestly rather than glossed over (§"Cross-sheet stress hardening" below):** the compound-filter
+termination guard (C4) fixes every tested case but has a known over-blocking edge case on
+multi-step relational questions; the `not_found` gate is not yet 100% on sheets 10/8, because of a
+pre-existing "wanders instead of running the direct query" gap (the C3 pattern) that predates and
+is separate from the K4/C4 work. Original single-sheet gate (below) was 20/20 (100%). Implemented
+per this design (`src/pidetect/agent/`). Read alongside `docs/phase4_final.md` (connectivity
+frozen at mean F1=0.591, gate not met) and `src/pidetect/graph/export.py` (the JSON graph shape
+this whole phase reads).
 
 ## Tier 1 — final result and what it took to get there
 
@@ -64,6 +69,118 @@ still rejected).
 
 None of this leaked into `agent.py`/`tools.py`/`grounding.py` — exactly the point of the provider
 abstraction in §1: every one of the five gotchas above was fixed inside `GeminiProvider` alone.
+
+---
+
+## Cross-sheet stress hardening (sheets 0/10/8) — what broke, what got fixed, what's still open
+
+The single-sheet 20/20 gate above only proves the agent works on one graph. A separate,
+adversarial stress-test pass (`docs/phase6_tier1_design/sheet{0,10,8}_stress_questions.json`,
+28/25/20 questions, `docs/phase6_tier1_design/stress_results.md`) was built specifically to break
+it on sheets picked for different structural profiles — sheet 0 (medium density, mostly-inferred
+edges), sheet 10 (dense, 236 nodes), sheet 8 (sparse, 102 nodes, mostly-traced edges). It found
+five real gaps, all fixed structurally (not by editing the prompt and hoping) except the two noted
+open at the end:
+
+1. **S5 — node_type vs cls_name confusion.** The agent inferred a cls_name subtype's absence from
+   it not appearing in `list_systems_or_lines()` (a tags-only enumeration) or a `node_type`
+   breakdown — neither can ever contain a cls_name value by construction. Fixed with a new
+   `resolve_term` tool (tells the agent which axis a term belongs to) plus a mechanical grounding
+   check that rejects a cls_name-referencing answer unless a matching `find_nodes`/`count_nodes`
+   call actually ran.
+2. **C3/C4 — compound filters silently dropped.** A question naming both a cls_name AND a
+   tag_function got answered from a query that only used one of them. Fixed with
+   `check_filter_completeness` (`grounding.py`): the answer is mechanically rejected, and the
+   agent loop retries with a corrective message, unless a single call combined every filter axis
+   the question named.
+3. **O2/O3 — traversal chaining presented as one verified fact.** "Trace the pipe from A to B"
+   questions got answered by chaining two `get_neighbors` calls and describing the result as a
+   single confirmed route. Fixed by classifying trace/path/route/flow-simulation questions
+   *before* any LLM call runs (`_is_traversal_bait`) and returning a deterministic, still-grounded
+   refusal (real 1-hop data per mentioned node, hedged by provenance) — zero-LLM-call, so it can't
+   be talked out of firing.
+4. **K4 — judgment questions answered with an unsupported verdict.** "Is this a well-instrumented
+   section of plant?" got answered with real counts plus a verdict word ("modest") the graph
+   cannot license — no tool computes design-quality/adequacy/risk. The mechanical grounding
+   checker passed it, because every *fact* in the answer was real; it had no notion of
+   answer-*type* scope. Fixed two ways: a deterministic classifier (`is_judgment_bait`, same
+   zero-LLM-call pattern as gap 3) that intercepts subjective/evaluative questions and returns
+   real data with the judgment itself declined; and `check_judgment_scope` in `grounding.py`, a
+   second, independent mechanical check that rejects a verdict-adjective answer to a
+   judgment-bait question even when its underlying facts are grounded — a defense-in-depth layer
+   in case a future prompt/classifier change ever lets one slip through to a free-form answer.
+   **Confirmed 100% on all three sheets, live, under two different providers** (Groq
+   `openai/gpt-oss-20b` and a Gemini `gemini-3.1-flash-lite` key) — every K4 (and sheet 0's
+   equivalent A4) triggered the classifier, zero LLM calls, no verdict language, real grounded
+   counts/tags offered instead.
+5. **C4 (round-cap variant) — redundant re-verification burning the whole budget.** A correct
+   compound query would return the exact right answer, then the model would re-verify each
+   returned id individually with `get_node` until the 6-round cap was exhausted with no
+   `final_answer` ever attempted. Root cause was two-layered: (a) the existing "you already have
+   the answer" nudge computed satisfaction against the *unfiltered* expected-filters dict
+   (including `node_type`), which is never present on a real `cls_name`-only call, so the nudge
+   silently never fired; (b) even when it did fire, it was advisory only. Fixed by (a)
+   `required_filters()` in `grounding.py` — the single shared definition of "this call is already
+   a complete answer" (drops `node_type` whenever `cls_name` is present, matching the
+   `check_filter_completeness` invariant), used by both the completeness check and the nudge, so
+   they can no longer disagree; and (b) a hard termination guard in `agent.py` — once that nudge
+   has fired, any further tool call is *not dispatched*, only a `redundant_call_blocked` message
+   is returned, forcing the model to answer from what it already has. **Confirmed fixed on sheets
+   10 and 8** (C4 concluded correctly within budget, no round cap, under Gemini).
+
+### Two open items — found during the 3-sheet re-validation, not yet fixed
+
+**The termination guard (gap 5) over-blocks legitimate multi-step questions.** Sheet 0's M2
+("Which control_valve_diaphragm valves are connected to an instrument via an INFERRED edge?")
+needs a `find_nodes(cls_name=...)` call *and then* a `get_neighbors` call per returned id to check
+edge provenance — two different axes of investigation. The guard fired after the first call
+satisfied the cls_name filter and then blocked the necessary `get_neighbors` follow-up, so the
+agent gave up: "the system has blocked further tool usage, I am unable to provide a verified
+list." The guard currently can't distinguish "redundant re-verification of a fact already known"
+(the actual gap-5 failure pattern — repeated `get_node` calls on ids already returned) from
+"necessary new information for a different part of the same question" (M2's real need). **Not
+fixed** — needs the guard to key off "does this call ask for information the transcript doesn't
+already have," not merely "has the filter-completing call already happened."
+
+**The `not_found` gate is not 100% on sheets 10/8 (87.5% / 75%).** Both misses are the same
+pattern (sheet 10's C3, sheet 8's C3): a compound `not_found` question where the model never
+attempts the direct combined-filter query at all, instead exploring relationally
+(`get_neighbors` on individual matches) until the round cap is hit with no `final_answer` ever
+attempted — so the grounding-retry mechanism never gets a chance to help, because that mechanism
+only intercepts an *attempted* final answer. This is the same class of gap identified earlier in
+this file's history (`docs/phase6_tier1_design/stress_results.md`'s C3 finding on sheet 10) and
+confirmed here to still be open under a different provider (Gemini) after the K4/C4 fixes — those
+two fixes were scoped to their own specific failure patterns and were never expected to close
+this one.
+
+### Two lessons this hardening pass confirmed
+
+1. **Prompt-teaching a rule is probabilistic; structural enforcement of the same rule is robust.**
+   The sheet-0-vs-sheet-10 evidence: gaps 1–5 above were all originally *also* stated in the
+   system prompt (the S5 axis rule, the compound-filter rule, the no-chaining rule, the
+   judgment-scope rule, the conclude-when-done rule) before any mechanical check backed them —
+   and every one of them still broke live, on a real sheet, despite the prompt saying not to.
+   Only the mechanical/deterministic layer (a check that rejects the answer, or a classifier that
+   never lets the LLM see the question) held reliably across re-runs and across providers. A
+   prompt instruction is a probabilistic nudge on a non-deterministic generator; a check the loop
+   enforces before returning is not.
+2. **Grounding has to guard answer-*type*, not just fact-provenance.** Every check before K4
+   (citation check, query-argument check, filter-completeness check) verified that a *fact* in the
+   answer traced back to a real tool result. None of them could catch K4, because K4's numbers
+   *were* all real — the ungrounded part was the *kind* of claim being made (an evaluative
+   verdict), not any individual number in it. This is the same shape as the earlier "grounded
+   facts, hallucinated query" gap (§2.3) one level up the stack: a check that only inspects
+   individual tokens for realness can still pass an answer whose overall claim-type was never
+   licensed by any tool. `check_judgment_scope` is the output-level analogue of §2.3's
+   query-argument check.
+
+**Caveat:** all validation above is within OPEN100 — three sheets from one dataset, two LLM
+providers, but one P&ID drawing convention and one symbol vocabulary. Whether these fixes
+generalize to a differently-styled P&ID corpus (different tagging conventions, different symbol
+sets) is untested, because no other labeled connectivity-graph dataset currently exists in this
+project (PID2Graph eval remains blocked on Phase 4's connectivity F1 gate not being met —
+`docs/phase4_final.md`). "Validated" here means "validated within OPEN100," not "validated in
+general."
 
 ---
 
